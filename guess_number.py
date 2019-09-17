@@ -1,32 +1,40 @@
 # Игра "Угадай число"
 import random
-
 print('Привет! Как тебя зовут?')
 name = input()
-print('Что ж, ' + name + ', я загадываю число от 1 до 20.')
 
-number = random.randint(1, 20)
+def guessNumber():
+    print('Что ж, ' + name + ', я загадываю число от 1 до 20.')
 
-counter = 0
-for counter in range(6):
-    if counter == 0:
-        print('Попробуй угадать:')
-    else:
-        print('Попробуй угадать снова:')
+    number = random.randint(1, 20)
 
-    guess_number = int(input()) #Загаданное число
+    counter = 0
+    for counter in range(6):
+        if counter == 0:
+            print('Попробуй угадать:')
+        else:
+            print('Попробуй угадать снова:')
 
-    if guess_number > number:
-        print('Твое число слишком большое.')
-    if guess_number < number:
-        print('Твое число слишком маленькое.')
+        guess_number = int(input()) #Загаданное число
+
+        if guess_number > number:
+            print('Твое число слишком большое.')
+        if guess_number < number:
+            print('Твое число слишком маленькое.')
+        if guess_number == number:
+            break
+
     if guess_number == number:
-        break
+        counter = str(counter+1)
+        print('Отлично, ' + name + '! Ты справился за ' + counter + ' попытки!')
 
-if guess_number == number:
-    counter = str(counter+1)
-    print('Отлично, ' + name + '! Ты справился за ' + counter + ' попытки!')
+    if guess_number != number:
+        number = str(number)
+        print('Увы, ты не угадал, я загадал число ' + number)
 
-if guess_number != number:
-    number = str(number)
-    print('Увы, ты не угадал, я загадал число ' + number)
+
+play_again = 'да'
+while play_again == 'да':
+    guessNumber()
+    print('Хочешь сыграть еще раз? (\'да\',\'нет\')')
+    play_again = input()

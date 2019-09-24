@@ -58,13 +58,7 @@ def checkCave(cave):
             time.sleep(1)
             print('Вы в панике убегаете' + text)
 
-def Death():
-    global cash
-    print('Подземелье поглотило вас. Вы погибли')
-    cash = str(cash)
-    print('Вы нашли целых ' + cash + ' золотых монет! Сыграть еще? (Да/Нет)')
-    play_again = input()
-    play_again = play_again.lower()
+
 
 
 
@@ -74,4 +68,8 @@ while play_again == 'да':
     displayIntro()
     while hp>0:
         checkCave(chooseCave())
-    Death()
+    print('Подземелье поглотило вас. Вы погибли')
+    cash = str(cash)
+    print('Вы нашли целых ' + cash + ' золотых монет! Сыграть еще? (Да/Нет)')
+    play_again = input()
+    play_again = play_again.lower()

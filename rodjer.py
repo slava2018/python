@@ -1,15 +1,17 @@
 from random import randint, choice
 from timeit import default_timer
 
-repeat == 'Да'
-while repeat == 'Да':
-    print('Привет! Меня зовут Роджер. А тебя?')
-    name = input()
-    name = name.title()
-    print('Приятно познакомиться,' + name)
-    print('''Давай проверим твои знания в математике.
-    Ты готов?('да' или 'нет')''')
-    ready = input()
+
+print('Привет! Меня зовут Роджер. А тебя?')
+name = input()
+name = name.title()
+print('Приятно познакомиться,' + name)
+print('''Давай проверим твои знания в математике.
+Ты готов?('да' или 'нет')''')
+ready = input()
+
+repeat = 'да'
+while repeat == 'да':
 
     while ready not in {'да', 'нет'}:
         print('''Ты ошибся, должно быть 'да' или 'нет'.
@@ -34,8 +36,6 @@ while repeat == 'Да':
 
         print('Хорошо, тогда начинаем...')
 
-        fails = 0
-        rights = 0
 
         for example in range(int(examples_quantity)):
             print('Пример ' + str(example+1) + ':')
@@ -47,7 +47,7 @@ while repeat == 'Да':
             sign = choice('+-')
 
             answer = ''  # Ответ
-
+            answers_time = 0 # Время ответов
             while answer.isdigit() != True:
                 print('Сколько будет ' + str(number1) + sign + str(number2) + '?')
                 start = default_timer() # начало отсчета
@@ -65,11 +65,14 @@ while repeat == 'Да':
             if sign == '-':
                 right_answer = number1 - number2
 
+            fails = 0
+            rights = 0
+
             if answer == right_answer:
-                rights += 1
+                rights += rights + 1
                 print('Правильно.')
             else:
-                fails += 1
+                fails += fails +1
                 print('Ты ошибся, попробуй еще.')
                 print('Сколько будет ' + str(number1) + sign + str(number2) + '?')
                 start = default_timer()
@@ -79,8 +82,8 @@ while repeat == 'Да':
                 answers_time += round(stop - start)
                 if answer != right_answer:
                     print('Неправильно. Правильный ответ:'+ str(right_answer))
-        print('Затраченное время:' + str(answers_time))
-        print('Правильных ответов:' + str(fails))
+        print('Затраченное время:' + str(answers_time) + 'секунд')
+        print('Правильных ответов:' + str(rights))
         print('Неправильных ответов:' + str(fails))
         print('Хочешь сыграть еще?')
         repeat = input()
@@ -88,6 +91,7 @@ while repeat == 'Да':
             print('''Ты ошибся, должно быть 'да' или 'нет'.
             Введи заново.''')
             repeat = input()
+            repeat = repeat.lower()
         if repeat == 'нет':
             print('Хорошо,' + name + '. Ты сегодня неплохо поработал!')
             print('Пока')
@@ -95,3 +99,4 @@ while repeat == 'Да':
     else:
         print('''Передумал? Хорошо, как-нибудь в другой раз...
         Пока!''')
+        repeat = 'нет'

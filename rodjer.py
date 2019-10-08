@@ -15,23 +15,40 @@ while repeat == 'да':
 
     while ready not in {'да', 'нет'}:
         print('''Ты ошибся, должно быть 'да' или 'нет'.
-        Введи заново.''')
+Введи заново.''')
         ready = input()
 
     if ready == 'да':
         examples_quantity = '' #Количество примеров
         maximum_answer = '' #Максимальное число
 
-        while examples_quantity.isdigit() != True:
+
+        while not examples_quantity.isdigit():
             print(name + ',сколько примеров ты готов решить?')
             examples_quantity = input()
-            if examples_quantity.isdigit() != True:
+            if examples_quantity.isdigit():
+                while int(examples_quantity) < 1:
+                    print('Введи число больше 0')
+                    examples_quantity = input()
+                    while not examples_quantity.isdigit():
+                        print('Ты ошибся, введи цифру')
+                        examples_quantity = input()
+            else:
                 print('Ты ошибся, введи цифру')
 
-        while maximum_answer.isdigit() != True:
+
+
+        while not maximum_answer.isdigit():
             print('До скольки будем считать? Например до 100.')
             maximum_answer = input()
-            if maximum_answer.isdigit() != True:
+            if maximum_answer.isdigit():
+                while int(maximum_answer) < 2:
+                    print('Введи число больше 1')
+                    maximum_answer = input()
+                    while not maximum_answer.isdigit():
+                        print('Ты ошибся, введи цифру')
+                        maximum_answer = input()
+            else:
                 print('Ты ошибся, введи цифру')
 
         print('Хорошо, тогда начинаем...')
@@ -44,26 +61,40 @@ while repeat == 'да':
 
             number1 = randint(1,maximum_answer)
             number2 = randint(1,maximum_answer)
+
+            while number2>number1:
+                number1 = randint(1, maximum_answer)
+                number2 = randint(1, maximum_answer)
+
+            while number2+number1>maximum_answer:
+                number1 = randint(1, maximum_answer)
+                number2 = randint(1, maximum_answer)
+
             sign = choice('+-')
 
             answer = ''  # Ответ
             answers_time = 0 # Время ответов
-            while answer.isdigit() != True:
+
+            while not answer.isdigit():
                 print('Сколько будет ' + str(number1) + sign + str(number2) + '?')
                 start = default_timer() # начало отсчета
                 answer = input()
-                if answer.isdigit() != True:
+                stop = default_timer()  # конец отсчёта
+
+                if not answer.isdigit():
                     print('Ты ошибся, введи цифру')
-                else:
-                    stop = default_timer()  # конец отсчёта
-                    answers_time += round(stop - start)
+
+                answers_time += round(stop - start)
 
             answer = int(answer)
-
             if sign == '+':
                 right_answer = number1 + number2
+
+
             if sign == '-':
                 right_answer = number1 - number2
+
+
 
             fails = 0
             rights = 0
@@ -98,5 +129,5 @@ while repeat == 'да':
 
     else:
         print('''Передумал? Хорошо, как-нибудь в другой раз...
-        Пока!''')
+Пока!''')
         repeat = 'нет'

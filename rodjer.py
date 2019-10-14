@@ -1,6 +1,30 @@
 from random import randint, choice
 from timeit import default_timer
 
+def minutes(time):
+    if time>60:
+        minutes = time//60 #Целое число минут, без остатка
+        seconds = time-minutes*60 #Остаток секунд
+        text = ('Ты справился за ' + str(minutes) + 'минут и ' + str(seconds))
+    else:
+        seconds = time
+        text = ('Ты справился за ' + str(seconds))
+
+    times = str(time)
+    timek = times[-1] #Последняя цифра в числе секунд
+    timek = int(timek)
+
+    if timek == 1:
+        print(text + ' секунду')
+    elif 1<timek<5:
+        if 9<time<15:
+            print(text + ' секунд')
+        else:
+            print(text + ' секунды')
+    elif timek>4 or timek == 0:
+        print(text + ' секунд')
+
+
 
 print('Привет! Меня зовут Роджер. А тебя?')
 name = input()
@@ -63,7 +87,6 @@ while repeat == 'да':
             number2 = randint(1,maximum_answer)
 
             while number2>number1:
-                number1 = randint(1, maximum_answer)
                 number2 = randint(1, maximum_answer)
 
             while number2+number1>maximum_answer:
@@ -113,7 +136,7 @@ while repeat == 'да':
                 answers_time += round(stop - start)
                 if answer != right_answer:
                     print('Неправильно. Правильный ответ:'+ str(right_answer))
-        print('Затраченное время:' + str(answers_time) + 'секунд')
+        minutes(answers_time)
         print('Правильных ответов:' + str(rights))
         print('Неправильных ответов:' + str(fails))
         print('Хочешь сыграть еще?')

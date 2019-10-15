@@ -45,7 +45,7 @@ while repeat == 'да':
     if ready == 'да':
         examples_quantity = '' #Количество примеров
         maximum_answer = '' #Максимальное число
-
+        answers_time = 0  # Время ответов
 
         while not examples_quantity.isdigit():
             print(name + ',сколько примеров ты готов решить?')
@@ -85,18 +85,16 @@ while repeat == 'да':
 
             number1 = randint(1,maximum_answer)
             number2 = randint(1,maximum_answer)
+            sign = choice('+-')
 
-            while number2>number1:
-                number2 = randint(1, maximum_answer)
+            if number2 > number1:
+                sign = '+'
 
-            while number2+number1>maximum_answer:
+            while number2 + number1 > maximum_answer:
                 number1 = randint(1, maximum_answer)
                 number2 = randint(1, maximum_answer)
 
-            sign = choice('+-')
-
             answer = ''  # Ответ
-            answers_time = 0 # Время ответов
 
             while not answer.isdigit():
                 print('Сколько будет ' + str(number1) + sign + str(number2) + '?')
@@ -110,6 +108,7 @@ while repeat == 'да':
                 answers_time += round(stop - start)
 
             answer = int(answer)
+
             if sign == '+':
                 right_answer = number1 + number2
 
@@ -123,19 +122,12 @@ while repeat == 'да':
             rights = 0
 
             if answer == right_answer:
-                rights += rights + 1
+                rights += 1
                 print('Правильно.')
             else:
-                fails += fails +1
-                print('Ты ошибся, попробуй еще.')
-                print('Сколько будет ' + str(number1) + sign + str(number2) + '?')
-                start = default_timer()
-                answer = input()
-                stop = default_timer()
-                answer = int(answer)
-                answers_time += round(stop - start)
-                if answer != right_answer:
-                    print('Неправильно. Правильный ответ:'+ str(right_answer))
+                fails += 1
+                print('Неправильно. Правильный ответ:'+ str(right_answer))
+
         minutes(answers_time)
         print('Правильных ответов:' + str(rights))
         print('Неправильных ответов:' + str(fails))

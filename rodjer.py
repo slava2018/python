@@ -8,11 +8,11 @@ def minutes(time):
         
         #Склонение минут
         if minutes == 1:
-            minutesText = ( str(minutes) + 'минуту')
+            minutesText = ( str(minutes) + ' минуту')
         elif 1<minutes<5:
-            minutesText = ( str(minutes) + 'минуты')
+            minutesText = ( str(minutes) + ' минуты')
         elif 4<minutes<21:
-            minutesText = (str(minutes) + 'минут')
+            minutesText = (str(minutes) + ' минут')
             
         seconds = time-minutes*60 #Остаток секунд
         text = ('Ты справился за ' + minutesText + ' и ' + str(seconds))
@@ -40,7 +40,7 @@ def minutes(time):
 print('Привет! Меня зовут Роджер. А тебя?')
 name = input()
 name = name.title()
-print('Приятно познакомиться,' + name)
+print('Приятно познакомиться, ' + name)
 print('''Давай проверим твои знания в математике.
 Ты готов?('да' или 'нет')''')
 ready = input()
@@ -60,7 +60,7 @@ while repeat == 'да':
 
         # Продолжается пока пользователь не введет положительное число
         while not examples_quantity.isdigit():
-            print(name + ',сколько примеров ты готов решить?')
+            print(name + ', сколько примеров ты готов решить?')
             examples_quantity = input()
             if examples_quantity.isdigit():
                 while int(examples_quantity) < 1:
@@ -88,6 +88,9 @@ while repeat == 'да':
 
         print('Хорошо, тогда начинаем...')
 
+        fails = 0
+        rights = 0
+
         # Генерирует и выводит пример
         for example in range(int(examples_quantity)):
             print('Пример ' + str(example+1) + ':')
@@ -105,6 +108,9 @@ while repeat == 'да':
                 number2 = randint(1, maximum_answer)
                 if number2 > number1:
                     sign = '+'
+
+            if number2 > number1:
+                sign = '+'
 
             answer = ''  # Ответ
 
@@ -126,16 +132,13 @@ while repeat == 'да':
             if sign == '-':
                 right_answer = number1 - number2
 
-            fails = 0
-            rights = 0
-
             #Считает количество правильных и неправильных ответов
             if answer == right_answer:
                 rights += 1
                 print('Правильно.')
             else:
                 fails += 1
-                print('Неправильно. Правильный ответ:'+ str(right_answer))
+                print('Неправильно. Правильный ответ: '+ str(right_answer))
 
         #Выводит статистику
         minutes(answers_time)
@@ -155,7 +158,7 @@ while repeat == 'да':
             
         #Завершает работу
         if repeat == 'нет':
-            print('Хорошо,' + name + '. Ты сегодня неплохо поработал!')
+            print('Хорошо, ' + name + '. Ты сегодня неплохо поработал!')
             print('Пока')
             
     # Завершает работу

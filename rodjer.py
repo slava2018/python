@@ -1,27 +1,38 @@
 from random import randint, choice
 from timeit import default_timer
 
+#Выводит затраченное время
 def minutes(time):
     if time>60:
         minutes = time//60 #Целое число минут, без остатка
+        
+        #Склонение минут
+        if minutes == 1:
+            minutesText = ( str(minutes) + 'минуту')
+        elif 1<minutes<5:
+            minutesText = ( str(minutes) + 'минуты')
+        elif 4<minutes<21:
+            minutesText = (str(minutes) + 'минут')
+            
         seconds = time-minutes*60 #Остаток секунд
-        text = ('Ты справился за ' + str(minutes) + 'минут и ' + str(seconds))
+        text = ('Ты справился за ' + minutesText + ' и ' + str(seconds))
     else:
         seconds = time
         text = ('Ты справился за ' + str(seconds))
 
-    times = str(time)
-    timek = times[-1] #Последняя цифра в числе секунд
-    timek = int(timek)
+    timeStr = str(time)
+    timeCut = timeStr[-1]  #Последняя цифра в числе секунд
+    timeCut = int(timeCut)
 
-    if timek == 1:
+    # Склонение секунд
+    if timeCut == 1:
         print(text + ' секунду')
-    elif 1<timek<5:
+    elif 1<timeCut<5:
         if 9<time<15:
             print(text + ' секунд')
         else:
             print(text + ' секунды')
-    elif timek>4 or timek == 0:
+    elif timeCut>4 or timeCut == 0:
         print(text + ' секунд')
 
 
@@ -47,6 +58,7 @@ while repeat == 'да':
         maximum_answer = '' #Максимальное число
         answers_time = 0  # Время ответов
 
+        # Продолжается пока пользователь не введет положительное число
         while not examples_quantity.isdigit():
             print(name + ',сколько примеров ты готов решить?')
             examples_quantity = input()
@@ -60,8 +72,7 @@ while repeat == 'да':
             else:
                 print('Ты ошибся, введи цифру')
 
-
-
+        # Продолжается пока пользователь не введет положительное число
         while not maximum_answer.isdigit():
             print('До скольки будем считать? Например до 100.')
             maximum_answer = input()
@@ -77,50 +88,48 @@ while repeat == 'да':
 
         print('Хорошо, тогда начинаем...')
 
-
+        # Генерирует и выводит пример
         for example in range(int(examples_quantity)):
             print('Пример ' + str(example+1) + ':')
 
-            maximum_answer = int(maximum_answer)
+            maximum_answer = int(maximum_answer) #Максимально возможное число
 
+            #Первая версия примера
             number1 = randint(1,maximum_answer)
             number2 = randint(1,maximum_answer)
             sign = choice('+-')
 
-            if number2 > number1:
-                sign = '+'
-
+            # Проверка соответствия правилам
             while number2 + number1 > maximum_answer:
                 number1 = randint(1, maximum_answer)
                 number2 = randint(1, maximum_answer)
+                if number2 > number1:
+                    sign = '+'
 
             answer = ''  # Ответ
 
+            # Продолжается пока пользователь не введет положительное число
             while not answer.isdigit():
                 print('Сколько будет ' + str(number1) + sign + str(number2) + '?')
                 start = default_timer() # начало отсчета
                 answer = input()
                 stop = default_timer()  # конец отсчёта
-
                 if not answer.isdigit():
                     print('Ты ошибся, введи цифру')
-
-                answers_time += round(stop - start)
+                answers_time += round(stop - start) #Время ответа
 
             answer = int(answer)
 
+            #Генерирует правильный ответ
             if sign == '+':
                 right_answer = number1 + number2
-
-
             if sign == '-':
                 right_answer = number1 - number2
-
-
 
             fails = 0
             rights = 0
 
+            #Считает количество правильных и неправильных ответов
             if answer == right_answer:
                 rights += 1
                 print('Правильно.')
@@ -128,20 +137,28 @@ while repeat == 'да':
                 fails += 1
                 print('Неправильно. Правильный ответ:'+ str(right_answer))
 
+        #Выводит статистику
         minutes(answers_time)
         print('Правильных ответов:' + str(rights))
         print('Неправильных ответов:' + str(fails))
+        
+        
         print('Хочешь сыграть еще?')
         repeat = input()
+        
+        #Проверяет соответствие правилу
         while repeat not in {'да', 'нет'}:
             print('''Ты ошибся, должно быть 'да' или 'нет'.
             Введи заново.''')
             repeat = input()
             repeat = repeat.lower()
+            
+        #Завершает работу
         if repeat == 'нет':
             print('Хорошо,' + name + '. Ты сегодня неплохо поработал!')
             print('Пока')
-
+            
+    # Завершает работу
     else:
         print('''Передумал? Хорошо, как-нибудь в другой раз...
 Пока!''')

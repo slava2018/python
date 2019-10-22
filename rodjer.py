@@ -2,40 +2,20 @@ from random import randint, choice
 from timeit import default_timer
 
 #Выводит затраченное время
-def minutes(time):
-    if time>60:
-        minutes = time//60 #Целое число минут, без остатка
-        
-        #Склонение минут
-        if minutes == 1:
-            minutesText = ( str(minutes) + ' минуту')
-        elif 1<minutes<5:
-            minutesText = ( str(minutes) + ' минуты')
-        elif 4<minutes<21:
-            minutesText = (str(minutes) + ' минут')
-            
-        seconds = time-minutes*60 #Остаток секунд
-        text = ('Ты справился за ' + minutesText + ' и ' + str(seconds))
+def time_endings(v):
+
+    v_str = str(v)
+    v_last = int(v_str[-1])
+
+    if 9<v<20:
+        return ''
     else:
-        seconds = time
-        text = ('Ты справился за ' + str(seconds))
-
-    timeStr = str(time)
-    timeCut = timeStr[-1]  #Последняя цифра в числе секунд
-    timeCut = int(timeCut)
-
-    # Склонение секунд
-    if timeCut == 1:
-        print(text + ' секунду')
-    elif 1<timeCut<5:
-        if 9<time<15:
-            print(text + ' секунд')
+        if v_last == 1:
+            return 'у'
+        if 1<v_last<5:
+            return 'ы'
         else:
-            print(text + ' секунды')
-    elif timeCut>4 or timeCut == 0:
-        print(text + ' секунд')
-
-
+            return ''
 
 print('Привет! Меня зовут Роджер. А тебя?')
 name = input()
@@ -106,8 +86,6 @@ while repeat == 'да':
             while number2 + number1 > maximum_answer:
                 number1 = randint(1, maximum_answer)
                 number2 = randint(1, maximum_answer)
-                if number2 > number1:
-                    sign = '+'
 
             if number2 > number1:
                 sign = '+'
@@ -141,9 +119,18 @@ while repeat == 'да':
                 print('Неправильно. Правильный ответ: '+ str(right_answer))
 
         #Выводит статистику
-        minutes(answers_time)
+        if answers_time < 60:
+            print('Ты справился за ' + str(answers_time) + ' секунд' + time_endings(answers_time))
+        else:
+            minutes = answers_time // 60  # Целое число минут, без остатка
+            seconds = answers_time - minutes * 60  # Остаток секунд
+            if answers_time-minutes*60==0:
+                print('Ты справился за ' + str(minutes) + ' минут' + time_endings(minutes))
+            else:
+                print('Ты справился за ' + str(minutes) + ' минут' + time_endings(minutes) + ' и ' + str(seconds) + ' секунд' +
+                      time_endings(seconds))
         print('Правильных ответов:' + str(rights))
-        print('Неправильных ответов:' + str(fails))
+        print('Ошибок:' + str(fails))
         
         
         print('Хочешь сыграть еще?')

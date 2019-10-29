@@ -1,2 +1,1 @@
-склонение минут
-number1 number2
+TODO: nothing

@@ -1,5 +1,6 @@
 from random import randint, choice
 from timeit import default_timer
+from os.path import isfile
 
 #Выводит затраченное время
 def time_endings(v):
@@ -21,6 +22,35 @@ print('Привет! Меня зовут Роджер. А тебя?')
 name = input()
 name = name.title()
 print('Приятно познакомиться, ' + name)
+
+if isfile('mistakes_' + name + '.txt'):
+
+    print('Хочешь поработать над ошибками?')
+    mistakes_ready = input()
+    while mistakes_ready not in {'да', 'нет'}:
+        print('''Ты ошибся, должно быть 'да' или 'нет'.
+    Введи заново.''')
+        mistakes_ready = input()
+
+    if mistakes_ready == 'да':
+        answer = 0
+        mistakes_file = open(('mistakes_' + name + '.txt'), 'r')
+        while answer != 0:
+            print('Хорошо, начнем.')
+            m_example = mistakes_file.readline()
+            print(m_example + '?')
+            answer = input()
+            m_right_answer = mistakes_file.readline()
+            if answer == m_right_answer:
+                print('Правильно! Следующий пример:')
+            else:
+                print('Ты ошибся.')
+                new_mistakes = open(('mistakes_' + name + '2.txt'),'w')
+                new_mistakes.write(m_example)
+                new_mistakes.write(m_right_answer)
+                new_mistakes.close()
+
+
 print('''Давай проверим твои знания в математике.
 Ты готов?('да' или 'нет')''')
 ready = input()
@@ -117,6 +147,14 @@ while repeat == 'да':
             else:
                 fails += 1
                 print('Неправильно. Правильный ответ: '+ str(right_answer))
+
+                #Создание файла с ошибками
+                file = ('mistakes_' + name + '.txt')
+                mistakes = open(file, 'a')
+                mistakes.write(str(number1) + sign + str(number2) + '\n')
+                mistakes.write(str(right_answer) + '\n')
+                mistakes.close()
+
 
         #Выводит статистику
         if answers_time < 60:

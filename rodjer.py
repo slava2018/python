@@ -1,6 +1,8 @@
 from random import randint, choice
 from timeit import default_timer
 from os.path import isfile
+from os import rename, remove
+
 
 #Выводит затраченное время
 def time_endings(v):
@@ -35,21 +37,35 @@ if isfile('mistakes_' + name + '.txt'):
     if mistakes_ready == 'да':
         answer = 0
         mistakes_file = open(('mistakes_' + name + '.txt'), 'r')
+
         while answer != 0:
             print('Хорошо, начнем.')
             m_example = mistakes_file.readline()
             print(m_example + '?')
             answer = input()
             m_right_answer = mistakes_file.readline()
+
             if answer == m_right_answer:
                 print('Правильно! Следующий пример:')
             else:
                 print('Ты ошибся.')
+                # Создает новый файл с ошибками
                 new_mistakes = open(('mistakes_' + name + '2.txt'),'w')
                 new_mistakes.write(m_example)
                 new_mistakes.write(m_right_answer)
                 new_mistakes.close()
 
+        print('Устал? Хорошо, ты можешь продолжить исправлять свои ошибки позже.')
+
+        # Дописывает строчки из прошлого файла в новый
+        while mistakes_file.readline() != '':
+            new_mistakes = open(('mistakes_' + name + '2.txt'), 'w')
+            new_mistakes.write(mistakes_file.readline())
+            new_mistakes.close()
+
+        # Переименовывает новый файл и удаляет старый
+        remove('mistakes_' + name + '.txt')
+        rename(('mistakes_' + name + '2.txt'),('mistakes_' + name + '.txt'))
 
 print('''Давай проверим твои знания в математике.
 Ты готов?('да' или 'нет')''')

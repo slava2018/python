@@ -35,33 +35,41 @@ if isfile('mistakes_' + name + '.txt'):
         mistakes_ready = input()
 
     if mistakes_ready == 'да':
-        answer = 0
+        answer = 1
         mistakes_file = open(('mistakes_' + name + '.txt'), 'r')
+        print('Хорошо, начнем.')
 
-        while answer != 0:
-            print('Хорошо, начнем.')
-            m_example = mistakes_file.readline()
-            print(m_example + '?')
-            answer = input()
-            m_right_answer = mistakes_file.readline()
-
-            if answer == m_right_answer:
-                print('Правильно! Следующий пример:')
-            else:
-                print('Ты ошибся.')
-                # Создает новый файл с ошибками
-                new_mistakes = open(('mistakes_' + name + '2.txt'),'w')
+        m_example = mistakes_file.readline()
+        while m_example != '':
+            while answer != 'стоп':
+                print(m_example)
+                answer = input()
+                m_right_answer = mistakes_file.readline()
+                if answer != 'стоп':
+                    if int(answer) == int(m_right_answer):
+                        print('Правильно! Следующий пример:')
+                    else:
+                        print('Ты ошибся.')
+                        # Создает новый файл с ошибками
+                        new_mistakes = open(('mistakes_' + name + '2.txt'),'w')
+                        new_mistakes.write(m_example)
+                        new_mistakes.write(m_right_answer)
+                        new_mistakes.close()
+                    m_example = mistakes_file.readline()
+                    print('Если устал, напиши "стоп".')
+            if answer == 'стоп':
+                m_example = ''
+                print('Устал? Хорошо, ты можешь продолжить исправлять свои ошибки позже.')
+                # Дописывает строчки из прошлого файла в новый
+                new_mistakes = open(('mistakes_' + name + '2.txt'), '2')
                 new_mistakes.write(m_example)
                 new_mistakes.write(m_right_answer)
                 new_mistakes.close()
-
-        print('Устал? Хорошо, ты можешь продолжить исправлять свои ошибки позже.')
-
-        # Дописывает строчки из прошлого файла в новый
-        while mistakes_file.readline() != '':
-            new_mistakes = open(('mistakes_' + name + '2.txt'), 'w')
-            new_mistakes.write(mistakes_file.readline())
-            new_mistakes.close()
+                while mistakes_file.readline() != '':
+                    new_mistakes = open(('mistakes_' + name + '2.txt'), 'a')
+                    new_mistakes.write(mistakes_file.readline())
+                    new_mistakes.close()
+                mistakes_file.close()
 
         # Переименовывает новый файл и удаляет старый
         remove('mistakes_' + name + '.txt')

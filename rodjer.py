@@ -2,23 +2,7 @@ from random import randint, choice
 from timeit import default_timer
 from os.path import isfile
 from os import rename, remove
-
-
-#Выводит затраченное время
-def time_endings(v):
-
-    v_str = str(v)
-    v_last = int(v_str[-1])
-
-    if 9<v<20:
-        return ''
-    else:
-        if v_last == 1:
-            return 'у'
-        if 1<v_last<5:
-            return 'ы'
-        else:
-            return ''
+from slava_lib import time_endings, seconds_convert
 
 print('Привет! Меня зовут Роджер. А тебя?')
 name = input()
@@ -36,40 +20,41 @@ if isfile('mistakes_' + name + '.txt'):
 
     if mistakes_ready == 'да':
         answer = 1
-        mistakes_file = open(('mistakes_' + name + '.txt'), 'r')
-        print('Хорошо, начнем.')
+        with open(('mistakes_' + name + '.txt'), 'r') as mistakes_file:
 
-        m_example = mistakes_file.readline()
-        while m_example != '':
-            while answer != 'стоп':
-                print(m_example)
-                answer = input()
-                m_right_answer = mistakes_file.readline()
-                if answer != 'стоп':
-                    if int(answer) == int(m_right_answer):
-                        print('Правильно! Следующий пример:')
-                    else:
-                        print('Ты ошибся.')
-                        # Создает новый файл с ошибками
-                        new_mistakes = open(('mistakes_' + name + '2.txt'),'w')
-                        new_mistakes.write(m_example)
-                        new_mistakes.write(m_right_answer)
-                        new_mistakes.close()
-                    m_example = mistakes_file.readline()
-                    print('Если устал, напиши "стоп".')
-            if answer == 'стоп':
-                m_example = ''
-                print('Устал? Хорошо, ты можешь продолжить исправлять свои ошибки позже.')
-                # Дописывает строчки из прошлого файла в новый
-                new_mistakes = open(('mistakes_' + name + '2.txt'), '2')
-                new_mistakes.write(m_example)
-                new_mistakes.write(m_right_answer)
-                new_mistakes.close()
-                while mistakes_file.readline() != '':
-                    new_mistakes = open(('mistakes_' + name + '2.txt'), 'a')
-                    new_mistakes.write(mistakes_file.readline())
+            print('Хорошо, начнем.')
+
+            m_example = mistakes_file.readline()
+            while m_example != '':
+                while answer != 'стоп':
+                    print(m_example)
+                    answer = input()
+                    m_right_answer = mistakes_file.readline()
+                    if answer != 'стоп':
+                        if int(answer) == int(m_right_answer):
+                            print('Правильно! Следующий пример:')
+                        else:
+                            print('Ты ошибся.')
+                            # Создает новый файл с ошибками
+                            new_mistakes = open(('mistakes_' + name + '2.txt'),'w')
+                            new_mistakes.write(m_example)
+                            new_mistakes.write(m_right_answer)
+                            new_mistakes.close()
+                        m_example = mistakes_file.readline()
+                        print('Если устал, напиши "стоп".')
+                if answer == 'стоп':
+                    m_example = ''
+                    print('Устал? Хорошо, ты можешь продолжить исправлять свои ошибки позже.')
+                    # Дописывает строчки из прошлого файла в новый
+                    new_mistakes = open(('mistakes_' + name + '2.txt'), 'w')
+                    new_mistakes.write(m_example)
+                    new_mistakes.write(m_right_answer)
                     new_mistakes.close()
-                mistakes_file.close()
+                    while mistakes_file.readline() != '':
+                        new_mistakes = open(('mistakes_' + name + '2.txt'), 'a')
+                        new_mistakes.write(mistakes_file.readline())
+                        new_mistakes.close()
+
 
         # Переименовывает новый файл и удаляет старый
         remove('mistakes_' + name + '.txt')
@@ -173,26 +158,14 @@ while repeat == 'да':
                 print('Неправильно. Правильный ответ: '+ str(right_answer))
 
                 #Создание файла с ошибками
-                file = ('mistakes_' + name + '.txt')
-                mistakes = open(file, 'a')
-                mistakes.write(str(number1) + sign + str(number2) + '\n')
-                mistakes.write(str(right_answer) + '\n')
-                mistakes.close()
+
+                with open(('mistakes_' + name + '.txt'), 'a') as mistakes:
+                    mistakes.write(f'{number1} {sign} {number2}\n')
 
 
-        #Выводит статистику
-        if answers_time < 60:
-            print('Ты справился за ' + str(answers_time) + ' секунд' + time_endings(answers_time))
-        else:
-            minutes = answers_time // 60  # Целое число минут, без остатка
-            seconds = answers_time - minutes * 60  # Остаток секунд
-            if answers_time-minutes*60==0:
-                print('Ты справился за ' + str(minutes) + ' минут' + time_endings(minutes))
-            else:
-                print('Ты справился за ' + str(minutes) + ' минут' + time_endings(minutes) + ' и ' + str(seconds) + ' секунд' +
-                      time_endings(seconds))
         print('Правильных ответов:' + str(rights))
         print('Ошибок:' + str(fails))
+        print(seconds_convert(answers_time))
         
         
         print('Хочешь сыграть еще?')

@@ -1,6 +1,1 @@
 TODO: f''
-TODO: from ast import literal_eval
-TODO:   # приведём str тип в тип bytes
-        bytes = literal_eval(show_correct_answer)
-        # декодируем байт-код в кодировке utf-8
-        show_correct_answer = bytes.decode('utf-8')

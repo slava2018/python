@@ -19,14 +19,14 @@ def time_endings(v):
 def seconds_convert(time_in_seconds):
     
     if time_in_seconds < 60:
-        spent_time = f'Ты справился за {time_in_seconds} секунд{time_endings(time_in_seconds)}'
+        spent_time = f' за {time_in_seconds} секунд{time_endings(time_in_seconds)}'
     else:
         minutes = time_in_seconds // 60  # Целое число минут, без остатка
         seconds = time_in_seconds - minutes * 60  # Остаток секунд
         if time_in_seconds-minutes*60==0:
-            spent_time = f'Ты справился за {minutes} минут{time_endings(minutes)}'
+            spent_time = f' за {minutes} минут{time_endings(minutes)}'
         else:
-            spent_time = f'Ты справился за {minutes} минут{time_endings(minutes)} и {seconds} секунд{time_endings(time_in_seconds)}'
+            spent_time = f' за {minutes} минут{time_endings(minutes)} и {seconds} секунд{time_endings(time_in_seconds)}'
 
     return spent_time
 

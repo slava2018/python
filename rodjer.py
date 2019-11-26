@@ -2,26 +2,86 @@ from random import randint, choice
 from timeit import default_timer
 from os.path import isfile
 from os import rename, remove
-from slava_lib import time_endings, seconds_convert
+from lib import time_endings, seconds_convert
+
+def answer_generation(number1, number2, sign):
+
+    # Генерирует правильный ответ
+    if sign == '+':
+        right_answer = number1 + number2
+    if sign == '-':
+        right_answer = number1 - number2
+
+    return right_answer
+
+def example_generation(maximum_answer):
+    maximum_answer = int(maximum_answer)  # Максимально возможное число
+
+    # Первая версия примера
+    number1 = randint(1, maximum_answer)
+    number2 = randint(1, maximum_answer)
+    sign = choice('+-')
+
+    # Проверка соответствия правилам
+    while number2 + number1 > maximum_answer:
+        number1 = randint(1, maximum_answer)
+        number2 = randint(1, maximum_answer)
+    if number2 > number1:
+        sign = '+'
+
+    example_line =  [number1, sign, number2]
+    return example_line
+
+def create_mistakes_file(name, mistake):
+    file_name = ('mistakes_' + name + '2.txt')
+    if isfile(file_name):
+        with open(file_name, 'a') as new_mistakes:
+            new_mistakes.write(mistake)
+    else:
+        with open(file_name, 'w') as new_mistakes:
+            new_mistakes.write(mistake)
+
+def choise_2(answer):
+    while answer not in {'да', 'нет'}:
+        print('''Ты ошибся, должно быть 'да' или 'нет'.
+    Введи заново.''')
+        answer = input()
+        answer = answer.lower()
+        if answer not in {'да', 'нет'}:
+            print('''Ты ошибся, должно быть 'да' или 'нет'.
+    Введи заново.''')
+            answer = input()
+            answer = answer.lower()
+        return answer
+
+def choise_digit(answer):
+    while not answer.isdigit():
+        print('Ты ошибся, введи цифру')
+        start = default_timer()  # начало отсчета
+        answer = input()
+        stop = default_timer()  # конец отсчёта
+        if not answer.isdigit():
+            print('Ты ошибся, введи цифру')
+            start = default_timer()  # начало отсчета
+            answer = input()
+            stop = default_timer()  # конец отсчёта
+        global answers_time
+        answers_time += round(stop - start)  # Время ответа
+
 
 print('Привет! Меня зовут Роджер. А тебя?')
 name = input()
 name = name.title()
 print('Приятно познакомиться, ' + name)
-
 if isfile('mistakes_' + name + '.txt'):
 
     print('Хочешь поработать над ошибками?')
     mistakes_ready = input()
-    while mistakes_ready not in {'да', 'нет'}:
-        print('''Ты ошибся, должно быть 'да' или 'нет'.
-    Введи заново.''')
-        mistakes_ready = input()
+    choise_2(mistakes_ready)
 
     if mistakes_ready == 'да':
         answer = 1
         with open(('mistakes_' + name + '.txt'), 'r') as mistakes_file:
-
             print('Хорошо, начнем.')
 
             m_example = mistakes_file.readline()
@@ -29,32 +89,22 @@ if isfile('mistakes_' + name + '.txt'):
                 while answer != 'стоп':
                     print(m_example)
                     answer = input()
-                    m_right_answer = mistakes_file.readline()
+                    number1,number2,sign = m_example.split()
+                    right_answer = answer_generation(number1, number2, sign)
+
                     if answer != 'стоп':
-                        if int(answer) == int(m_right_answer):
+                        if int(answer) == int(right_answer) :
                             print('Правильно! Следующий пример:')
                         else:
                             print('Ты ошибся.')
-                            # Создает новый файл с ошибками
-                            new_mistakes = open(('mistakes_' + name + '2.txt'),'w')
-                            new_mistakes.write(m_example)
-                            new_mistakes.write(m_right_answer)
-                            new_mistakes.close()
-                        m_example = mistakes_file.readline()
+                            # Создает или открывает новый файл с ошибками
+                            create_mistakes_file(name, m_example)
                         print('Если устал, напиши "стоп".')
-                if answer == 'стоп':
-                    m_example = ''
-                    print('Устал? Хорошо, ты можешь продолжить исправлять свои ошибки позже.')
-                    # Дописывает строчки из прошлого файла в новый
-                    new_mistakes = open(('mistakes_' + name + '2.txt'), 'w')
-                    new_mistakes.write(m_example)
-                    new_mistakes.write(m_right_answer)
-                    new_mistakes.close()
-                    while mistakes_file.readline() != '':
-                        new_mistakes = open(('mistakes_' + name + '2.txt'), 'a')
-                        new_mistakes.write(mistakes_file.readline())
-                        new_mistakes.close()
-
+                m_example = ''
+                print('Устал? Хорошо, ты можешь продолжить исправлять свои ошибки позже.')
+                # Дописывает строчки из прошлого файла в новый
+                while mistakes_file.readline() != '':
+                    create_mistakes_file(name, m_example)
 
         # Переименовывает новый файл и удаляет старый
         remove('mistakes_' + name + '.txt')
@@ -66,12 +116,7 @@ ready = input()
 
 repeat = 'да'
 while repeat == 'да':
-
-    while ready not in {'да', 'нет'}:
-        print('''Ты ошибся, должно быть 'да' или 'нет'.
-Введи заново.''')
-        ready = input()
-
+    choise_2
     if ready == 'да':
         examples_quantity = '' #Количество примеров
         maximum_answer = '' #Максимальное число
@@ -85,9 +130,7 @@ while repeat == 'да':
                 while int(examples_quantity) < 1:
                     print('Введи число больше 0')
                     examples_quantity = input()
-                    while not examples_quantity.isdigit():
-                        print('Ты ошибся, введи цифру')
-                        examples_quantity = input()
+                    choise_digit(examples_quantity)
             else:
                 print('Ты ошибся, введи цифру')
 
@@ -99,9 +142,7 @@ while repeat == 'да':
                 while int(maximum_answer) < 2:
                     print('Введи число больше 1')
                     maximum_answer = input()
-                    while not maximum_answer.isdigit():
-                        print('Ты ошибся, введи цифру')
-                        maximum_answer = input()
+                    choise_digit(maximum_answer)
             else:
                 print('Ты ошибся, введи цифру')
 
@@ -111,72 +152,46 @@ while repeat == 'да':
         rights = 0
 
         # Генерирует и выводит пример
-        for example in range(int(examples_quantity)):
-            print('Пример ' + str(example+1) + ':')
 
-            maximum_answer = int(maximum_answer) #Максимально возможное число
+        for example_kol in range(int(examples_quantity)):
+            print('Пример ' + str(example_kol + 1) + ':')
+            example_line = example_generation(maximum_answer)
+            number1, number2, sign = example_line.split()
+            right_answer = answer_generation(number1, number2, sign)
 
-            #Первая версия примера
-            number1 = randint(1,maximum_answer)
-            number2 = randint(1,maximum_answer)
-            sign = choice('+-')
+            example = (str(number1) + str(sign) + str(number2))
+            print('Сколько будет' + example + '?')
 
-            # Проверка соответствия правилам
-            while number2 + number1 > maximum_answer:
-                number1 = randint(1, maximum_answer)
-                number2 = randint(1, maximum_answer)
-
-            if number2 > number1:
-                sign = '+'
-
-            answer = ''  # Ответ
+            start = default_timer()  # начало отсчета
+            answer = input()
+            stop = default_timer()  # конец отсчёта
+            answers_time += round(stop - start)  # Время ответа
 
             # Продолжается пока пользователь не введет положительное число
-            while not answer.isdigit():
-                print('Сколько будет ' + str(number1) + sign + str(number2) + '?')
-                start = default_timer() # начало отсчета
-                answer = input()
-                stop = default_timer()  # конец отсчёта
-                if not answer.isdigit():
-                    print('Ты ошибся, введи цифру')
-                answers_time += round(stop - start) #Время ответа
-
+            choise_digit(answer)
             answer = int(answer)
-
-            #Генерирует правильный ответ
-            if sign == '+':
-                right_answer = number1 + number2
-            if sign == '-':
-                right_answer = number1 - number2
-
             #Считает количество правильных и неправильных ответов
             if answer == right_answer:
                 rights += 1
                 print('Правильно.')
             else:
                 fails += 1
-                print('Неправильно. Правильный ответ: '+ str(right_answer))
+                print('Неправильно.')
 
                 #Создание файла с ошибками
 
                 with open(('mistakes_' + name + '.txt'), 'a') as mistakes:
-                    mistakes.write(f'{number1} {sign} {number2}\n')
+                    mistakes.write(f'{example}\n')
 
 
         print('Правильных ответов:' + str(rights))
         print('Ошибок:' + str(fails))
-        print(seconds_convert(answers_time))
+        print('Ты справился за' + seconds_convert(answers_time))
         
         
         print('Хочешь сыграть еще?')
         repeat = input()
-        
-        #Проверяет соответствие правилу
-        while repeat not in {'да', 'нет'}:
-            print('''Ты ошибся, должно быть 'да' или 'нет'.
-            Введи заново.''')
-            repeat = input()
-            repeat = repeat.lower()
+        choise_2
             
         #Завершает работу
         if repeat == 'нет':

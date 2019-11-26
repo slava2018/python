@@ -30,3 +30,11 @@ def seconds_convert(time_in_seconds):
 
     return spent_time
 
+def duplicats(file_name):
+
+    all_lines = []
+    with open(file_name, 'r') as file:
+        line = file.readline()
+        while line:
+            all_lines.append(line)
+        all_lines

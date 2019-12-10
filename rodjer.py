@@ -2,7 +2,13 @@ from random import randint, choice
 from timeit import default_timer
 from os.path import isfile
 from os import rename, remove
-from lib import time_endings, seconds_convert, duplicats
+from lib import *
+
+def error_warnings():
+
+    list = ['Ты ошибся!','Ты ошибся!!','Ты ошибся!!!', 'Ты ошибся!!!!','Ты ошибся!!!!!']
+    number = randint(0,len(list)-1)
+    print(list[number])
 
 def select_mode(mods = 0):
     if mods == 1:
@@ -126,6 +132,7 @@ def count():
 
     fails = 0
     rights = 0
+    number_of_repeats = 3
 
     # Генерирует и выводит пример
 
@@ -152,12 +159,12 @@ def count():
             print('Правильно.')
         else:
             fails += 1
-            print('Неправильно.')
+            error_warnings()
 
             # Создание файла с ошибками
 
             with open(('mistakes_' + name + '.txt'), 'a') as mistakes:
-                mistakes.write(f'{example}\n')
+                mistakes.write(f'{example} {number_of_repeats}\n')
 
     print('Правильных ответов:' + str(rights))
     print('Ошибок:' + str(fails))
@@ -171,14 +178,18 @@ def fix_mistakes():
 
         m_example = mistakes_file.readline()
         while answer != 'стоп':
-            print(m_example)
-            answer = input()
-            number1, sign, number2 = m_example.split()
+            number1, sign, number2, number_of_repeats = m_example.split()
             right_answer = correct_answer_generation(number1, number2, sign)
+            print(number1 + sign + number2)
+            answer = input()
 
             if answer != 'стоп':
                 if int(answer) == int(right_answer):
                     print('Правильно! Следующий пример:')
+                    number_of_repeats = int(number_of_repeats)
+                    number_of_repeats += -1
+                    if number_of_repeats != 0:
+                        create_mistakes_file(name, f'{number1} {sign} {number2}  {number_of_repeats}\n')
                 else:
                     print('Ты ошибся.')
                     # Создает или открывает новый файл с ошибками
@@ -223,7 +234,7 @@ while True:
     elif mode == '0':
         print('До скорых встреч!')
         if isfile('mistakes_' + name + '.txt'):
-            new_file_name = duplicats(('mistakes_' + name + '.txt'))
+            new_file_name = remove_same_lines(('mistakes_' + name + '.txt'))
             remove(('mistakes_' + name + '.txt'))
             rename(new_file_name, ('mistakes_' + name + '.txt'))
         break

@@ -30,15 +30,37 @@ def seconds_convert(time_in_seconds):
 
     return spent_time
 
+def remove_same_lines(filename):
+
+    uniques = []
+
+    with open(filename, 'r') as old_file, open(f'tmp_{filename}', 'a') as new_file:
+
+        for row in old_file:
+
+            part_of_row = row.split()
+            number1, sign, number2, repeat = part_of_row
+
+            example =f'{number1} {sign} {number2}'
+
+            if example not in uniques:
+                uniques.append(example)
+                new_file.write(f'{example} {repeat}\n')
+
+    file = f'tmp_{filename}'
+    return file
+
 #Удаление дупликатов в файле
 def duplicats(file_name):
 
     all_lines = []
+
     with open(file_name, 'r') as old_file:
         line = old_file.readline()
         while line:
             all_lines.append(line)
             line = old_file.readline()
+
     all_lines = set(all_lines)
     new_file_name = ('2'+file_name)
     with open(new_file_name, 'w') as new_file:

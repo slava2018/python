@@ -2,17 +2,25 @@ from random import randint, choice
 from timeit import default_timer
 from os.path import isfile
 from os import rename, remove
-from lib import time_endings, seconds_convert
+from lib import time_endings, seconds_convert, duplicats
 
-def select_mode():
-    print('''
+def select_mode(mods = 0):
+    if mods == 1:
+        mode_var = '\n   2 - работа над ошибками'
+    else:
+        mode_var = ''
+    print(f'''
     Режимы:
-   1 - тренировка
+   1 - тренировка{mode_var}
    0 - выход
     ''')
     mode = input('Выбери режим\n')
-    while mode not in {'1', '0'}:
-        mode = input('Выбери режим\n')
+    if mods == 1:
+        while mode not in {'1', '2', '0'}:
+            mode = input('Выбери режим\n')
+    else:
+        while mode not in {'1', '0'}:
+            mode = input('Выбери режим\n')
 
     return mode
 
@@ -162,26 +170,29 @@ def fix_mistakes():
         print('Хорошо, начнем.')
 
         m_example = mistakes_file.readline()
-        while m_example != '':
-            while answer != 'стоп':
-                print(m_example)
-                answer = input()
-                number1, number2, sign = m_example.split()
-                right_answer = correct_answer_generation(number1, number2, sign)
+        while answer != 'стоп':
+            print(m_example)
+            answer = input()
+            number1, sign, number2 = m_example.split()
+            right_answer = correct_answer_generation(number1, number2, sign)
 
-                if answer != 'стоп':
-                    if int(answer) == int(right_answer):
-                        print('Правильно! Следующий пример:')
-                    else:
-                        print('Ты ошибся.')
-                        # Создает или открывает новый файл с ошибками
-                        create_mistakes_file(name, m_example)
-                    print('Если устал, напиши "стоп".')
-            m_example = ''
-            print('Устал? Хорошо, ты можешь продолжить исправлять свои ошибки позже.')
-            # Дописывает строчки из прошлого файла в новый
-            while mistakes_file.readline() != '':
-                create_mistakes_file(name, m_example)
+            if answer != 'стоп':
+                if int(answer) == int(right_answer):
+                    print('Правильно! Следующий пример:')
+                else:
+                    print('Ты ошибся.')
+                    # Создает или открывает новый файл с ошибками
+                    create_mistakes_file(name, m_example)
+                print('Если устал, напиши "стоп".')
+                m_example = mistakes_file.readline()
+                if m_example == '':
+                    print('Ты исправил все свои ошибки!')
+                    answer = 'стоп'
+        print('Устал? Хорошо, ты можешь продолжить исправлять свои ошибки позже.')
+        # Дописывает строчки из прошлого файла в новый
+        while  m_example != '':
+            create_mistakes_file(name, m_example)
+            m_example = mistakes_file.readline()
 
     # Переименовывает новый файл и удаляет старый
     remove('mistakes_' + name + '.txt')
@@ -192,20 +203,30 @@ def fix_mistakes():
 print('Привет! Меня зовут Роджер. А тебя?')
 name = input()
 name = name.title()
-print('Приятно познакомиться, ' + name)
+if isfile('mistakes_' + name + '.txt'):
+    print('Давно не виделись, ' + name)
+else:
+    print('Приятно познакомиться, ' + name)
 
 while True:
-    mode = select_mode()
+    if isfile('mistakes_' + name + '.txt'):
+        mode = select_mode(1)
+    else:
+        mode = select_mode()
 
     if mode == '1':
         count()
 
+    if mode == '2':
+        fix_mistakes()
+
     elif mode == '0':
         print('До скорых встреч!')
+        if isfile('mistakes_' + name + '.txt'):
+            new_file_name = duplicats(('mistakes_' + name + '.txt'))
+            remove(('mistakes_' + name + '.txt'))
+            rename(new_file_name, ('mistakes_' + name + '.txt'))
         break
     else:
         pass
-
-
-#if isfile('mistakes_' + name + '.txt'):
 

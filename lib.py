@@ -30,11 +30,18 @@ def seconds_convert(time_in_seconds):
 
     return spent_time
 
+#Удаление дупликатов в файле
 def duplicats(file_name):
 
     all_lines = []
-    with open(file_name, 'r') as file:
-        line = file.readline()
+    with open(file_name, 'r') as old_file:
+        line = old_file.readline()
         while line:
             all_lines.append(line)
-        all_lines
+            line = old_file.readline()
+    all_lines = set(all_lines)
+    new_file_name = ('2'+file_name)
+    with open(new_file_name, 'w') as new_file:
+        for line in all_lines:
+            new_file.write(line)
+    return new_file_name

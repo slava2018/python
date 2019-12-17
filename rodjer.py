@@ -12,12 +12,13 @@ def error_warnings():
 
 def select_mode(mods = 0):
     if mods == 1:
-        mode_var = '\n   2 - работа над ошибками'
+        mode_var = '\n   3 - работа над ошибками'
     else:
         mode_var = ''
     print(f'''
     Режимы:
-   1 - тренировка{mode_var}
+   1 - тренировка
+   2 - настройки{mode_var}
    0 - выход
     ''')
     mode = input('Выбери режим\n')
@@ -214,10 +215,12 @@ def fix_mistakes():
 print('Привет! Меня зовут Роджер. А тебя?')
 name = input()
 name = name.title()
-if isfile('mistakes_' + name + '.txt'):
+if isfile('settings_' + name + '.txt'):
     print('Давно не виделись, ' + name)
 else:
     print('Приятно познакомиться, ' + name)
+    with open ('settings_' + name + '.txt', 'w') as new_user:
+    	
 
 while True:
     if isfile('mistakes_' + name + '.txt'):

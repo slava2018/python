@@ -80,6 +80,7 @@ def example_generation(maximum_answer):
     if number2 > number1:
         sign = '+'
 
+
     example_line =  [number1, number2, sign]
     return example_line
 
@@ -154,16 +155,34 @@ def count():
     fails = 0
     rights = 0
     number_of_repeats = 3
+    uniques = []
+    no_examples = False
 
     # Генерирует и выводит пример
 
     for example_kol in range(int(examples_quantity)):
-        print('Пример ' + str(example_kol + 1) + ':')
         example_line = example_generation(maximum_answer)
+
+        if example_line not in uniques:
+            uniques.append(example_line)
+        else:
+            while example_line in uniques:
+                example_line = example_generation(maximum_answer)
+                print(example_line)
+                if example_line == '':
+                    no_examples = True
+                    break
+            uniques.append(example_line)
+
+        if no_examples:
+            print('Ты исчерпал все возможные варианты примеров')
+            break
+
         number1, number2, sign = example_line
         right_answer = correct_answer_generation(number1, number2, sign)
 
         example = f'{number1} {sign} {number2}'
+        print('Пример ' + str(example_kol + 1) + ':')
         print(f'Сколько будет {example}?')
 
         start = default_timer()  # начало отсчета

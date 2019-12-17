@@ -4,6 +4,26 @@ from os.path import isfile
 from os import rename, remove
 from lib import *
 
+def remove_same_lines(filename):
+
+    uniques = []
+
+    with open(filename, 'r') as old_file, open(f'tmp_{filename}', 'a') as new_file:
+
+        for row in old_file:
+
+            part_of_row = row.split()
+            number1, sign, number2, repeat = part_of_row
+
+            example =f'{number1} {sign} {number2}'
+
+            if example not in uniques:
+                uniques.append(example)
+                new_file.write(f'{example} {repeat}\n')
+
+    file = f'tmp_{filename}'
+    return file
+
 def error_warnings():
 
     list = ['Ты ошибся!','Ты ошибся!!','Ты ошибся!!!', 'Ты ошибся!!!!','Ты ошибся!!!!!']
@@ -23,10 +43,10 @@ def select_mode(mods = 0):
     ''')
     mode = input('Выбери режим\n')
     if mods == 1:
-        while mode not in {'1', '2', '0'}:
+        while mode not in {'1', '2', '3', '0'}:
             mode = input('Выбери режим\n')
     else:
-        while mode not in {'1', '0'}:
+        while mode not in {'1', '2', '0'}:
             mode = input('Выбери режим\n')
 
     return mode
@@ -212,15 +232,28 @@ def fix_mistakes():
 
 
 # Основной блок программы
-print('Привет! Меня зовут Роджер. А тебя?')
-name = input()
-name = name.title()
-if isfile('settings_' + name + '.txt'):
-    print('Давно не виделись, ' + name)
+
+if isfile('settings.txt'):
+    with open('settings.txt', 'r',  encoding="utf-8") as all_settings:
+        first_line = all_settings.readline()
+        setting, name = first_line.split()
+
+        if setting != 'одиночный':
+            print('Привет! Как тебя зовут?')
+            name = input()
+            name = name.title()
+            print('Приятно познакомиться, ' + name)
+        else:
+            with open('settings.txt', 'r',  encoding="utf-8") as all_settings:
+                print('Давно не виделись,' + name)
+
 else:
+    print('Привет! Меня зовут Роджер. А тебя?')
+    name = input()
+    name = name.title()
     print('Приятно познакомиться, ' + name)
-    with open ('settings_' + name + '.txt', 'w') as new_user:
-    	
+    with open('settings.txt', 'w', encoding="utf-8") as all_settings:
+        all_settings.write('одиночный ' + name)
 
 while True:
     if isfile('mistakes_' + name + '.txt'):
@@ -232,6 +265,9 @@ while True:
         count()
 
     if mode == '2':
+        pass
+
+    if mode == '3':
         fix_mistakes()
 
     elif mode == '0':
@@ -243,4 +279,3 @@ while True:
         break
     else:
         pass
-

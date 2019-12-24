@@ -1,3 +1,6 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
 from random import randint, choice
 from timeit import default_timer
 from os.path import isfile
@@ -89,11 +92,13 @@ def example_generation(maximum_answer):
     sign = choice('+-')
 
     # Проверка соответствия правилам
-    while number2 + number1 > maximum_answer:
-        number1 = randint(1, maximum_answer)
-        number2 = randint(1, maximum_answer)
     if number2 > number1:
         sign = '+'
+    if sign == '+':
+        while number2 + number1 > maximum_answer:
+            number1 = randint(1, maximum_answer)
+            number2 = randint(1, maximum_answer)
+
 
 
     example_line =  [number1, number2, sign]
@@ -138,6 +143,7 @@ def choise_digit(answer):
 def count():
     examples_quantity = ''  # Количество примеров
     maximum_answer = ''  # Максимальное число
+    global answers_time
     answers_time = 0  # Время ответов
 
     print('Давай проверим твои знания в математике.')
@@ -171,9 +177,11 @@ def count():
     rights = 0
     number_of_repeats = answer_numbers
     uniques = []
-    no_examples = False
 
     # Генерирует и выводит пример
+    if int(examples_quantity)>int(maximum_answer)**2:
+        print('Я не знаю столько уникальных примеров.')
+        examples_quantity = int(maximum_answer)**2
 
     for example_kol in range(int(examples_quantity)):
         example_line = example_generation(maximum_answer)
@@ -183,15 +191,7 @@ def count():
         else:
             while example_line in uniques:
                 example_line = example_generation(maximum_answer)
-                print(example_line)
-                if example_line == '':
-                    no_examples = True
-                    break
             uniques.append(example_line)
-
-        if no_examples:
-            print('Ты исчерпал все возможные варианты примеров')
-            break
 
         number1, number2, sign = example_line
         right_answer = correct_answer_generation(number1, number2, sign)
@@ -302,6 +302,13 @@ if isfile('settings_' + name + '.txt'):
 else:
     with open('settings_' + name + '.txt', 'w', encoding="utf-8") as settings:
         settings.write('3\nда\nоднопользовательский\n' + name + '\nда')
+    with open('settings_' + name + '.txt', 'r', encoding="utf-8") as settings:
+        answer_numbers = settings.readline()
+        show_setting = settings.readline()
+        change_mod = settings.readline()
+        name_user = settings.readline()
+        save_mistakes = settings.readline()
+
 
 while True:
     if isfile('mistakes_' + name + '.txt'):
@@ -351,7 +358,7 @@ while True:
                     save_mistakes = input()
 
         with open('settings_' + name + '.txt', 'w', encoding="utf-8") as settings:
-            settings.write(answer_numbers + '\n' + show_setting + '\n' + change_mod +'\n' + name + '\n' + save_mistakes)
+            settings.write(f'{answer_numbers}{show_setting}{change_mod}{name}\n{save_mistakes}')
         with open('settings.txt', 'w', encoding="utf-8") as all_settings:
             all_settings.write(change_mod + name)
 

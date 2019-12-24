@@ -51,6 +51,21 @@ def select_mode(mods = 0):
 
     return mode
 
+def settings_change():
+    print('''Выбери параметр:
+		1 - количество правильных ответов для исправления ошибки
+		2 - показывать правильный ответ при ошибке
+		3 - однопользовательский режим
+		4 - имя пользователя
+		5 - сохранять ошибки
+		0 - назад''')
+
+    mode = input('Выбери режим\n')
+    while mode not in {'1', '2', '3', '4', '5', '0'}:
+        mode = input('Выбери режим\n')
+
+    return mode
+
 def correct_answer_generation(number1, number2, sign):
 
     number1 = int(number1)
@@ -154,7 +169,7 @@ def count():
 
     fails = 0
     rights = 0
-    number_of_repeats = 3
+    number_of_repeats = answer_numbers
     uniques = []
     no_examples = False
 
@@ -199,7 +214,10 @@ def count():
             print('Правильно.')
         else:
             fails += 1
-            error_warnings()
+            if show_setting == 'да':
+                print(right_answer)
+            if save_mistakes== 'да':
+                error_warnings()
 
             # Создание файла с ошибками
 
@@ -257,7 +275,7 @@ if isfile('settings.txt'):
         first_line = all_settings.readline()
         setting, name = first_line.split()
 
-        if setting != 'одиночный':
+        if setting != 'однопользовательский':
             print('Привет! Как тебя зовут?')
             name = input()
             name = name.title()
@@ -272,7 +290,18 @@ else:
     name = name.title()
     print('Приятно познакомиться, ' + name)
     with open('settings.txt', 'w', encoding="utf-8") as all_settings:
-        all_settings.write('одиночный ' + name)
+        all_settings.write('однопользовательский ' + name)
+
+if isfile('settings_' + name + '.txt'):
+    with open('settings_' + name + '.txt', 'r', encoding="utf-8") as settings:
+        answer_numbers = settings.readline()
+        show_setting = settings.readline()
+        change_mod = settings.readline()
+        name_user = settings.readline()
+        save_mistakes = settings.readline()
+else:
+    with open('settings_' + name + '.txt', 'w', encoding="utf-8") as settings:
+        settings.write('3\nда\nоднопользовательский\n' + name + '\nда')
 
 while True:
     if isfile('mistakes_' + name + '.txt'):
@@ -284,7 +313,48 @@ while True:
         count()
 
     if mode == '2':
-        pass
+        change_setting = ''
+        while change_setting != '0':
+            change_setting = settings_change()
+
+            if change_setting == '1':
+                print('Сейчас:' + answer_numbers)
+                answer_numbers = input()
+                while answer_numbers.isdigit() == False:
+                    print('Введи число')
+                    answer_numbers = input()
+
+            if change_setting == '2':
+                print('Сейчас:' + show_setting)
+                show_setting = input()
+                while show_setting not in {'да', 'нет'}:
+                    print('Введи "да" или "нет"')
+                    show_setting = input()
+
+            if change_setting == '3':
+                print('Сейчас:' + change_mod)
+                change_mod = input()
+                while change_mod not in {'однопользовательский', 'многопользовательский'}:
+                    print('Введи "однопользовательский " или "многопользовательский"')
+                    change_mod = input()
+
+            if change_setting == '4':
+                print('Сейчас:' + name_user)
+                name_user = input()
+                name = name_user
+
+            if change_setting == '5':
+                print('Сейчас:' + save_mistakes)
+                save_mistakes = input()
+                while save_mistakes not in {'да', 'нет'}:
+                    print('Введи "да" или "нет"')
+                    save_mistakes = input()
+
+        with open('settings_' + name + '.txt', 'w', encoding="utf-8") as settings:
+            settings.write(answer_numbers + '\n' + show_setting + '\n' + change_mod +'\n' + name + '\n' + save_mistakes)
+        with open('settings.txt', 'w', encoding="utf-8") as all_settings:
+            all_settings.write(change_mod + name)
+
 
     if mode == '3':
         fix_mistakes()

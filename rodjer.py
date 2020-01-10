@@ -61,10 +61,11 @@ def settings_change():
 		3 - однопользовательский режим
 		4 - имя пользователя
 		5 - сохранять ошибки
+		6 - уникальные примеры 
 		0 - назад''')
 
     mode = input('Выбери режим\n')
-    while mode not in {'1', '2', '3', '4', '5', '0'}:
+    while mode not in {'1', '2', '3', '4', '5', '6', '0'}:
         mode = input('Выбери режим\n')
 
     return mode
@@ -177,21 +178,23 @@ def count():
     rights = 0
     number_of_repeats = answer_numbers
     uniques = []
-
+    global uniq
     # Генерирует и выводит пример
-    if int(examples_quantity)>int(maximum_answer)**2:
-        print('Я не знаю столько уникальных примеров.')
-        examples_quantity = int(maximum_answer)**2
+    if uniq == 'да':
+        if int(examples_quantity)>int(maximum_answer)**2:
+            print('Я не знаю столько уникальных примеров.')
+            examples_quantity = int(maximum_answer)**2
 
     for example_kol in range(int(examples_quantity)):
         example_line = example_generation(maximum_answer)
 
-        if example_line not in uniques:
-            uniques.append(example_line)
-        else:
-            while example_line in uniques:
-                example_line = example_generation(maximum_answer)
-            uniques.append(example_line)
+        if uniq == 'да':
+            if example_line not in uniques:
+                uniques.append(example_line)
+            else:
+                while example_line in uniques:
+                    example_line = example_generation(maximum_answer)
+                uniques.append(example_line)
 
         number1, number2, sign = example_line
         right_answer = correct_answer_generation(number1, number2, sign)
@@ -290,7 +293,7 @@ else:
     name = name.title()
     print('Приятно познакомиться, ' + name)
     with open('settings.txt', 'w', encoding="utf-8") as all_settings:
-        all_settings.write('однопользовательский ' + name)
+        all_settings.write('однопользовательский' + name)
 
 if isfile('settings_' + name + '.txt'):
     with open('settings_' + name + '.txt', 'r', encoding="utf-8") as settings:
@@ -299,15 +302,17 @@ if isfile('settings_' + name + '.txt'):
         change_mod = settings.readline()
         name_user = settings.readline()
         save_mistakes = settings.readline()
+        uniq = settings.readline()
 else:
     with open('settings_' + name + '.txt', 'w', encoding="utf-8") as settings:
-        settings.write('3\nда\nоднопользовательский\n' + name + '\nда')
+        settings.write('3\nда\nоднопользовательский\n' + name + 'да')
     with open('settings_' + name + '.txt', 'r', encoding="utf-8") as settings:
         answer_numbers = settings.readline()
         show_setting = settings.readline()
         change_mod = settings.readline()
         name_user = settings.readline()
         save_mistakes = settings.readline()
+        uniq = settings.readline()
 
 
 while True:
@@ -344,6 +349,11 @@ while True:
                 while change_mod not in {'однопользовательский', 'многопользовательский'}:
                     print('Введи "однопользовательский " или "многопользовательский"')
                     change_mod = input()
+                with open('settings.txt', 'r', encoding="utf-8") as all_settings:
+                    first_line = all_settings.readline()
+                    setting, name = first_line.split()
+                with open('settings.txt', 'w', encoding="utf-8") as all_settings:
+                    all_settings.write('многопользовательский  ' + name)
 
             if change_setting == '4':
                 print('Сейчас:' + name_user)
@@ -357,8 +367,15 @@ while True:
                     print('Введи "да" или "нет"')
                     save_mistakes = input()
 
+            if change_setting == '6':
+                print('Сейчас:' + uniq)
+                uniq = input()
+                while uniq not in {'да', 'нет'}:
+                    print('Введи "да" или "нет"')
+                    save_mistakes = input()
+
         with open('settings_' + name + '.txt', 'w', encoding="utf-8") as settings:
-            settings.write(f'{answer_numbers}{show_setting}{change_mod}{name}\n{save_mistakes}')
+            settings.write(f'{answer_numbers}{show_setting}{change_mod}{name}\n{save_mistakes}\n{uniq}')
         with open('settings.txt', 'w', encoding="utf-8") as all_settings:
             all_settings.write(change_mod + name)
 

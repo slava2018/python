@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
-
+import json
 from random import randint, choice
 from timeit import default_timer
 from os.path import isfile
@@ -295,24 +295,26 @@ else:
     with open('settings.txt', 'w', encoding="utf-8") as all_settings:
         all_settings.write('однопользовательский' + name)
 
-if isfile('settings_' + name + '.txt'):
-    with open('settings_' + name + '.txt', 'r', encoding="utf-8") as settings:
-        answer_numbers = settings.readline()
-        show_setting = settings.readline()
-        change_mod = settings.readline()
-        name_user = settings.readline()
-        save_mistakes = settings.readline()
-        uniq = settings.readline()
+if isfile('settings_' + name + '.json'):
+    with open('settings_' + name + '.json', 'r', encoding="utf-8") as settings:
+        all_new_settings = json.load(settings)
+        print(all_new_settings)
 else:
-    with open('settings_' + name + '.txt', 'w', encoding="utf-8") as settings:
-        settings.write('3\nда\nоднопользовательский\n' + name + 'да')
-    with open('settings_' + name + '.txt', 'r', encoding="utf-8") as settings:
-        answer_numbers = settings.readline()
-        show_setting = settings.readline()
-        change_mod = settings.readline()
-        name_user = settings.readline()
-        save_mistakes = settings.readline()
-        uniq = settings.readline()
+    with open('settings_' + name + '.json', 'w', encoding="utf-8") as settings:
+        new_settings = {
+        'answer_numbers':'3',
+        'show_setting':'да',
+        'change_mod':'однопользовательский',
+        'name_user':name,
+        'save_mistakes':'да',
+        'uniq':'да'
+        }
+
+        json.dump(new_settings, settings, ensure_ascii=False)
+
+    with open('settings_' + name + '.json', 'r', encoding="utf-8") as settings:
+        all_new_settings = json.load(settings)
+        print(all_new_settings)
 
 
 while True:

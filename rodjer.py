@@ -273,10 +273,10 @@ def fix_mistakes():
 
 # Основной блок программы
 
-if isfile('settings.txt'):
-    with open('settings.txt', 'r',  encoding="utf-8") as all_settings:
-        first_line = all_settings.readline()
-        setting, name = first_line.split()
+if isfile('settings.json'):
+    with open('settings.json', 'r',  encoding="utf-8") as all_settings:
+        all_new_settings = json.load(all_settings)
+        setting, name = all_new_settings
 
         if setting != 'однопользовательский':
             print('Привет! Как тебя зовут?')
@@ -284,7 +284,9 @@ if isfile('settings.txt'):
             name = name.title()
             print('Приятно познакомиться, ' + name)
         else:
-            with open('settings.txt', 'r',  encoding="utf-8") as all_settings:
+            with open('settings.json', 'r',  encoding="utf-8") as all_settings:
+                all_new_settings = json.load(all_settings)
+                setting, name = all_new_settings
                 print('Давно не виделись,' + name)
 
 else:
@@ -292,13 +294,15 @@ else:
     name = input()
     name = name.title()
     print('Приятно познакомиться, ' + name)
-    with open('settings.txt', 'w', encoding="utf-8") as all_settings:
-        all_settings.write('однопользовательский' + name)
+    with open('settings.json', 'w', encoding="utf-8") as all_settings:
+        settings_json = {
+            'change_mod': 'однопользовательский',
+            'name': name}
+        json.dump(settings_json, all_settings, ensure_ascii=False)
 
 if isfile('settings_' + name + '.json'):
     with open('settings_' + name + '.json', 'r', encoding="utf-8") as settings:
         all_new_settings = json.load(settings)
-        print(all_new_settings)
 else:
     with open('settings_' + name + '.json', 'w', encoding="utf-8") as settings:
         new_settings = {
@@ -314,7 +318,7 @@ else:
 
     with open('settings_' + name + '.json', 'r', encoding="utf-8") as settings:
         all_new_settings = json.load(settings)
-        print(all_new_settings)
+
 
 
 while True:
@@ -351,11 +355,14 @@ while True:
                 while change_mod not in {'однопользовательский', 'многопользовательский'}:
                     print('Введи "однопользовательский " или "многопользовательский"')
                     change_mod = input()
-                with open('settings.txt', 'r', encoding="utf-8") as all_settings:
-                    first_line = all_settings.readline()
-                    setting, name = first_line.split()
-                with open('settings.txt', 'w', encoding="utf-8") as all_settings:
-                    all_settings.write('многопользовательский  ' + name)
+                with open('settings.json', 'r', encoding="utf-8") as all_settings:
+                    all_new_settings = json.load(all_settings)
+                    setting, name = all_new_settings
+                with open('settings.json', 'w', encoding="utf-8") as all_settings:
+                    settings_json = {
+                        'change_mod': 'многопользовательский',
+                        'name': name}
+                    json.dump(settings_json, all_settings, ensure_ascii=False)
 
             if change_setting == '4':
                 print('Сейчас:' + name_user)
@@ -378,8 +385,11 @@ while True:
 
         with open('settings_' + name + '.txt', 'w', encoding="utf-8") as settings:
             settings.write(f'{answer_numbers}{show_setting}{change_mod}{name}\n{save_mistakes}\n{uniq}')
-        with open('settings.txt', 'w', encoding="utf-8") as all_settings:
-            all_settings.write(change_mod + name)
+        with open('settings.json', 'w', encoding="utf-8") as all_settings:
+            settings_json = {
+                'change_mod': change_mod ,
+                'name': name}
+            json.dump(settings_json, all_settings, ensure_ascii=False)
 
 
     if mode == '3':

@@ -276,7 +276,8 @@ def fix_mistakes():
 if isfile('settings.json'):
     with open('settings.json', 'r',  encoding="utf-8") as all_settings:
         all_new_settings = json.load(all_settings)
-        setting, name = all_new_settings
+        setting = all_new_settings['change_mod']
+        name = all_new_settings['name']
 
         if setting != 'однопользовательский':
             print('Привет! Как тебя зовут?')
@@ -286,7 +287,8 @@ if isfile('settings.json'):
         else:
             with open('settings.json', 'r',  encoding="utf-8") as all_settings:
                 all_new_settings = json.load(all_settings)
-                setting, name = all_new_settings
+                name = all_new_settings['name']
+                setting = all_new_settings['change_mod']
                 print('Давно не виделись,' + name)
 
 else:
@@ -303,6 +305,12 @@ else:
 if isfile('settings_' + name + '.json'):
     with open('settings_' + name + '.json', 'r', encoding="utf-8") as settings:
         all_new_settings = json.load(settings)
+        answer_numbers = all_new_settings['answer_numbers']
+        show_setting = all_new_settings['show_setting']
+        change_mod = all_new_settings['change_mod']
+        name = all_new_settings['name_user']
+        save_mistakes = all_new_settings['save_mistakes']
+        uniq = all_new_settings['uniq']
 else:
     with open('settings_' + name + '.json', 'w', encoding="utf-8") as settings:
         new_settings = {
@@ -318,6 +326,12 @@ else:
 
     with open('settings_' + name + '.json', 'r', encoding="utf-8") as settings:
         all_new_settings = json.load(settings)
+        answer_numbers = all_new_settings['answer_numbers']
+        show_setting = all_new_settings['show_setting']
+        change_mod = all_new_settings['change_mod']
+        name = all_new_settings['name_user']
+        save_mistakes = all_new_settings['save_mistakes']
+        uniq = all_new_settings['uniq']
 
 
 
@@ -357,7 +371,8 @@ while True:
                     change_mod = input()
                 with open('settings.json', 'r', encoding="utf-8") as all_settings:
                     all_new_settings = json.load(all_settings)
-                    setting, name = all_new_settings
+                    setting = all_new_settings['change_mod']
+                    name = all_new_settings['name']
                 with open('settings.json', 'w', encoding="utf-8") as all_settings:
                     settings_json = {
                         'change_mod': 'многопользовательский',

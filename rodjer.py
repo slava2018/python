@@ -224,7 +224,7 @@ def count():
 
             # Создание файла с ошибками
 
-            with open(('mistakes_' + name + '.txt'), 'a') as mistakes:
+            with open(('mistakes_' + name + name_id + '.txt'), 'a') as mistakes:
                 mistakes.write(f'{example} {number_of_repeats}\n')
 
     print('Правильных ответов:' + str(rights))
@@ -234,7 +234,7 @@ def count():
 
 def fix_mistakes():
     answer = 1
-    with open(('mistakes_' + name + '.txt'), 'r') as mistakes_file:
+    with open(('mistakes_' + name + name_id + '.txt'), 'r') as mistakes_file:
         print('Хорошо, начнем.')
 
         m_example = mistakes_file.readline()
@@ -254,7 +254,8 @@ def fix_mistakes():
                 else:
                     print('Ты ошибся.')
                     # Создает или открывает новый файл с ошибками
-                    create_mistakes_file(name, m_example)
+                    nameid = (name + name_id)
+                    create_mistakes_file(nameid, m_example)
                 print('Если устал, напиши "стоп".')
                 m_example = mistakes_file.readline()
                 if m_example == '':
@@ -263,12 +264,13 @@ def fix_mistakes():
         print('Устал? Хорошо, ты можешь продолжить исправлять свои ошибки позже.')
         # Дописывает строчки из прошлого файла в новый
         while  m_example != '':
-            create_mistakes_file(name, m_example)
+            nameid = (name + name_id)
+            create_mistakes_file(nameid, m_example)
             m_example = mistakes_file.readline()
 
     # Переименовывает новый файл и удаляет старый
-    remove('mistakes_' + name + '.txt')
-    rename(('mistakes_' + name + '2.txt'), ('mistakes_' + name + '.txt'))
+    remove('mistakes_' + name + name_id + '.txt')
+    rename(('mistakes_' + name + name_id +  '2.txt'), ('mistakes_' + name + name_id + '.txt'))
 
 
 # Основной блок программы
@@ -283,7 +285,16 @@ if isfile('settings.json'):
             print('Привет! Как тебя зовут?')
             name = input()
             name = name.title()
-            print('Приятно познакомиться, ' + name)
+            print('У тебя уже есть свой id? если да, то введи его ниже')
+            name_id = input()
+            if name_id == 'нет':
+                print('Приятно познакомиться, ' + name)
+            else:
+                if isfile('mistakes_' + name + name_id + '.txt'):
+                    print('Давно не виделись, ' + name)
+                else:
+                    print('Ты ошибся')
+                    print('Приятно познакомиться, ' + name)
         else:
             with open('settings.json', 'r',  encoding="utf-8") as all_settings:
                 all_new_settings = json.load(all_settings)
@@ -295,7 +306,17 @@ else:
     print('Привет! Меня зовут Роджер. А тебя?')
     name = input()
     name = name.title()
-    print('Приятно познакомиться, ' + name)
+    print('У тебя уже есть свой id? если да, то введи его ниже')
+    name_id = input()
+    if name_id == 'нет':
+        print('Приятно познакомиться, ' + name)
+    else:
+        if isfile('mistakes_' + name + name_id + '.txt'):
+            print('Давно не виделись, ' + name)
+        else:
+            print('Ты ошибся')
+            print('Приятно познакомиться, ' + name)
+
     with open('settings.json', 'w', encoding="utf-8") as all_settings:
         settings_json = {
             'change_mod': 'однопользовательский',
@@ -336,7 +357,7 @@ else:
 
 
 while True:
-    if isfile('mistakes_' + name + '.txt'):
+    if isfile('mistakes_' + name + name_id + '.txt'):
         mode = select_mode(1)
     else:
         mode = select_mode()
@@ -412,10 +433,10 @@ while True:
 
     elif mode == '0':
         print('До скорых встреч!')
-        if isfile('mistakes_' + name + '.txt'):
-            new_file_name = remove_same_lines(('mistakes_' + name + '.txt'))
-            remove(('mistakes_' + name + '.txt'))
-            rename(new_file_name, ('mistakes_' + name + '.txt'))
+        if isfile('mistakes_' + name + name_id + '.txt'):
+            new_file_name = remove_same_lines(('mistakes_' + name + name_id + '.txt'))
+            remove(('mistakes_' + name + name_id + '.txt'))
+            rename(new_file_name, ('mistakes_' + name + name_id + '.txt'))
         break
     else:
         pass

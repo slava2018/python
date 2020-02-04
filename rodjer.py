@@ -7,6 +7,7 @@ from os.path import isfile
 from os import rename, remove
 from lib import *
 
+
 def remove_same_lines(filename):
 
     uniques = []
@@ -18,7 +19,7 @@ def remove_same_lines(filename):
             part_of_row = row.split()
             number1, sign, number2, repeat = part_of_row
 
-            example =f'{number1} {sign} {number2}'
+            example = f'{number1} {sign} {number2}'
 
             if example not in uniques:
                 uniques.append(example)
@@ -27,13 +28,15 @@ def remove_same_lines(filename):
     file = f'tmp_{filename}'
     return file
 
+
 def error_warnings():
 
-    list = ['Ты ошибся!','Ты ошибся!!','Ты ошибся!!!', 'Ты ошибся!!!!','Ты ошибся!!!!!']
-    number = randint(0,len(list)-1)
+    list = ['Ты ошибся!', 'Ты ошибся!!', 'Ты ошибся!!!', 'Ты ошибся!!!!', 'Ты ошибся!!!!!']
+    number = randint(0, len(list)-1)
     print(list[number])
 
-def select_mode(mods = 0):
+
+def select_mode(mods=0):
     if mods == 1:
         mode_var = '\n   3 - работа над ошибками'
     else:
@@ -54,15 +57,16 @@ def select_mode(mods = 0):
 
     return mode
 
+
 def settings_change():
     print('''Выбери параметр:
-		1 - количество правильных ответов для исправления ошибки
-		2 - показывать правильный ответ при ошибке
-		3 - однопользовательский режим
-		4 - имя пользователя
-		5 - сохранять ошибки
-		6 - уникальные примеры 
-		0 - назад''')
+        1 - количество правильных ответов для исправления ошибки
+        2 - показывать правильный ответ при ошибке
+        3 - однопользовательский режим
+        4 - имя пользователя
+        5 - сохранять ошибки
+        6 - уникальные примеры 
+        0 - назад''')
 
     mode = input('Выбери режим\n')
     while mode not in {'1', '2', '3', '4', '5', '6', '0'}:
@@ -70,11 +74,11 @@ def settings_change():
 
     return mode
 
+
 def correct_answer_generation(number1, number2, sign):
 
     number1 = int(number1)
     number2 = int(number2)
-
 
     # Генерирует правильный ответ
     if sign == '+':
@@ -83,6 +87,7 @@ def correct_answer_generation(number1, number2, sign):
         right_answer = number1 - number2
 
     return right_answer
+
 
 def example_generation(maximum_answer):
     maximum_answer = int(maximum_answer)  # Максимально возможное число
@@ -105,6 +110,7 @@ def example_generation(maximum_answer):
     example_line =  [number1, number2, sign]
     return example_line
 
+
 def create_mistakes_file(name, mistake):
     file_name = ('mistakes_' + name + '2.txt')
     if isfile(file_name):
@@ -113,6 +119,7 @@ def create_mistakes_file(name, mistake):
     else:
         with open(file_name, 'w') as new_mistakes:
             new_mistakes.write(mistake)
+
 
 def yes_or_not(answer):
     while answer not in {'да', 'нет'}:
@@ -127,6 +134,7 @@ def yes_or_not(answer):
             answer = answer.lower()
         return answer
 
+
 def choise_digit(answer):
     while not answer.isdigit():
         print('Ты ошибся, введи цифру')
@@ -140,6 +148,7 @@ def choise_digit(answer):
             stop = default_timer()  # конец отсчёта
         global answers_time
         answers_time += round(stop - start)  # Время ответа
+
 
 def count():
     examples_quantity = ''  # Количество примеров
@@ -354,8 +363,6 @@ else:
         save_mistakes = all_new_settings['save_mistakes']
         uniq = all_new_settings['uniq']
 
-
-
 while True:
     if isfile('mistakes_' + name + name_id + '.txt'):
         mode = select_mode(1)
@@ -373,7 +380,7 @@ while True:
             if change_setting == '1':
                 print('Сейчас:' + answer_numbers)
                 answer_numbers = input()
-                while answer_numbers.isdigit() == False:
+                while not answer_numbers.isdigit():
                     print('Введи число')
                     answer_numbers = input()
 
@@ -426,7 +433,6 @@ while True:
                 'change_mod': change_mod ,
                 'name': name}
             json.dump(settings_json, all_settings, ensure_ascii=False)
-
 
     if mode == '3':
         fix_mistakes()

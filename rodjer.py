@@ -329,7 +329,7 @@ else:
         answer_numbers = all_new_settings['answer_numbers']
         show_setting = all_new_settings['show_setting']
         change_mod = all_new_settings['change_mod']
-        name = all_new_settings['name_user']
+        name_user = all_new_settings['name_user']
         save_mistakes = all_new_settings['save_mistakes']
         uniq = all_new_settings['uniq']
 

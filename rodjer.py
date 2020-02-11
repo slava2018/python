@@ -259,12 +259,11 @@ def fix_mistakes():
                     number_of_repeats = int(number_of_repeats)
                     number_of_repeats += -1
                     if number_of_repeats != 0:
-                        create_mistakes_file(name, f'{number1} {sign} {number2}  {number_of_repeats}\n')
+                        create_mistakes_file(name + name_id, f'{number1} {sign} {number2}  {number_of_repeats}\n')
                 else:
                     print('Ты ошибся.')
                     # Создает или открывает новый файл с ошибками
-                    nameid = (name + name_id)
-                    create_mistakes_file(nameid, m_example)
+                    create_mistakes_file(name + name_id, m_example)
                 print('Если устал, напиши "стоп".')
                 m_example = mistakes_file.readline()
                 if m_example == '':
@@ -273,8 +272,7 @@ def fix_mistakes():
         print('Устал? Хорошо, ты можешь продолжить исправлять свои ошибки позже.')
         # Дописывает строчки из прошлого файла в новый
         while  m_example != '':
-            nameid = (name + name_id)
-            create_mistakes_file(nameid, m_example)
+            create_mistakes_file(name + name_id, m_example)
             m_example = mistakes_file.readline()
 
     # Переименовывает новый файл и удаляет старый
@@ -289,6 +287,8 @@ if isfile('settings.json'):
         all_new_settings = json.load(all_settings)
         setting = all_new_settings['change_mod']
         name = all_new_settings['name']
+        name_id = all_new_settings['name_id']
+
 
         if setting != 'однопользовательский':
             print('Привет! Как тебя зовут?')
@@ -298,17 +298,23 @@ if isfile('settings.json'):
             name_id = input()
             if name_id == 'нет':
                 print('Приятно познакомиться, ' + name)
+                name_id = randint(100, 999)
+                name_id = str(name_id)
+                print('твой id:' + name_id)
             else:
                 if isfile('mistakes_' + name + name_id + '.txt'):
                     print('Давно не виделись, ' + name)
                 else:
                     print('Ты ошибся')
                     print('Приятно познакомиться, ' + name)
+                    name_id = randint(100, 999)
+                    print('твой id:' + str(name_id))
         else:
             with open('settings.json', 'r',  encoding="utf-8") as all_settings:
                 all_new_settings = json.load(all_settings)
                 name = all_new_settings['name']
                 setting = all_new_settings['change_mod']
+                name_id = all_new_settings['name_id']
                 print('Давно не виделись,' + name)
 
 else:
@@ -319,21 +325,27 @@ else:
     name_id = input()
     if name_id == 'нет':
         print('Приятно познакомиться, ' + name)
+        name_id = randint(100, 999)
+        name_id = str(name_id)
+        print('твой id:' + name_id)
     else:
         if isfile('mistakes_' + name + name_id + '.txt'):
             print('Давно не виделись, ' + name)
         else:
             print('Ты ошибся')
             print('Приятно познакомиться, ' + name)
+            name_id = randint(100,999)
+            print('твой id:' + str(name_id))
 
     with open('settings.json', 'w', encoding="utf-8") as all_settings:
         settings_json = {
             'change_mod': 'однопользовательский',
-            'name': name}
+            'name': name,
+            'name_id': name_id}
         json.dump(settings_json, all_settings, ensure_ascii=False)
 
 if isfile('settings_' + name + '.json'):
-    with open('settings_' + name + '.json', 'r', encoding="utf-8") as settings:
+    with open('settings_' + name + name_id + '.json', 'r', encoding="utf-8") as settings:
         all_new_settings = json.load(settings)
         answer_numbers = all_new_settings['answer_numbers']
         show_setting = all_new_settings['show_setting']
@@ -342,7 +354,7 @@ if isfile('settings_' + name + '.json'):
         save_mistakes = all_new_settings['save_mistakes']
         uniq = all_new_settings['uniq']
 else:
-    with open('settings_' + name + '.json', 'w', encoding="utf-8") as settings:
+    with open('settings_' + name + name_id + '.json', 'w', encoding="utf-8") as settings:
         new_settings = {
         'answer_numbers':'3',
         'show_setting':'да',
@@ -354,7 +366,7 @@ else:
 
         json.dump(new_settings, settings, ensure_ascii=False)
 
-    with open('settings_' + name + '.json', 'r', encoding="utf-8") as settings:
+    with open('settings_' + name + name_id + '.json', 'r', encoding="utf-8") as settings:
         all_new_settings = json.load(settings)
         answer_numbers = all_new_settings['answer_numbers']
         show_setting = all_new_settings['show_setting']
@@ -401,10 +413,12 @@ while True:
                     all_new_settings = json.load(all_settings)
                     setting = all_new_settings['change_mod']
                     name = all_new_settings['name']
+                    name_id = all_new_settings['name_id']
                 with open('settings.json', 'w', encoding="utf-8") as all_settings:
                     settings_json = {
                         'change_mod': 'многопользовательский',
-                        'name': name}
+                        'name': name,
+                        'name_id': name_id}
                     json.dump(settings_json, all_settings, ensure_ascii=False)
 
             if change_setting == '4':
@@ -426,12 +440,13 @@ while True:
                     print('Введи "да" или "нет"')
                     save_mistakes = input()
 
-        with open('settings_' + name + '.txt', 'w', encoding="utf-8") as settings:
+        with open('settings_' + name + name_id + '.txt', 'w', encoding="utf-8") as settings:
             settings.write(f'{answer_numbers}{show_setting}{change_mod}{name}\n{save_mistakes}\n{uniq}')
         with open('settings.json', 'w', encoding="utf-8") as all_settings:
             settings_json = {
                 'change_mod': change_mod ,
-                'name': name}
+                'name': name,
+                'name_id': name_id}
             json.dump(settings_json, all_settings, ensure_ascii=False)
 
     if mode == '3':

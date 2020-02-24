@@ -300,6 +300,10 @@ if isfile('settings.json'):
                 print('Приятно познакомиться, ' + name)
                 name_id = randint(100, 999)
                 name_id = str(name_id)
+                name_id = str(name_id)
+                while isfile('settings_' + name + name_id + '.json'):
+                    name_id = randint(100, 999)
+                    name_id = str(name_id)
                 print('твой id:' + name_id)
             else:
                 if isfile('mistakes_' + name + name_id + '.txt'):
@@ -308,6 +312,10 @@ if isfile('settings.json'):
                     print('Ты ошибся')
                     print('Приятно познакомиться, ' + name)
                     name_id = randint(100, 999)
+                    name_id = str(name_id)
+                    while isfile('settings_' + name + name_id + '.json'):
+                        name_id = randint(100, 999)
+                        name_id = str(name_id)
                     print('твой id:' + str(name_id))
         else:
             with open('settings.json', 'r',  encoding="utf-8") as all_settings:
@@ -327,6 +335,9 @@ else:
         print('Приятно познакомиться, ' + name)
         name_id = randint(100, 999)
         name_id = str(name_id)
+        while isfile('settings_' + name + name_id + '.json'):
+            name_id = randint(100, 999)
+            name_id = str(name_id)
         print('твой id:' + name_id)
     else:
         if isfile('mistakes_' + name + name_id + '.txt'):
@@ -335,6 +346,10 @@ else:
             print('Ты ошибся')
             print('Приятно познакомиться, ' + name)
             name_id = randint(100,999)
+            name_id = str(name_id)
+            while isfile('settings_' + name + name_id + '.json'):
+                name_id = randint(100, 999)
+                name_id = str(name_id)
             print('твой id:' + str(name_id))
 
     with open('settings.json', 'w', encoding="utf-8") as all_settings:
@@ -344,7 +359,7 @@ else:
             'name_id': name_id}
         json.dump(settings_json, all_settings, ensure_ascii=False)
 
-if isfile('settings_' + name + '.json'):
+if isfile('settings_' + name + name_id + '.json'):
     with open('settings_' + name + name_id + '.json', 'r', encoding="utf-8") as settings:
         all_new_settings = json.load(settings)
         answer_numbers = all_new_settings['answer_numbers']

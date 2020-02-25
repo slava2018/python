@@ -47,3 +47,18 @@ def duplicats(file_name):
         for line in all_lines:
             new_file.write(line)
     return new_file_name
+
+
+def check_input(user_input, odz, warnings):
+    while user_input not in odz:
+        if warnings:
+            all_element = ''
+            for one_element in odz[:-1]:
+                all_element += (f'{one_element}, ')
+            all_element = all_element[:-2]
+            print(f'Должно быть {all_element} или {odz[-1]}')
+        else:
+            print('некорректный ввод')
+        user_input = input('Введи другое значение:')
+
+    return user_input

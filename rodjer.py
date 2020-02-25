@@ -294,7 +294,7 @@ if isfile('settings.json'):
             print('Привет! Как тебя зовут?')
             name = input()
             name = name.title()
-            print('У тебя уже есть свой id? если да, то введи его ниже')
+            print('У тебя уже есть свой пароль? если да, то введи его ниже')
             name_id = input()
             if name_id == 'нет':
                 print('Приятно познакомиться, ' + name)
@@ -304,9 +304,9 @@ if isfile('settings.json'):
                 while isfile('settings_' + name + name_id + '.json'):
                     name_id = randint(100, 999)
                     name_id = str(name_id)
-                print('твой id:' + name_id)
+                print('твой пароль:' + name_id)
             else:
-                if isfile('mistakes_' + name + name_id + '.txt'):
+                if isfile('settings_' + name + name_id + '.json'):
                     print('Давно не виделись, ' + name)
                 else:
                     print('Ты ошибся')
@@ -316,7 +316,7 @@ if isfile('settings.json'):
                     while isfile('settings_' + name + name_id + '.json'):
                         name_id = randint(100, 999)
                         name_id = str(name_id)
-                    print('твой id:' + str(name_id))
+                    print('твой пароль:' + str(name_id))
         else:
             with open('settings.json', 'r',  encoding="utf-8") as all_settings:
                 all_new_settings = json.load(all_settings)
@@ -329,7 +329,7 @@ else:
     print('Привет! Меня зовут Роджер. А тебя?')
     name = input()
     name = name.title()
-    print('У тебя уже есть свой id? если да, то введи его ниже')
+    print('У тебя уже есть свой пароль? если да, то введи его ниже')
     name_id = input()
     if name_id == 'нет':
         print('Приятно познакомиться, ' + name)
@@ -338,9 +338,9 @@ else:
         while isfile('settings_' + name + name_id + '.json'):
             name_id = randint(100, 999)
             name_id = str(name_id)
-        print('твой id:' + name_id)
+        print('твой пароль:' + name_id)
     else:
-        if isfile('mistakes_' + name + name_id + '.txt'):
+        if isfile('settings_' + name + name_id + '.json'):
             print('Давно не виделись, ' + name)
         else:
             print('Ты ошибся')
@@ -350,7 +350,7 @@ else:
             while isfile('settings_' + name + name_id + '.json'):
                 name_id = randint(100, 999)
                 name_id = str(name_id)
-            print('твой id:' + str(name_id))
+            print('твой пароль:' + str(name_id))
 
     with open('settings.json', 'w', encoding="utf-8") as all_settings:
         settings_json = {
@@ -455,7 +455,7 @@ while True:
                     print('Введи "да" или "нет"')
                     save_mistakes = input()
 
-        with open('settings_' + name + name_id + '.txt', 'w', encoding="utf-8") as settings:
+        with open('settings_' + name + name_id + '.json', 'w', encoding="utf-8") as settings:
             settings.write(f'{answer_numbers}{show_setting}{change_mod}{name}\n{save_mistakes}\n{uniq}')
         with open('settings.json', 'w', encoding="utf-8") as all_settings:
             settings_json = {

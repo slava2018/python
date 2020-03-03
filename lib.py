@@ -59,6 +59,6 @@ def check_input(user_input, odz, warnings):
             print(f'Должно быть {all_element} или {odz[-1]}')
         else:
             print('некорректный ввод')
-        user_input = input('Введи другое значение:')
+        user_input = input('Введи другое значение:\n')
 
     return user_input

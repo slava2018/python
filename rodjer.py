@@ -6,6 +6,8 @@ from timeit import default_timer
 from os.path import isfile
 from os import rename, remove
 from lib import *
+from subprocess import call
+import os
 
 
 def remove_same_lines(filename):
@@ -60,16 +62,17 @@ def select_mode(mods=0):
 
 def settings_change():
     print('''Выбери параметр:
+        ========================================================
         1 - количество правильных ответов для исправления ошибки
         2 - показывать правильный ответ при ошибке
         3 - однопользовательский режим
         4 - имя пользователя
         5 - сохранять ошибки
         6 - уникальные примеры 
-        0 - назад''')
+        ========================================================''')
 
     mode = input('Выбери режим\n')
-    while mode not in {'1', '2', '3', '4', '5', '6', '0'}:
+    while mode not in {'1', '2', '3', '4', '5', '6', ''}:
         mode = input('Выбери режим\n')
 
     return mode
@@ -189,7 +192,7 @@ def count():
     uniques = []
     global uniq
     # Генерирует и выводит пример
-    if uniq == 'да':
+    if uniq == '1':
         if int(examples_quantity)>int(maximum_answer)**2:
             print('Я не знаю столько уникальных примеров.')
             examples_quantity = int(maximum_answer)**2
@@ -197,7 +200,7 @@ def count():
     for example_kol in range(int(examples_quantity)):
         example_line = example_generation(maximum_answer)
 
-        if uniq == 'да':
+        if uniq == '1':
             if example_line not in uniques:
                 uniques.append(example_line)
             else:
@@ -226,9 +229,9 @@ def count():
             print('Правильно.')
         else:
             fails += 1
-            if show_setting == 'да':
+            if show_setting == '1':
                 print(right_answer)
-            if save_mistakes== 'да':
+            if save_mistakes== '1':
                 error_warnings()
 
             # Создание файла с ошибками
@@ -280,8 +283,15 @@ def fix_mistakes():
     rename(('mistakes_' + name + name_id +  '2.txt'), ('mistakes_' + name + name_id + '.txt'))
 
 
-# Основной блок программы
+def hide_file(any_file):
+    if os.name == 'nt':
+        if os.path.exists(any_file):
+            call(['atrib', '+h', any_file])
+    else:
+        return any_file
 
+
+# Основной блок программы
 if isfile('settings.json'):
     with open('settings.json', 'r',  encoding="utf-8") as all_settings:
         all_new_settings = json.load(all_settings)
@@ -290,7 +300,7 @@ if isfile('settings.json'):
         name_id = all_new_settings['name_id']
 
 
-        if setting != 'однопользовательский':
+        if setting != '1':
             print('Привет! Как тебя зовут?')
             name = input()
             name = name.title()
@@ -354,7 +364,7 @@ else:
 
     with open('settings.json', 'w', encoding="utf-8") as all_settings:
         settings_json = {
-            'change_mod': 'однопользовательский',
+            'change_mod': '1',
             'name': name,
             'name_id': name_id}
         json.dump(settings_json, all_settings, ensure_ascii=False)
@@ -372,11 +382,11 @@ else:
     with open('settings_' + name + name_id + '.json', 'w', encoding="utf-8") as settings:
         new_settings = {
         'answer_numbers':'3',
-        'show_setting':'да',
-        'change_mod':'однопользовательский',
+        'show_setting':'1',
+        'change_mod':'1',
         'name_user':name,
-        'save_mistakes':'да',
-        'uniq':'да'
+        'save_mistakes':'1',
+        'uniq':'1'
         }
 
         json.dump(new_settings, settings, ensure_ascii=False)
@@ -400,8 +410,8 @@ while True:
         count()
 
     if mode == '2':
-        change_setting = ''
-        while change_setting != '0':
+        change_setting = settings_change()
+        while change_setting != '':
             change_setting = settings_change()
 
             if change_setting == '1':
@@ -413,16 +423,24 @@ while True:
 
             if change_setting == '2':
                 print('Сейчас:' + show_setting)
+                print('''========
+                        1 - Да
+                        2 - Нет
+                        ========''')
                 show_setting = input()
-                while show_setting not in {'да', 'нет'}:
-                    print('Введи "да" или "нет"')
+                while show_setting not in {'1', '2'}:
+                    print('Введи 1 или 2')
                     show_setting = input()
 
             if change_setting == '3':
                 print('Сейчас:' + change_mod)
+                print('''========
+                        1 - Однопользовательский
+                        2 - Многопользовательский
+                        ========''')
                 change_mod = input()
-                while change_mod not in {'однопользовательский', 'многопользовательский'}:
-                    print('Введи "однопользовательский " или "многопользовательский"')
+                while change_mod not in {'1', '2'}:
+                    print('Введи 1 или 2')
                     change_mod = input()
                 with open('settings.json', 'r', encoding="utf-8") as all_settings:
                     all_new_settings = json.load(all_settings)
@@ -431,7 +449,7 @@ while True:
                     name_id = all_new_settings['name_id']
                 with open('settings.json', 'w', encoding="utf-8") as all_settings:
                     settings_json = {
-                        'change_mod': 'многопользовательский',
+                        'change_mod': '2',
                         'name': name,
                         'name_id': name_id}
                     json.dump(settings_json, all_settings, ensure_ascii=False)
@@ -443,17 +461,25 @@ while True:
 
             if change_setting == '5':
                 print('Сейчас:' + save_mistakes)
+                print('''========
+                        1 - Да
+                        2 - Нет
+                        ========''')
                 save_mistakes = input()
-                while save_mistakes not in {'да', 'нет'}:
-                    print('Введи "да" или "нет"')
+                while save_mistakes not in {'1', '2'}:
+                    print('Введи 1 или 2')
                     save_mistakes = input()
 
             if change_setting == '6':
                 print('Сейчас:' + uniq)
+                print('''========
+                        1 - Да
+                        2 - Нет
+                        ========''')
                 uniq = input()
-                while uniq not in {'да', 'нет'}:
-                    print('Введи "да" или "нет"')
-                    save_mistakes = input()
+                while uniq not in {'1', '2'}:
+                    print('Введи 1 или 2')
+                    uniq = input()
 
         with open('settings_' + name + name_id + '.json', 'w', encoding="utf-8") as settings:
             settings.write(f'{answer_numbers}{show_setting}{change_mod}{name}\n{save_mistakes}\n{uniq}')

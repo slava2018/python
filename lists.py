@@ -10,7 +10,7 @@ player_points = 0
 player_cards = 0
 answer = 'да'
 
-print('Ход игрока\n')
+print('\nХод игрока\n')
 
 while answer == 'да':
     # перетаскивает карту в руку
@@ -36,7 +36,7 @@ if player_points == 0:
 else:
     print(f'Очки человека: {player_points}')
 
-print('Ход компьютера\n')
+print('\nХод компьютера\n')
 
 bot_points = 0
 answer = 'да'
@@ -68,8 +68,8 @@ else:
     print(f'Очки компьютера: {bot_points}\n')
 
 if bot_points == player_points:
-    print('Ничья!')
+    print('\nНичья!')
 elif bot_points < player_points:
-    print('Человек победил!')
+    print('\nЧеловек победил!')
 else:
-    print('Компьютер победил')
+    print('\nКомпьютер победил')

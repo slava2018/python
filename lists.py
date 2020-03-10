@@ -1,5 +1,5 @@
 from lib import check_input
-from random import shuffle
+from random import shuffle, choice
 from time import sleep
 
 
@@ -56,10 +56,12 @@ while answer == 'да':
         sleep(2)
         if player_cards > 3:
             answer = 'нет'
-        elif bot_points < 16:
-            answer = 'да'
-        else:
+        elif bot_points > 16:
             answer = 'нет'
+        elif bot_points > 10:
+            answer = choice('да','нет')
+        else:
+            answer = 'да'
     print(answer)
 
 if bot_points == 0:

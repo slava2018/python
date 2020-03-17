@@ -6,7 +6,9 @@ cash = 50
 repeat = 'да'
 
 while repeat != 'нет':
-    cards = [2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11] * 4
+
+    cards = {'J': 10, 'Q': 10, 'K': 10, 'T': 11, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9,
+             '10': 10} * 4
     shuffle(cards)
 
     player_points = 0
@@ -14,11 +16,12 @@ while repeat != 'нет':
     answer = 'да'
     move = 1
 
-    kush = input(f'Ваши деньги:{cash}. Делайте ставку')
+    kush = input(f'Ваши деньги:{cash}. Делайте ставку\n')
     while kush.isdigit() == False:
         print('Введите число')
+        kush = input(f'Ваши деньги:{cash}. Делайте ставку\n')
     kush = int(kush)
-    if kush < cash:
+    if kush > cash:
         print('У вас нет столько денег')
     cash = cash - kush
 
@@ -84,20 +87,18 @@ while repeat != 'нет':
             Вы: {player_points}.
             =====================
                 ''')
-            if bot_points > 21:
-                print('Перебор')
-                bot_points  = 0
-
+        if bot_points > 21:
+            print('Перебор')
+            bot_points = 0
 
     if bot_points == player_points:
         print('\nНичья!')
     elif bot_points < player_points:
         print('\nТы победил!')
         print(f'Ставка {kush} сыграла')
-        cash += kush*2
+        cash += kush * 2
     else:
         print('\nКомпьютер победил')
         print(f'Вы потеряли:{kush}')
 
-
-    repeat = input('Хотите ли сыграть еще раз?')
+    repeat = input('Хотите ли сыграть еще раз?\n')

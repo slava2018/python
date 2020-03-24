@@ -1,14 +1,55 @@
 from lib import check_input
-from random import randint
+from random import randint,shuffle,choice
 from time import sleep
+from  pprint import pprint
+
+
+class Card(object):
+    def __init__(self, suit, card):
+        self.suit = suit
+        self.card = card
+    def show(self):
+        print(self.card, self.suit)
+
+i = Card('gbrb', '222')
+i.show()
+
+def get_deck():
+    deck = []
+
+    for suit in ('пики', 'крести', 'черви', 'бубны'):
+        for card in range(2, 11):
+            deck.append(f'{card} {suit}')
+        for card in ('король', 'дама', 'валет', 'туз'):
+            deck.append(f'{card} {suit}')
+    shuffle(deck)
+    return deck
+
+def get_card_points(card, bot = False):
+    card_name = card.split()
+    
+    card_points = {}
+    
+    for card in range(2,11):
+        card_points[f'{card}'] = card
+    for card in ('король', 'дама', 'валет'):
+        card_points[f'{card}'] = 10
+    if card_name[0] == 'туз':
+        if bot:
+            points = choice([1, 11])
+        else:
+            points = int(input('1 или 11?\n'))
+    else:
+        points = card_points[card_name[0]]
+
+    return points
 
 cash = 50
 repeat = 'да'
 
 while repeat != 'нет':
 
-    cards = dict(K='10', Q='10', J='10', T='11')
-    cards.update({a:a for a in range (2,11)})
+    cards = get_deck()
 
     player_points = 0
     bot_points = 0
@@ -27,25 +68,21 @@ while repeat != 'нет':
     while answer == 'да':
         # перетаскивает карту в руку
         if move == 1:
-            number_card = randint(2, 11)
-            dealer_handler = cards.pop(number_card)
-            print(f'Дилеру выпало: {dealer_handler}')
-            bot_points += number_card
+            dealer_handler = cards.pop()
+            bot_points += get_card_points(dealer_handler,True)
             sleep(2)
             print(f'Компьютеру выпало: {dealer_handler}')
 
             users_cards = []
             for i in range(2):
-                number_card = randint(2, 11)
-                handler = cards.pop(number_card)
+                handler = cards.pop()
                 print(f'Вам выпало: {handler}')
                 users_cards.append(handler)
-                player_points += number_card
+                player_points += get_card_points(handler)
         else:
-            number_card = randint(2,11)
-            handler = cards.pop(number_card)
+            handler = cards.pop()
             print(f'Вам выпало: {handler}')
-            player_points += number_card
+            player_points += get_card_points(handler)
 
         if player_points > 21:
             print(f'Вам выпало: {handler}')
@@ -81,10 +118,8 @@ while repeat != 'нет':
 
     else:
         while bot_points < 18:
-            number_card = randint(2, 11)
-            dealer_handler = cards.pop(number_card)
-            print(f'Дилеру выпало: {dealer_handler}')
-            bot_points += number_card
+            dealer_handler = cards.pop()
+            bot_points += get_card_points(dealer_handler, True)
             sleep(2)
             print(f'''
             Компьютеру выпало: {dealer_handler}

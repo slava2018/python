@@ -1,5 +1,5 @@
 from lib import check_input
-from random import shuffle, choice
+from random import randint
 from time import sleep
 
 cash = 50
@@ -7,9 +7,8 @@ repeat = 'да'
 
 while repeat != 'нет':
 
-    cards = {'J': 10, 'Q': 10, 'K': 10, 'T': 11, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9,
-             '10': 10} * 4
-    shuffle(cards)
+    cards = dict(K='10', Q='10', J='10', T='11')
+    cards.update({a:a for a in range (2,11)})
 
     player_points = 0
     bot_points = 0
@@ -28,19 +27,25 @@ while repeat != 'нет':
     while answer == 'да':
         # перетаскивает карту в руку
         if move == 1:
-            dealer_handler = cards.pop()
-            bot_points += dealer_handler
+            number_card = randint(2, 11)
+            dealer_handler = cards.pop(number_card)
+            print(f'Дилеру выпало: {dealer_handler}')
+            bot_points += number_card
             sleep(2)
             print(f'Компьютеру выпало: {dealer_handler}')
 
             users_cards = []
             for i in range(2):
-                handler = cards.pop()
+                number_card = randint(2, 11)
+                handler = cards.pop(number_card)
+                print(f'Вам выпало: {handler}')
                 users_cards.append(handler)
-                player_points += handler
+                player_points += number_card
         else:
-            handler = cards.pop()
-            player_points += handler
+            number_card = randint(2,11)
+            handler = cards.pop(number_card)
+            print(f'Вам выпало: {handler}')
+            player_points += number_card
 
         if player_points > 21:
             print(f'Вам выпало: {handler}')
@@ -76,8 +81,10 @@ while repeat != 'нет':
 
     else:
         while bot_points < 18:
-            dealer_handler = cards.pop()
-            bot_points += dealer_handler
+            number_card = randint(2, 11)
+            dealer_handler = cards.pop(number_card)
+            print(f'Дилеру выпало: {dealer_handler}')
+            bot_points += number_card
             sleep(2)
             print(f'''
             Компьютеру выпало: {dealer_handler}

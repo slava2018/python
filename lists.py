@@ -11,7 +11,7 @@ class Card(object):
     def show(self):
         print(self.card, self.suit)
 
-i = Card('gbrb', '222')
+i = Card('пики', '5')
 i.show()
 
 def get_deck():

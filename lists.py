@@ -5,14 +5,18 @@ from  pprint import pprint
 
 
 class Card(object):
+
     def __init__(self, suit, card):
         self.suit = suit
         self.card = card
+
     def show(self):
-        print(self.card, self.suit)
+        return self.card, self.suit
 
 i = Card('пики', '5')
-i.show()
+
+c, s = i
+print(c, s)
 
 def get_deck():
     deck = []

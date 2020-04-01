@@ -1,36 +1,45 @@
-from datetime import datetime
-from pprint import pprint
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from timeit import default_timer
 
 
-# Функция декоратор
+# функция-декоратор для получения времени выполнения функции
 def show_time(func):
+    # функция-обёртка
     def wrapper(*args, **kwargs):
-        start = datetime.now()
-        result = func(*args, **kwargs)
-        stop = datetime.now()
-        spent_time = stop - start
+
+        start = default_timer()
+        result = func(*args, **kwargs)  # вызов функции
+        stop = default_timer()
+
+        spent_time = f'{round(stop-start, 8)} seconds'
         print(spent_time)
+        # вернём  результат выполнения функции
         return result
+
     return wrapper
 
 
-@show_time
-def numbers1(n):
-    lst = []
-    for i in range(n):
-        if i % 2 == 0:
-            lst.append(i)
-    return lst
+# функция создания списка чётных чисел через цикл for
+@show_time  # синтаксический сахар для вызова декоратора
+def even_numbers1(n):
+    numbers = []
+    for i in range(2, n+2, 2):
+        numbers.append(i)
+    return numbers
 
 
-@show_time
-def numbers2(n):
-    lst = [i for i in range(n) if i % 2 == 0]
-    return lst
+# функция создания списка чётных чисел через генератор списка
+# @show_time
+def even_numbers2(n):
+    numbers = [i for i in range(2, n+2, 2)]
+    return numbers
 
 
-# n = show_time(numbers1)
-# a = n(100000)
-#print(a)
+# вызов функции с использованием декоратора c синтаксическим сахаром @show_time
+even_numbers1(10000000)
 
-numbers2(10**5)
+# прямое использование декоратора без синтаксического сахара @show_time
+received_func = show_time(even_numbers2)
+a = received_func(10000000)

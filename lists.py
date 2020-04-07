@@ -2,7 +2,7 @@ from lib import check_input
 from random import randint,shuffle,choice
 from time import sleep
 
-class My():
+class My(object):
     def __init__(self, name):
         self.card, self.suit = name.split()
 
@@ -32,7 +32,7 @@ class Card(My):
         print('ok')
     def __init__(self, name):
         self.ok()
-        super.__init__(My(name))
+        super().__init__(name)
 
 
 

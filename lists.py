@@ -1,8 +1,6 @@
 from lib import check_input
 from random import randint,shuffle,choice
 from time import sleep
-from  pprint import pprint
-
 
 class Card(object):
 

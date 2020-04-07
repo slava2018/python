@@ -6,17 +6,29 @@ from  pprint import pprint
 
 class Card(object):
 
-    def __init__(self, suit, card):
-        self.suit = suit
-        self.card = card
+    def __init__(self, name):
+        self.card,self.suit = name.split()
 
     def show(self):
-        return self.card, self.suit
+        name = (f'{self.card} {self.suit}')
+        return name
 
-i = Card('пики', '5')
+    def value(self, bot = False):
 
-c, s = i
-print(c, s)
+        if self.card == 'туз':
+            if bot:
+                points = choice([1, 11])
+            else:
+                points = int(input('1 или 11?\n'))
+        elif self.card in ('король', 'дама', 'валет', 'туз'):
+            points = 10
+        else:
+            points = self.card
+
+        points = int(points)
+        return points
+
+
 
 def get_deck():
     deck = []
@@ -29,24 +41,25 @@ def get_deck():
     shuffle(deck)
     return deck
 
-def get_card_points(card, bot = False):
-    card_name = card.split()
-    
-    card_points = {}
-    
-    for card in range(2,11):
-        card_points[f'{card}'] = card
-    for card in ('король', 'дама', 'валет'):
-        card_points[f'{card}'] = 10
-    if card_name[0] == 'туз':
-        if bot:
-            points = choice([1, 11])
-        else:
-            points = int(input('1 или 11?\n'))
-    else:
-        points = card_points[card_name[0]]
 
-    return points
+#def get_card_points(card, bot = False):
+    #card_name = card.split()
+    
+    #card_points = {}
+    
+    #for card in range(2,11):
+        #card_points[f'{card}'] = card
+    #for card in ('король', 'дама', 'валет'):
+        #card_points[f'{card}'] = 10
+    #if card_name[0] == 'туз':
+        #if bot:
+            #points = choice([1, 11])
+        #else:
+            #points = int(input('1 или 11?\n'))
+    #else:
+        #points = card_points[card_name[0]]
+
+    #return points
 
 cash = 50
 repeat = 'да'
@@ -72,24 +85,24 @@ while repeat != 'нет':
     while answer == 'да':
         # перетаскивает карту в руку
         if move == 1:
-            dealer_handler = cards.pop()
-            bot_points += get_card_points(dealer_handler,True)
+            dealer_handler = Card(cards.pop())
+            bot_points += dealer_handler.value(True)
             sleep(2)
-            print(f'Компьютеру выпало: {dealer_handler}')
+            print(f'Компьютеру выпало: {dealer_handler.show()}')
 
             users_cards = []
             for i in range(2):
-                handler = cards.pop()
-                print(f'Вам выпало: {handler}')
-                users_cards.append(handler)
-                player_points += get_card_points(handler)
+                handler = Card(cards.pop())
+                print(f'Вам выпало: {handler.show()}')
+                users_cards.append(handler.show())
+                player_points += handler.value()
         else:
-            handler = cards.pop()
-            print(f'Вам выпало: {handler}')
-            player_points += get_card_points(handler)
+            handler = Card(cards.pop())
+            print(f'Вам выпало: {handler.show()}')
+            player_points += handler.value()
 
         if player_points > 21:
-            print(f'Вам выпало: {handler}')
+            print(f'Вам выпало: {handler.show()}')
             print('Перебор')
             player_points = 0
             break
@@ -114,7 +127,7 @@ while repeat != 'нет':
         Оппонент: {bot_points}
         Вы: {player_points}.
         =====================
-        Вам выпало: {handler}.
+        Вам выпало: {handler.show()}.
         Еще?\n
         '''), ['да', 'нет'], True)
 
@@ -122,11 +135,11 @@ while repeat != 'нет':
 
     else:
         while bot_points < 18:
-            dealer_handler = cards.pop()
-            bot_points += get_card_points(dealer_handler, True)
+            dealer_handler = Card(cards.pop())
+            bot_points += dealer_handler.value(True)
             sleep(2)
             print(f'''
-            Компьютеру выпало: {dealer_handler}
+            Компьютеру выпало: {dealer_handler.show()}
             =====================
             ОЧКИ:
             Оппонент: {bot_points}

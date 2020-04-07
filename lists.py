@@ -2,10 +2,10 @@ from lib import check_input
 from random import randint,shuffle,choice
 from time import sleep
 
-class Card(object):
-
+class My():
     def __init__(self, name):
-        self.card,self.suit = name.split()
+        self.card, self.suit = name.split()
+
 
     def show(self):
         name = (f'{self.card} {self.suit}')
@@ -25,6 +25,19 @@ class Card(object):
 
         points = int(points)
         return points
+
+
+class Card(My):
+    def ok(self):
+        print('ok')
+    def __init__(self, name):
+        self.ok()
+        super.__init__(My(name))
+
+
+
+a = Card('5 sss')
+
 
 
 

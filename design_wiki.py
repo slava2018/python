@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowIcon(icon)
         MainWindow.setStyleSheet(u"QMainWindow\n"
 "{\n"
-"	background-image:\\img\\lib.jpg;\n"
+"	background-image:url(img/lib.jpg);\n"
 "}\n"
 "")
         self.centralwidget = QWidget(MainWindow)

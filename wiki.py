@@ -4,8 +4,12 @@ from PySide2.QtCore import QFile
 # импортируем связанный py файл с нашим ui файлом
 from design_wiki import Ui_MainWindow
 import wikipedia
+from requests import get
+from random import randint
+from lib import download_files
 
 wikipedia.set_lang("ru")
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -26,8 +30,23 @@ class MainWindow(QMainWindow):
             self.ui.textBrowser.setText('Введите что-то в строку поиска!')
         else:
             try:
+                image_name = "title.jpg"
                 s = wikipedia.page(search)
-                self.ui.textBrowser.setText(s.content)
+                # получим путь к картинке и скачаем её
+
+                image_url = s.images[0]
+                image_list = image_url.split('/')
+
+                for image_one in image_list:
+                    while image_one != image_list[-1]
+
+
+                download_files([image_list[-1]], image_url, 'img')
+
+                image = f"<img src='{image_name}'>"
+                self.ui.textBrowser.setText(image)
+                self.ui.textBrowser.append(s.content)
+
             except:
                 text = (f'''
 Возможные варианты:

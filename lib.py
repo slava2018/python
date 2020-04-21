@@ -1,3 +1,14 @@
+from requests import get
+
+
+# функция загрузки файлов из сети интернет
+def download_files(files_list, url, folder=False):
+    for file in files_list:
+        image = get(f'{url}/{file}')
+
+        with open(f'{folder}/{file}', "wb") as f:
+            f.write(image.content)
+
 # функция временных окончаний
 def time_endings(v):
 

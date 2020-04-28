@@ -38,7 +38,7 @@ class MainWindow(QMainWindow):
                 image = get(image_url)
                 with open('img/test.jpg', "wb") as f:
                     f.write(image.content)
-                image_source= f"<img src='img/test.jpg'>"
+                image_source= f"<img src='img/test.jpg' width=100px>"
                 self.ui.textBrowser.setText(image_source)
                 self.ui.textBrowser.append(s.content)
 

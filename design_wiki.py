@@ -28,7 +28,16 @@ class Ui_MainWindow(object):
 "{\n"
 "	background-image:url(img/lib.jpg);\n"
 "}\n"
-"")
+"\n"
+"QPushButton:selected\n"
+"{\n"
+"	outline: none;\n"
+"}\n"
+"\n"
+"QPushButton:active\n"
+"{\n"
+"	outline: none;\n"
+"}")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.label = QLabel(self.centralwidget)
@@ -37,9 +46,11 @@ class Ui_MainWindow(object):
         self.lineEdit = QLineEdit(self.centralwidget)
         self.lineEdit.setObjectName(u"lineEdit")
         self.lineEdit.setGeometry(QRect(10, 70, 591, 41))
+        self.lineEdit.setFocusPolicy(Qt.NoFocus)
         self.pushButton = QPushButton(self.centralwidget)
         self.pushButton.setObjectName(u"pushButton")
         self.pushButton.setGeometry(QRect(610, 70, 121, 41))
+        self.pushButton.setFocusPolicy(Qt.NoFocus)
         self.pushButton.setStyleSheet(u"QPushButton\n"
 "{\n"
 "	background-color: #aa5500;\n"

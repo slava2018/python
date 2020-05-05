@@ -36,8 +36,6 @@ class MainWindow(QMainWindow, QWidget):
         # клавишу ESC
         elif key == Qt.Key_Escape:
             self.close()
-        elif key == Qt.Key_1:
-            print('ok')
         else:
             self.search_in_wiki()
             super().keyPressEvent(event)

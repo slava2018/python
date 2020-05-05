@@ -3,7 +3,7 @@ from random import randint,shuffle,choice
 from time import sleep
 import sys
 from PySide2.QtWidgets import QApplication, QMainWindow, QDialog
-from PySide2.QtCore import QFile
+from PySide2.QtCore import Qt
 # импортируем связанный py файл с нашим ui файлом
 from design_21 import Ui_MainWindow
 
@@ -18,6 +18,19 @@ class MainWindow(QMainWindow):
 
         # Добавим действие при нажати на кнопку
         #self.ui.pushButton.clicked.connect(self.pushed_button)
+
+    def keyPressEvent(self, event):
+        key = event.key()
+        # клавишу Enter
+        if key == Qt.Key_Enter:
+            pass
+            # установить через QT Designer focus policy в значение strong focus для нужной Qsearch_button
+        # клавишу ESC
+        elif key == Qt.Key_Escape:
+            self.close()
+        else:
+            self.pushed_button()
+            super().keyPressEvent(event)
 
     # функция при нажатии на кнопку
     def pushed_button(self):
@@ -71,12 +84,6 @@ class Card(My):
     def __init__(self, name):
         self.ok()
         super().__init__(name)
-
-
-
-a = Card('5 sss')
-
-
 
 
 def get_deck():

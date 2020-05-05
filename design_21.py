@@ -29,7 +29,24 @@ class Ui_MainWindow(object):
         MainWindow.setStyleSheet(u"QMainWindow\n"
 "{\n"
 "	background: url(\"img/background.jpg\");\n"
-"}")
+"}\n"
+"\n"
+"QPushButton\n"
+"{\n"
+"	text-align:right;\n"
+"	padding-right:10px;\n"
+"}\n"
+"\n"
+"QPushButton:selected\n"
+"{\n"
+"	outline: none;\n"
+"}\n"
+"\n"
+"QPushButton:active\n"
+"{\n"
+"	outline: none;\n"
+"}\n"
+"")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.dealer = QLabel(self.centralwidget)
@@ -72,40 +89,41 @@ class Ui_MainWindow(object):
         self.d_card11.setGeometry(QRect(460, 530, 63, 85))
         self.u_card1 = QLabel(self.centralwidget)
         self.u_card1.setObjectName(u"u_card1")
-        self.u_card1.setGeometry(QRect(30, 20, 63, 85))
+        self.u_card1.setGeometry(QRect(50, 40, 63, 85))
         self.u_card2 = QLabel(self.centralwidget)
         self.u_card2.setObjectName(u"u_card2")
-        self.u_card2.setGeometry(QRect(60, 20, 63, 85))
+        self.u_card2.setGeometry(QRect(80, 40, 63, 85))
         self.u_card3 = QLabel(self.centralwidget)
         self.u_card3.setObjectName(u"u_card3")
-        self.u_card3.setGeometry(QRect(90, 20, 63, 85))
+        self.u_card3.setGeometry(QRect(110, 40, 63, 85))
         self.u_card4 = QLabel(self.centralwidget)
         self.u_card4.setObjectName(u"u_card4")
-        self.u_card4.setGeometry(QRect(120, 20, 63, 85))
+        self.u_card4.setGeometry(QRect(140, 40, 63, 85))
         self.u_card5 = QLabel(self.centralwidget)
         self.u_card5.setObjectName(u"u_card5")
-        self.u_card5.setGeometry(QRect(150, 20, 63, 85))
+        self.u_card5.setGeometry(QRect(170, 40, 63, 85))
         self.u_card6 = QLabel(self.centralwidget)
         self.u_card6.setObjectName(u"u_card6")
-        self.u_card6.setGeometry(QRect(180, 20, 63, 85))
+        self.u_card6.setGeometry(QRect(200, 40, 63, 85))
         self.u_card7 = QLabel(self.centralwidget)
         self.u_card7.setObjectName(u"u_card7")
-        self.u_card7.setGeometry(QRect(210, 20, 63, 85))
+        self.u_card7.setGeometry(QRect(230, 40, 63, 85))
         self.u_card8 = QLabel(self.centralwidget)
         self.u_card8.setObjectName(u"u_card8")
-        self.u_card8.setGeometry(QRect(240, 20, 63, 85))
+        self.u_card8.setGeometry(QRect(260, 40, 63, 85))
         self.u_card9 = QLabel(self.centralwidget)
         self.u_card9.setObjectName(u"u_card9")
-        self.u_card9.setGeometry(QRect(270, 20, 63, 85))
+        self.u_card9.setGeometry(QRect(290, 40, 63, 85))
         self.u_card10 = QLabel(self.centralwidget)
         self.u_card10.setObjectName(u"u_card10")
-        self.u_card10.setGeometry(QRect(300, 20, 63, 85))
+        self.u_card10.setGeometry(QRect(320, 40, 63, 85))
         self.u_card11 = QLabel(self.centralwidget)
         self.u_card11.setObjectName(u"u_card11")
-        self.u_card11.setGeometry(QRect(330, 20, 63, 85))
+        self.u_card11.setGeometry(QRect(350, 40, 63, 85))
         self.More = QPushButton(self.centralwidget)
         self.More.setObjectName(u"More")
         self.More.setGeometry(QRect(820, 480, 141, 31))
+        self.More.setLayoutDirection(Qt.LeftToRight)
         self.More.setStyleSheet(u"QPushButton\n"
 "{\n"
 "	background: url(\"img/more.png\");\n"
@@ -120,6 +138,7 @@ class Ui_MainWindow(object):
         self.Stop = QPushButton(self.centralwidget)
         self.Stop.setObjectName(u"Stop")
         self.Stop.setGeometry(QRect(820, 510, 141, 31))
+        self.Stop.setLayoutDirection(Qt.LeftToRight)
         self.Stop.setStyleSheet(u"QPushButton\n"
 "{\n"
 "	background: url(\"img/stop.png\");\n"
@@ -141,12 +160,37 @@ class Ui_MainWindow(object):
         font.setBold(True)
         font.setWeight(75)
         self.money.setFont(font)
+        self.money.setLayoutDirection(Qt.LeftToRight)
         self.money.setStyleSheet(u"QTextBrowser\n"
 "{\n"
 "	background: url(\"img/money.png\");\n"
 "	color:#000000;\n"
 "	border: none;\n"
 "}")
+        self.Start = QPushButton(self.centralwidget)
+        self.Start.setObjectName(u"Start")
+        self.Start.setGeometry(QRect(820, 540, 141, 31))
+        self.Start.setLayoutDirection(Qt.LeftToRight)
+        self.Start.setStyleSheet(u"QPushButton\n"
+"{\n"
+"	background: url(\"img/stop.png\");\n"
+"	border: none;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	border: none;\n"
+"	margin-left: 30px\n"
+"}")
+        self.Start.setCheckable(False)
+        self.d_points = QLabel(self.centralwidget)
+        self.d_points.setObjectName(u"d_points")
+        self.d_points.setGeometry(QRect(190, 492, 81, 21))
+        self.d_points.setStyleSheet(u"color: #ffffff;")
+        self.u_points = QLabel(self.centralwidget)
+        self.u_points.setObjectName(u"u_points")
+        self.u_points.setGeometry(QRect(50, 10, 81, 21))
+        self.u_points.setStyleSheet(u"color: #ffffff;")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -156,6 +200,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.Stop.setDefault(False)
+        self.Start.setDefault(False)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -189,5 +234,8 @@ class Ui_MainWindow(object):
         self.More.setText(QCoreApplication.translate("MainWindow", u"\u0415\u0449\u0451", None))
         self.Stop.setText(QCoreApplication.translate("MainWindow", u"\u0425\u0432\u0430\u0442\u0438\u0442", None))
         self.money.setPlaceholderText(QCoreApplication.translate("MainWindow", u"      \u0414\u0435\u043d\u044c\u0433\u0438:", None))
+        self.Start.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0434\u0430\u0442\u044c \u043a\u0430\u0440\u0442\u044b", None))
+        self.d_points.setText("")
+        self.u_points.setText("")
     # retranslateUi
 

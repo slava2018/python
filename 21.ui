@@ -358,7 +358,7 @@ QPushButton:active
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="More">
+   <widget class="QPushButton" name="Start">
     <property name="geometry">
      <rect>
       <x>820</x>
@@ -384,7 +384,7 @@ QPushButton:hover
 }</string>
     </property>
     <property name="text">
-     <string>Ещё</string>
+     <string>Сдать карты</string>
     </property>
    </widget>
    <widget class="QPushButton" name="Stop">
@@ -454,41 +454,6 @@ QPushButton:hover
      <string>      Деньги:</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="Start">
-    <property name="geometry">
-     <rect>
-      <x>820</x>
-      <y>540</y>
-      <width>141</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="layoutDirection">
-     <enum>Qt::LeftToRight</enum>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton
-{
-	background: url(&quot;img/stop.png&quot;);
-	border: none;
-}
-
-QPushButton:hover
-{
-	border: none;
-	margin-left: 30px
-}</string>
-    </property>
-    <property name="text">
-     <string>Сдать карты</string>
-    </property>
-    <property name="checkable">
-     <bool>false</bool>
-    </property>
-    <property name="default">
-     <bool>false</bool>
-    </property>
-   </widget>
    <widget class="QLabel" name="d_points">
     <property name="geometry">
      <rect>
@@ -519,6 +484,113 @@ QPushButton:hover
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Victory">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>180</y>
+      <width>301</width>
+      <height>211</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Tuz_answer">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>170</y>
+      <width>301</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	color: white;
+	background-color: #888888;
+}</string>
+    </property>
+    <property name="text">
+     <string> Вам выпал туз! Выберите сколько очков он будет стоить:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Tuz_1">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>220</y>
+      <width>151</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Sensei Medium</family>
+      <pointsize>28</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+	color: #555555;
+	background-color: #cccccc;
+	text-align: center;
+	border-bottom-left-radius: 70 40;
+}
+QPushButton:hover
+{
+	
+	color: #000000;
+}
+#000000</string>
+    </property>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="Tuz_2">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>220</y>
+      <width>151</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Sensei Medium</family>
+      <pointsize>28</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+	color: #cccccc;
+	background-color: #555555;
+	text-align: center;
+	border-bottom-right-radius: 70 40;
+}
+QPushButton:hover
+{
+	
+	color: #ffffff;
+}
+</string>
+    </property>
+    <property name="text">
+     <string>11</string>
     </property>
    </widget>
   </widget>

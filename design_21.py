@@ -120,11 +120,11 @@ class Ui_MainWindow(object):
         self.u_card11 = QLabel(self.centralwidget)
         self.u_card11.setObjectName(u"u_card11")
         self.u_card11.setGeometry(QRect(350, 40, 63, 85))
-        self.More = QPushButton(self.centralwidget)
-        self.More.setObjectName(u"More")
-        self.More.setGeometry(QRect(820, 480, 141, 31))
-        self.More.setLayoutDirection(Qt.LeftToRight)
-        self.More.setStyleSheet(u"QPushButton\n"
+        self.Start = QPushButton(self.centralwidget)
+        self.Start.setObjectName(u"Start")
+        self.Start.setGeometry(QRect(820, 480, 141, 31))
+        self.Start.setLayoutDirection(Qt.LeftToRight)
+        self.Start.setStyleSheet(u"QPushButton\n"
 "{\n"
 "	background: url(\"img/more.png\");\n"
 "	border: none;\n"
@@ -167,22 +167,6 @@ class Ui_MainWindow(object):
 "	color:#000000;\n"
 "	border: none;\n"
 "}")
-        self.Start = QPushButton(self.centralwidget)
-        self.Start.setObjectName(u"Start")
-        self.Start.setGeometry(QRect(820, 540, 141, 31))
-        self.Start.setLayoutDirection(Qt.LeftToRight)
-        self.Start.setStyleSheet(u"QPushButton\n"
-"{\n"
-"	background: url(\"img/stop.png\");\n"
-"	border: none;\n"
-"}\n"
-"\n"
-"QPushButton:hover\n"
-"{\n"
-"	border: none;\n"
-"	margin-left: 30px\n"
-"}")
-        self.Start.setCheckable(False)
         self.d_points = QLabel(self.centralwidget)
         self.d_points.setObjectName(u"d_points")
         self.d_points.setGeometry(QRect(190, 492, 81, 21))
@@ -191,6 +175,56 @@ class Ui_MainWindow(object):
         self.u_points.setObjectName(u"u_points")
         self.u_points.setGeometry(QRect(50, 10, 81, 21))
         self.u_points.setStyleSheet(u"color: #ffffff;")
+        self.Victory = QLabel(self.centralwidget)
+        self.Victory.setObjectName(u"Victory")
+        self.Victory.setGeometry(QRect(330, 180, 301, 211))
+        self.Tuz_answer = QLabel(self.centralwidget)
+        self.Tuz_answer.setObjectName(u"Tuz_answer")
+        self.Tuz_answer.setGeometry(QRect(10, 170, 301, 51))
+        self.Tuz_answer.setStyleSheet(u"QLabel\n"
+"{\n"
+"	color: white;\n"
+"	background-color: #888888;\n"
+"}")
+        self.Tuz_1 = QPushButton(self.centralwidget)
+        self.Tuz_1.setObjectName(u"Tuz_1")
+        self.Tuz_1.setGeometry(QRect(10, 220, 151, 51))
+        font1 = QFont()
+        font1.setFamily(u"Sensei Medium")
+        font1.setPointSize(28)
+        self.Tuz_1.setFont(font1)
+        self.Tuz_1.setCursor(QCursor(Qt.ArrowCursor))
+        self.Tuz_1.setStyleSheet(u"QPushButton\n"
+"{\n"
+"	color: #555555;\n"
+"	background-color: #cccccc;\n"
+"	text-align: center;\n"
+"	border-bottom-left-radius: 70 40;\n"
+"}\n"
+"QPushButton:hover\n"
+"{\n"
+"	\n"
+"	color: #000000;\n"
+"}\n"
+"#000000")
+        self.Tuz_2 = QPushButton(self.centralwidget)
+        self.Tuz_2.setObjectName(u"Tuz_2")
+        self.Tuz_2.setGeometry(QRect(160, 220, 151, 51))
+        self.Tuz_2.setFont(font1)
+        self.Tuz_2.setCursor(QCursor(Qt.ArrowCursor))
+        self.Tuz_2.setStyleSheet(u"QPushButton\n"
+"{\n"
+"	color: #cccccc;\n"
+"	background-color: #555555;\n"
+"	text-align: center;\n"
+"	border-bottom-right-radius: 70 40;\n"
+"}\n"
+"QPushButton:hover\n"
+"{\n"
+"	\n"
+"	color: #ffffff;\n"
+"}\n"
+"")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -200,7 +234,6 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.Stop.setDefault(False)
-        self.Start.setDefault(False)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -231,11 +264,14 @@ class Ui_MainWindow(object):
         self.u_card9.setText("")
         self.u_card10.setText("")
         self.u_card11.setText("")
-        self.More.setText(QCoreApplication.translate("MainWindow", u"\u0415\u0449\u0451", None))
+        self.Start.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0434\u0430\u0442\u044c \u043a\u0430\u0440\u0442\u044b", None))
         self.Stop.setText(QCoreApplication.translate("MainWindow", u"\u0425\u0432\u0430\u0442\u0438\u0442", None))
         self.money.setPlaceholderText(QCoreApplication.translate("MainWindow", u"      \u0414\u0435\u043d\u044c\u0433\u0438:", None))
-        self.Start.setText(QCoreApplication.translate("MainWindow", u"\u0421\u0434\u0430\u0442\u044c \u043a\u0430\u0440\u0442\u044b", None))
         self.d_points.setText("")
         self.u_points.setText("")
+        self.Victory.setText("")
+        self.Tuz_answer.setText(QCoreApplication.translate("MainWindow", u" \u0412\u0430\u043c \u0432\u044b\u043f\u0430\u043b \u0442\u0443\u0437! \u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0441\u043a\u043e\u043b\u044c\u043a\u043e \u043e\u0447\u043a\u043e\u0432 \u043e\u043d \u0431\u0443\u0434\u0435\u0442 \u0441\u0442\u043e\u0438\u0442\u044c:", None))
+        self.Tuz_1.setText(QCoreApplication.translate("MainWindow", u"1", None))
+        self.Tuz_2.setText(QCoreApplication.translate("MainWindow", u"11", None))
     # retranslateUi
 

@@ -7,6 +7,7 @@ from PySide2.QtCore import Qt
 # импортируем связанный py файл с нашим ui файлом
 from design_21 import Ui_MainWindow
 
+number_card = 2
 
 class Deck(object):
 
@@ -36,7 +37,11 @@ class Card:
             if dealer:
                 points = choice([1, 11])
             else:
-                points = int(input('1 или 11?\n'))
+                self.ui.Tuz_1.setVisible(True)
+                self.ui.Tuz_2.setVisible(True)
+                self.ui.Tuz_answer.setVisible(True)
+                points = self.ui.Tuz_1.clicked.connect(self.pushed_button_tuz1)
+                points = self.ui.Tuz_2.clicked.connect(self.pushed_button_tuz2)
         else:
             points = card_points[card_name[0]]
 
@@ -51,9 +56,15 @@ class MainWindow(QMainWindow, Deck, Card):
         # инициализируем нашу форму
         self.ui.setupUi(self)
 
+        self.ui.Tuz_1.setVisible(False)
+        self.ui.Tuz_2.setVisible(False)
+        self.ui.Tuz_answer.setVisible(False)
+
         # Добавим действие при нажати на кнопку
         self.ui.Start.clicked.connect(self.pushed_button_start)
+        self.ui.Stop.clicked.connect(self.pushed_button_stop)
 
+        self.ui.Stop.setVisible(False)
         # соберём списки посадочных мест для карт
         # игрок
         self.ucards_seats = list()
@@ -64,7 +75,9 @@ class MainWindow(QMainWindow, Deck, Card):
         for i in range(1, 12):
             exec(f'self.dcards_seats.append(self.ui.d_card{i})')
 
+        money = 50
         self.deck = self.get_deck()
+        self.ui.money.setText(f'      Деньги:{money}$')
 
     def keyPressEvent(self, event):
         key = event.key()
@@ -79,23 +92,76 @@ class MainWindow(QMainWindow, Deck, Card):
             self.pushed_button()
             super().keyPressEvent(event)
 
+    def pushed_button_tuz1(self):
+        self.ui.Tuz_1.setVisible(False)
+        self.ui.Tuz_2.setVisible(False)
+        self.ui.Tuz_answer.setVisible(False)
+        return 1
+
+    def pushed_button_tuz2(self):
+        self.ui.Tuz_1.setVisible(False)
+        self.ui.Tuz_2.setVisible(False)
+        self.ui.Tuz_answer.setVisible(False)
+        return 11
     # Метод при нажатии на кнопку
     def pushed_button_start(self):
+        global number_card
 
-        self.dealer_points = 0
-        self.user_points = 0
+        if self.ui.Start.text() == 'Сдать карты':
+            self.dealer_points = 0
+            self.user_points = 0
 
-        dealer_handler = self.deck.pop()
-        self.ui.d_card1.setText(f"<img src='img/deck/63x85/{dealer_handler}.png' />")
-        self.ui.d_card2.setText(f"<img src='img/deck/63x85/рубашка2.png' />")
-        self.dealer_points += self.get_card_points(dealer_handler, dealer=True)
-        self.ui.d_points.setText(str(self.dealer_points))
+            dealer_handler = self.deck.pop()
+            self.ui.d_card1.setText(f"<img src='img/deck/63x85/{dealer_handler}.png' />")
+            self.ui.d_card2.setText(f"<img src='img/deck/63x85/рубашка2.png' />")
+            self.dealer_points += self.get_card_points(dealer_handler, dealer=True)
+            self.ui.d_points.setText(str(self.dealer_points))
 
-        for i in range(2):
+            for i in range(2):
+                user_handler = self.deck.pop()
+                self.ucards_seats[i].setText(f"<img src='img/deck/63x85/{user_handler}.png' />")
+                self.user_points += self.get_card_points(user_handler)
+            self.ui.u_points.setText(str(self.user_points))
+
+            self.ui.Start.setText('Ещё')
+            self.ui.Stop.setVisible(True)
+        else:
             user_handler = self.deck.pop()
-            self.ucards_seats[i].setText(f"<img src='img/deck/63x85/{user_handler}.png' />")
+            self.ucards_seats[number_card].setText(f"<img src='img/deck/63x85/{user_handler}.png' />")
             self.user_points += self.get_card_points(user_handler)
-        self.ui.u_points.setText(str(self.user_points))
+            self.ui.u_points.setText(str(self.user_points))
+            number_card += 1
+            if int(self.ui.u_points.text()) == 21:
+                self.ui.Start.setVisible(False)
+                self.ui.Stop.setVisible(False)
+                self.ui.Victory.setText("<img src='img/blackjack.png' />")
+            elif int(self.ui.u_points.text()) > 21:
+                self.ui.Start.setVisible(False)
+                self.ui.Stop.setVisible(False)
+                self.ui.Victory.setText("<img src='img/lose.png' />")
+
+    def pushed_button_stop(self):
+        self.ui.Start.setVisible(False)
+        self.ui.Stop.setVisible(False)
+        number_card = 1
+        while self.dealer_points < 18:
+            dealer_handler = self.deck.pop()
+            self.dcards_seats[number_card].setText(f"<img src='img/deck/63x85/{dealer_handler}.png' />")
+            self.dealer_points += self.get_card_points(dealer_handler)
+            self.ui.d_points.setText(str(self.dealer_points))
+            number_card +=1
+        if self.dealer_points > 21:
+            self.ui.Victory.setText("<img src='img/victory.png' />")
+        else:
+            if int(self.ui.u_points.text()) < self.dealer_points:
+                self.ui.Victory.setText("<img src='img/lose.png' />")
+            elif int(self.ui.u_points.text()) > self.dealer_points:
+                self.ui.Victory.setText("<img src='img/victory.png' />")
+            else:
+                self.ui.Victory.setText("<img src='img/draw.png' />")
+
+
+
 
         # dealer_points += dealer_handler.value(True)
         # print(f'Компьютеру выпало: {dealer_handler.show()}')

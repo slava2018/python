@@ -67,9 +67,11 @@ class MainWindow(QMainWindow, Deck, Card):
         # Добавим действие при нажати на кнопку
         self.ui.Start.clicked.connect(self.pushed_button_start)
         self.ui.Stop.clicked.connect(self.pushed_button_stop)
+        self.ui.Restart.clicked.connect(self.pushed_button_restart)
         self.ui.cashEdit.setText('0')
 
         self.ui.Stop.setVisible(False)
+        self.ui.Restart.setVisible(False)
         # соберём списки посадочных мест для карт
         # игрок
         self.ucards_seats = list()
@@ -84,6 +86,9 @@ class MainWindow(QMainWindow, Deck, Card):
 
         self.deck = self.get_deck()
         self.ui.money.setText(f'      Деньги:{money}$')
+
+    def pushed_button_restart(self):
+        pass
 
     def pushed_button_tuz1(self):
         self.ui.Tuz_1.setVisible(False)
@@ -160,12 +165,14 @@ class MainWindow(QMainWindow, Deck, Card):
                 self.ui.Victory.setText("<img src='img/blackjack.png' />")
                 money += int(self.ui.cashEdit.text())*2
                 self.ui.money.setText(f'      Деньги:{money}$')
+                self.ui.Restart.setVisible(True)
             elif int(self.ui.u_points.text()) > 21:
                 self.ui.Start.setVisible(False)
                 self.ui.Stop.setVisible(False)
                 self.ui.Victory.setText("<img src='img/lose.png' />")
                 money -= int(self.ui.cashEdit.text())
                 self.ui.money.setText(f'      Деньги:{money}$')
+                self.ui.Restart.setVisible(True)
 
     def pushed_button_stop(self):
         global money
@@ -181,16 +188,23 @@ class MainWindow(QMainWindow, Deck, Card):
         if self.dealer_points > 21:
             self.ui.Victory.setText("<img src='img/victory.png' />")
             money += int(self.ui.cashEdit.text())
+            self.ui.money.setText(f'      Деньги:{money}$')
+            self.ui.Restart.setVisible(True)
         else:
             if int(self.ui.u_points.text()) < self.dealer_points:
                 self.ui.Victory.setText("<img src='img/lose.png' />")
                 money -= int(self.ui.cashEdit.text())
+                self.ui.money.setText(f'      Деньги:{money}$')
+                self.ui.Restart.setVisible(True)
             elif int(self.ui.u_points.text()) > self.dealer_points:
                 self.ui.Victory.setText("<img src='img/victory.png' />")
                 money += int(self.ui.cashEdit.text())
+                self.ui.money.setText(f'      Деньги:{money}$')
+                self.ui.Restart.setVisible(True)
             else:
                 self.ui.Victory.setText("<img src='img/draw.png' />")
-            self.ui.money.setText(f'      Деньги:{money}$')
+                self.ui.money.setText(f'      Деньги:{money}$')
+                self.ui.Restart.setVisible(True)
 
 
 

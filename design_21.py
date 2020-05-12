@@ -246,6 +246,25 @@ class Ui_MainWindow(object):
         font3.setFamily(u"Segoe Print")
         font3.setPointSize(14)
         self.cashEdit.setFont(font3)
+        self.Restart = QPushButton(self.centralwidget)
+        self.Restart.setObjectName(u"Restart")
+        self.Restart.setGeometry(QRect(390, 410, 181, 51))
+        self.Restart.setLayoutDirection(Qt.LeftToRight)
+        self.Restart.setStyleSheet(u"QPushButton\n"
+"{\n"
+"	background-color: #000000 ;\n"
+"	border: none;\n"
+"	text-align: center;\n"
+"	color: #ffffff;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	border: none;\n"
+"	color: #000000;\n"
+"	background-color: #ffffff;\n"
+"}")
+        self.Restart.setCheckable(False)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -255,6 +274,7 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         self.Stop.setDefault(False)
+        self.Restart.setDefault(False)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -295,5 +315,6 @@ class Ui_MainWindow(object):
         self.Tuz_1.setText(QCoreApplication.translate("MainWindow", u"1", None))
         self.Tuz_2.setText(QCoreApplication.translate("MainWindow", u"11", None))
         self.cash.setText(QCoreApplication.translate("MainWindow", u"     \u0421\u0442\u0430\u0432\u043a\u0430:", None))
+        self.Restart.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0447\u0430\u0442\u044c \u0437\u0430\u043d\u043e\u0432\u043e", None))
     # retranslateUi
 

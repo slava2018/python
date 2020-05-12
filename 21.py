@@ -43,8 +43,9 @@ class Card:
                 self.ui.Tuz_answer.setVisible(True)
                 self.ui.Stop.setVisible(False)
                 self.ui.Start.setVisible(False)
-                points = self.ui.Tuz_1.clicked.connect(self.pushed_button_tuz1)
-                points = self.ui.Tuz_2.clicked.connect(self.pushed_button_tuz2)
+                self.ui.Tuz_1.clicked.connect(self.pushed_button_tuz1)
+                self.ui.Tuz_2.clicked.connect(self.pushed_button_tuz2)
+                points = 0
         else:
             points = card_points[card_name[0]]
 
@@ -90,7 +91,8 @@ class MainWindow(QMainWindow, Deck, Card):
         self.ui.Tuz_answer.setVisible(False)
         self.ui.Stop.setVisible(True)
         self.ui.Start.setVisible(True)
-        return 1
+        self.user_points += 1
+        self.ui.u_points.setText(str(self.user_points))
 
 
     def pushed_button_tuz2(self):
@@ -99,7 +101,8 @@ class MainWindow(QMainWindow, Deck, Card):
         self.ui.Tuz_answer.setVisible(False)
         self.ui.Stop.setVisible(True)
         self.ui.Start.setVisible(True)
-        return 11
+        self.user_points += 11
+        self.ui.u_points.setText(str(self.user_points))
 
     def keyPressEvent(self, event):
         key = event.key()

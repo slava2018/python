@@ -9,6 +9,7 @@ from design_21 import Ui_MainWindow
 
 number_card = 2
 money = 50
+# .setEnabled(False) блокировка кнопки
 
 class Deck(object):
 
@@ -68,7 +69,17 @@ class MainWindow(QMainWindow, Deck, Card):
         self.ui.Start.clicked.connect(self.pushed_button_start)
         self.ui.Stop.clicked.connect(self.pushed_button_stop)
         self.ui.Restart.clicked.connect(self.pushed_button_restart)
-        self.ui.cashEdit.setText('0')
+        self.ui.close.clicked.connect(self.close)
+        self.ui.coin1.clicked.connect(self.pushed_coin_button)
+        self.ui.coin5.clicked.connect(self.pushed_coin_button)
+        self.ui.coin25.clicked.connect(self.pushed_coin_button)
+        self.ui.coin100.clicked.connect(self.pushed_coin_button)
+        self.ui.coin500.clicked.connect(self.pushed_coin_button)
+        self.ui.coin1000.clicked.connect(self.pushed_coin_button)
+
+
+        # спрячем заголовок окна
+        self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
 
         self.ui.Stop.setVisible(False)
         self.ui.Restart.setVisible(False)
@@ -86,6 +97,11 @@ class MainWindow(QMainWindow, Deck, Card):
 
         self.deck = self.get_deck()
         self.ui.money.setText(f'      Деньги:{money}$')
+
+    def pushed_coin_button(self):
+        button = self.sender()
+        self.rate = int(button.text())
+        self.ui.rate.setText(str(self.rate))
 
     def pushed_button_restart(self):
         pass

@@ -89,37 +89,37 @@ class Ui_MainWindow(object):
         self.d_card11.setGeometry(QRect(460, 530, 63, 85))
         self.u_card1 = QLabel(self.centralwidget)
         self.u_card1.setObjectName(u"u_card1")
-        self.u_card1.setGeometry(QRect(50, 40, 63, 85))
+        self.u_card1.setGeometry(QRect(60, 50, 63, 85))
         self.u_card2 = QLabel(self.centralwidget)
         self.u_card2.setObjectName(u"u_card2")
-        self.u_card2.setGeometry(QRect(80, 40, 63, 85))
+        self.u_card2.setGeometry(QRect(90, 50, 63, 85))
         self.u_card3 = QLabel(self.centralwidget)
         self.u_card3.setObjectName(u"u_card3")
-        self.u_card3.setGeometry(QRect(110, 40, 63, 85))
+        self.u_card3.setGeometry(QRect(120, 50, 63, 85))
         self.u_card4 = QLabel(self.centralwidget)
         self.u_card4.setObjectName(u"u_card4")
-        self.u_card4.setGeometry(QRect(140, 40, 63, 85))
+        self.u_card4.setGeometry(QRect(150, 50, 63, 85))
         self.u_card5 = QLabel(self.centralwidget)
         self.u_card5.setObjectName(u"u_card5")
-        self.u_card5.setGeometry(QRect(170, 40, 63, 85))
+        self.u_card5.setGeometry(QRect(180, 50, 63, 85))
         self.u_card6 = QLabel(self.centralwidget)
         self.u_card6.setObjectName(u"u_card6")
-        self.u_card6.setGeometry(QRect(200, 40, 63, 85))
+        self.u_card6.setGeometry(QRect(210, 50, 63, 85))
         self.u_card7 = QLabel(self.centralwidget)
         self.u_card7.setObjectName(u"u_card7")
-        self.u_card7.setGeometry(QRect(230, 40, 63, 85))
+        self.u_card7.setGeometry(QRect(240, 50, 63, 85))
         self.u_card8 = QLabel(self.centralwidget)
         self.u_card8.setObjectName(u"u_card8")
-        self.u_card8.setGeometry(QRect(260, 40, 63, 85))
+        self.u_card8.setGeometry(QRect(270, 50, 63, 85))
         self.u_card9 = QLabel(self.centralwidget)
         self.u_card9.setObjectName(u"u_card9")
-        self.u_card9.setGeometry(QRect(290, 40, 63, 85))
+        self.u_card9.setGeometry(QRect(300, 50, 63, 85))
         self.u_card10 = QLabel(self.centralwidget)
         self.u_card10.setObjectName(u"u_card10")
-        self.u_card10.setGeometry(QRect(320, 40, 63, 85))
+        self.u_card10.setGeometry(QRect(330, 50, 63, 85))
         self.u_card11 = QLabel(self.centralwidget)
         self.u_card11.setObjectName(u"u_card11")
-        self.u_card11.setGeometry(QRect(350, 40, 63, 85))
+        self.u_card11.setGeometry(QRect(360, 50, 63, 85))
         self.Start = QPushButton(self.centralwidget)
         self.Start.setObjectName(u"Start")
         self.Start.setGeometry(QRect(820, 480, 141, 31))
@@ -173,11 +173,11 @@ class Ui_MainWindow(object):
         self.d_points.setStyleSheet(u"color: #ffffff;")
         self.u_points = QLabel(self.centralwidget)
         self.u_points.setObjectName(u"u_points")
-        self.u_points.setGeometry(QRect(50, 10, 81, 21))
+        self.u_points.setGeometry(QRect(60, 20, 81, 21))
         self.u_points.setStyleSheet(u"color: #ffffff;")
         self.Victory = QLabel(self.centralwidget)
         self.Victory.setObjectName(u"Victory")
-        self.Victory.setGeometry(QRect(330, 180, 301, 211))
+        self.Victory.setGeometry(QRect(340, 180, 301, 211))
         self.Tuz_answer = QLabel(self.centralwidget)
         self.Tuz_answer.setObjectName(u"Tuz_answer")
         self.Tuz_answer.setGeometry(QRect(10, 170, 301, 51))
@@ -227,28 +227,25 @@ class Ui_MainWindow(object):
 "")
         self.cash = QLabel(self.centralwidget)
         self.cash.setObjectName(u"cash")
-        self.cash.setGeometry(QRect(760, 50, 191, 31))
+        self.cash.setGeometry(QRect(760, 50, 121, 31))
         font2 = QFont()
         font2.setFamily(u"Segoe Print")
         font2.setPointSize(14)
         font2.setBold(True)
         font2.setWeight(75)
         self.cash.setFont(font2)
-        self.cash.setStyleSheet(u"QTextBrowser\n"
+        self.cash.setStyleSheet(u"QLabel\n"
 "{\n"
 "	color:#ffffff;\n"
 "	border: none;\n"
 "}")
-        self.cashEdit = QLineEdit(self.centralwidget)
-        self.cashEdit.setObjectName(u"cashEdit")
-        self.cashEdit.setGeometry(QRect(880, 50, 71, 31))
-        font3 = QFont()
-        font3.setFamily(u"Segoe Print")
-        font3.setPointSize(14)
-        self.cashEdit.setFont(font3)
         self.Restart = QPushButton(self.centralwidget)
         self.Restart.setObjectName(u"Restart")
         self.Restart.setGeometry(QRect(390, 410, 181, 51))
+        font3 = QFont()
+        font3.setFamily(u"Segoe Print")
+        font3.setPointSize(14)
+        self.Restart.setFont(font3)
         self.Restart.setLayoutDirection(Qt.LeftToRight)
         self.Restart.setStyleSheet(u"QPushButton\n"
 "{\n"
@@ -265,11 +262,149 @@ class Ui_MainWindow(object):
 "	background-color: #ffffff;\n"
 "}")
         self.Restart.setCheckable(False)
+        self.close = QPushButton(self.centralwidget)
+        self.close.setObjectName(u"close")
+        self.close.setGeometry(QRect(10, 0, 41, 41))
+        self.close.setStyleSheet(u"QPushButton\n"
+"{\n"
+"	text-align:left;\n"
+"	border: none;\n"
+"	background-color: none;\n"
+"}")
+        icon1 = QIcon()
+        icon1.addFile(u"img/close_button.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.close.setIcon(icon1)
+        self.close.setIconSize(QSize(32, 32))
+        self.coin5 = QPushButton(self.centralwidget)
+        self.coin5.setObjectName(u"coin5")
+        self.coin5.setGeometry(QRect(70, 380, 41, 41))
+        self.coin5.setLayoutDirection(Qt.RightToLeft)
+        self.coin5.setStyleSheet(u"QPushButton\n"
+"{\n"
+"	border: 1;\n"
+"	border-radius: 20;\n"
+"	text-align:center;\n"
+"	color: white;\n"
+"	font: 11pt \"Comic Sans MS\";\n"
+"	background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));\n"
+"	padding: 0;\n"
+"	margin: 0;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 178, 102, 255), stop:0.55 rgba(235, 148, 61, 255), stop:0.98 rgba(0, 0, 0, 255), stop:1 rgba(0, 0, 0, 0));\n"
+"}")
+        self.coin5.setFlat(False)
+        self.coin1 = QPushButton(self.centralwidget)
+        self.coin1.setObjectName(u"coin1")
+        self.coin1.setGeometry(QRect(20, 380, 41, 41))
+        self.coin1.setLayoutDirection(Qt.RightToLeft)
+        self.coin1.setStyleSheet(u"QPushButton\n"
+"{\n"
+"	border: 1;\n"
+"	border-radius: 20;\n"
+"	text-align:center;\n"
+"	color: white;\n"
+"	font: 11pt \"Comic Sans MS\";\n"
+"	background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));\n"
+"	padding: 0;\n"
+"	margin: 0;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 178, 102, 255), stop:0.55 rgba(235, 148, 61, 255), stop:0.98 rgba(0, 0, 0, 255), stop:1 rgba(0, 0, 0, 0));\n"
+"}")
+        self.coin1.setFlat(False)
+        self.coin25 = QPushButton(self.centralwidget)
+        self.coin25.setObjectName(u"coin25")
+        self.coin25.setGeometry(QRect(120, 380, 41, 41))
+        self.coin25.setLayoutDirection(Qt.RightToLeft)
+        self.coin25.setStyleSheet(u"QPushButton\n"
+"{\n"
+"	border: 1;\n"
+"	border-radius: 20;\n"
+"	text-align:center;\n"
+"	color: white;\n"
+"	font: 11pt \"Comic Sans MS\";\n"
+"	background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));\n"
+"	padding: 0;\n"
+"	margin: 0;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 178, 102, 255), stop:0.55 rgba(235, 148, 61, 255), stop:0.98 rgba(0, 0, 0, 255), stop:1 rgba(0, 0, 0, 0));\n"
+"}")
+        self.coin25.setFlat(False)
+        self.coin1000 = QPushButton(self.centralwidget)
+        self.coin1000.setObjectName(u"coin1000")
+        self.coin1000.setGeometry(QRect(270, 380, 41, 41))
+        self.coin1000.setLayoutDirection(Qt.RightToLeft)
+        self.coin1000.setStyleSheet(u"QPushButton\n"
+"{\n"
+"	border: 1;\n"
+"	border-radius: 20;\n"
+"	text-align:center;\n"
+"	color: white;\n"
+"	font: 11pt \"Comic Sans MS\";\n"
+"	background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));\n"
+"	padding: 0;\n"
+"	margin: 0;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 178, 102, 255), stop:0.55 rgba(235, 148, 61, 255), stop:0.98 rgba(0, 0, 0, 255), stop:1 rgba(0, 0, 0, 0));\n"
+"}")
+        self.coin1000.setFlat(False)
+        self.coin500 = QPushButton(self.centralwidget)
+        self.coin500.setObjectName(u"coin500")
+        self.coin500.setGeometry(QRect(220, 380, 41, 41))
+        self.coin500.setLayoutDirection(Qt.RightToLeft)
+        self.coin500.setStyleSheet(u"QPushButton\n"
+"{\n"
+"	border: 1;\n"
+"	border-radius: 20;\n"
+"	text-align:center;\n"
+"	color: white;\n"
+"	font: 11pt \"Comic Sans MS\";\n"
+"	background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));\n"
+"	padding: 0;\n"
+"	margin: 0;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 178, 102, 255), stop:0.55 rgba(235, 148, 61, 255), stop:0.98 rgba(0, 0, 0, 255), stop:1 rgba(0, 0, 0, 0));\n"
+"}")
+        self.coin500.setFlat(False)
+        self.coin100 = QPushButton(self.centralwidget)
+        self.coin100.setObjectName(u"coin100")
+        self.coin100.setGeometry(QRect(170, 380, 41, 41))
+        self.coin100.setLayoutDirection(Qt.RightToLeft)
+        self.coin100.setStyleSheet(u"QPushButton\n"
+"{\n"
+"	border: 1;\n"
+"	border-radius: 20;\n"
+"	text-align:center;\n"
+"	color: white;\n"
+"	font: 11pt \"Comic Sans MS\";\n"
+"	background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));\n"
+"	padding: 0;\n"
+"	margin: 0;\n"
+"}\n"
+"\n"
+"QPushButton:hover\n"
+"{\n"
+"	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 178, 102, 255), stop:0.55 rgba(235, 148, 61, 255), stop:0.98 rgba(0, 0, 0, 255), stop:1 rgba(0, 0, 0, 0));\n"
+"}")
+        self.coin100.setFlat(False)
+        self.rate = QLabel(self.centralwidget)
+        self.rate.setObjectName(u"rate")
+        self.rate.setGeometry(QRect(890, 50, 47, 31))
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QMenuBar(MainWindow)
-        self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 960, 21))
-        MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
 
@@ -316,5 +451,13 @@ class Ui_MainWindow(object):
         self.Tuz_2.setText(QCoreApplication.translate("MainWindow", u"11", None))
         self.cash.setText(QCoreApplication.translate("MainWindow", u"     \u0421\u0442\u0430\u0432\u043a\u0430:", None))
         self.Restart.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0447\u0430\u0442\u044c \u0437\u0430\u043d\u043e\u0432\u043e", None))
+        self.close.setText("")
+        self.coin5.setText(QCoreApplication.translate("MainWindow", u"5", None))
+        self.coin1.setText(QCoreApplication.translate("MainWindow", u"1", None))
+        self.coin25.setText(QCoreApplication.translate("MainWindow", u"25", None))
+        self.coin1000.setText(QCoreApplication.translate("MainWindow", u"1000", None))
+        self.coin500.setText(QCoreApplication.translate("MainWindow", u"500", None))
+        self.coin100.setText(QCoreApplication.translate("MainWindow", u"100", None))
+        self.rate.setText("")
     # retranslateUi
 

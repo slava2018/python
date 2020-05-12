@@ -433,10 +433,10 @@ QPushButton:hover
     </property>
     <property name="font">
      <font>
-      <family>Open Sans</family>
-      <pointsize>16</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
+      <family>Segoe Print</family>
+      <pointsize>14</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
      </font>
     </property>
     <property name="layoutDirection">
@@ -591,6 +591,50 @@ QPushButton:hover
     </property>
     <property name="text">
      <string>11</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="cash">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>50</y>
+      <width>191</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe Print</family>
+      <pointsize>14</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QTextBrowser
+{
+	color:#ffffff;
+	border: none;
+}</string>
+    </property>
+    <property name="text">
+     <string>     Ставка:</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="cashEdit">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>50</y>
+      <width>71</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Segoe Print</family>
+      <pointsize>14</pointsize>
+     </font>
     </property>
    </widget>
   </widget>

@@ -155,10 +155,10 @@ class Ui_MainWindow(object):
         self.money.setObjectName(u"money")
         self.money.setGeometry(QRect(760, 0, 201, 41))
         font = QFont()
-        font.setFamily(u"Open Sans")
-        font.setPointSize(16)
-        font.setBold(True)
-        font.setWeight(75)
+        font.setFamily(u"Segoe Print")
+        font.setPointSize(14)
+        font.setBold(False)
+        font.setWeight(50)
         self.money.setFont(font)
         self.money.setLayoutDirection(Qt.LeftToRight)
         self.money.setStyleSheet(u"QTextBrowser\n"
@@ -225,6 +225,27 @@ class Ui_MainWindow(object):
 "	color: #ffffff;\n"
 "}\n"
 "")
+        self.cash = QLabel(self.centralwidget)
+        self.cash.setObjectName(u"cash")
+        self.cash.setGeometry(QRect(760, 50, 191, 31))
+        font2 = QFont()
+        font2.setFamily(u"Segoe Print")
+        font2.setPointSize(14)
+        font2.setBold(True)
+        font2.setWeight(75)
+        self.cash.setFont(font2)
+        self.cash.setStyleSheet(u"QTextBrowser\n"
+"{\n"
+"	color:#ffffff;\n"
+"	border: none;\n"
+"}")
+        self.cashEdit = QLineEdit(self.centralwidget)
+        self.cashEdit.setObjectName(u"cashEdit")
+        self.cashEdit.setGeometry(QRect(880, 50, 71, 31))
+        font3 = QFont()
+        font3.setFamily(u"Segoe Print")
+        font3.setPointSize(14)
+        self.cashEdit.setFont(font3)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
@@ -273,5 +294,6 @@ class Ui_MainWindow(object):
         self.Tuz_answer.setText(QCoreApplication.translate("MainWindow", u" \u0412\u0430\u043c \u0432\u044b\u043f\u0430\u043b \u0442\u0443\u0437! \u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0441\u043a\u043e\u043b\u044c\u043a\u043e \u043e\u0447\u043a\u043e\u0432 \u043e\u043d \u0431\u0443\u0434\u0435\u0442 \u0441\u0442\u043e\u0438\u0442\u044c:", None))
         self.Tuz_1.setText(QCoreApplication.translate("MainWindow", u"1", None))
         self.Tuz_2.setText(QCoreApplication.translate("MainWindow", u"11", None))
+        self.cash.setText(QCoreApplication.translate("MainWindow", u"     \u0421\u0442\u0430\u0432\u043a\u0430:", None))
     # retranslateUi
 

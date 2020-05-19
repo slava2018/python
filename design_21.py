@@ -169,7 +169,7 @@ class Ui_MainWindow(object):
 "}")
         self.d_points = QLabel(self.centralwidget)
         self.d_points.setObjectName(u"d_points")
-        self.d_points.setGeometry(QRect(190, 492, 81, 21))
+        self.d_points.setGeometry(QRect(160, 490, 81, 21))
         self.d_points.setStyleSheet(u"color: #ffffff;")
         self.u_points = QLabel(self.centralwidget)
         self.u_points.setObjectName(u"u_points")
@@ -178,38 +178,30 @@ class Ui_MainWindow(object):
         self.Victory = QLabel(self.centralwidget)
         self.Victory.setObjectName(u"Victory")
         self.Victory.setGeometry(QRect(340, 180, 301, 211))
-        self.Tuz_answer = QLabel(self.centralwidget)
-        self.Tuz_answer.setObjectName(u"Tuz_answer")
-        self.Tuz_answer.setGeometry(QRect(10, 170, 301, 51))
-        self.Tuz_answer.setStyleSheet(u"QLabel\n"
-"{\n"
-"	color: white;\n"
-"	background-color: #888888;\n"
-"}")
         self.Tuz_1 = QPushButton(self.centralwidget)
         self.Tuz_1.setObjectName(u"Tuz_1")
-        self.Tuz_1.setGeometry(QRect(10, 220, 151, 51))
+        self.Tuz_1.setGeometry(QRect(830, 480, 61, 31))
         font1 = QFont()
         font1.setFamily(u"Sensei Medium")
-        font1.setPointSize(28)
+        font1.setPointSize(16)
         self.Tuz_1.setFont(font1)
         self.Tuz_1.setCursor(QCursor(Qt.ArrowCursor))
         self.Tuz_1.setStyleSheet(u"QPushButton\n"
 "{\n"
 "	color: #555555;\n"
-"	background-color: #cccccc;\n"
+"	background-color:#cccccc;\n"
 "	text-align: center;\n"
-"	border-bottom-left-radius: 70 40;\n"
+"	border-bottom-left-radius: 30 20;\n"
 "}\n"
 "QPushButton:hover\n"
 "{\n"
 "	\n"
 "	color: #000000;\n"
 "}\n"
-"#000000")
+"")
         self.Tuz_2 = QPushButton(self.centralwidget)
         self.Tuz_2.setObjectName(u"Tuz_2")
-        self.Tuz_2.setGeometry(QRect(160, 220, 151, 51))
+        self.Tuz_2.setGeometry(QRect(890, 480, 61, 31))
         self.Tuz_2.setFont(font1)
         self.Tuz_2.setCursor(QCursor(Qt.ArrowCursor))
         self.Tuz_2.setStyleSheet(u"QPushButton\n"
@@ -217,7 +209,7 @@ class Ui_MainWindow(object):
 "	color: #cccccc;\n"
 "	background-color: #555555;\n"
 "	text-align: center;\n"
-"	border-bottom-right-radius: 70 40;\n"
+"	border-bottom-right-radius: 30 20;\n"
 "}\n"
 "QPushButton:hover\n"
 "{\n"
@@ -227,7 +219,7 @@ class Ui_MainWindow(object):
 "")
         self.cash = QLabel(self.centralwidget)
         self.cash.setObjectName(u"cash")
-        self.cash.setGeometry(QRect(760, 50, 121, 31))
+        self.cash.setGeometry(QRect(780, 50, 121, 31))
         font2 = QFont()
         font2.setFamily(u"Segoe Print")
         font2.setPointSize(14)
@@ -403,7 +395,13 @@ class Ui_MainWindow(object):
         self.coin100.setFlat(False)
         self.rate = QLabel(self.centralwidget)
         self.rate.setObjectName(u"rate")
-        self.rate.setGeometry(QRect(890, 50, 47, 31))
+        self.rate.setGeometry(QRect(900, 50, 47, 31))
+        self.rate.setFont(font3)
+        self.rate.setStyleSheet(u"QLabel\n"
+"{\n"
+"	color:#ffffff;\n"
+"	border: none;\n"
+"}")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -446,7 +444,6 @@ class Ui_MainWindow(object):
         self.d_points.setText("")
         self.u_points.setText("")
         self.Victory.setText("")
-        self.Tuz_answer.setText(QCoreApplication.translate("MainWindow", u" \u0412\u0430\u043c \u0432\u044b\u043f\u0430\u043b \u0442\u0443\u0437! \u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0441\u043a\u043e\u043b\u044c\u043a\u043e \u043e\u0447\u043a\u043e\u0432 \u043e\u043d \u0431\u0443\u0434\u0435\u0442 \u0441\u0442\u043e\u0438\u0442\u044c:", None))
         self.Tuz_1.setText(QCoreApplication.translate("MainWindow", u"1", None))
         self.Tuz_2.setText(QCoreApplication.translate("MainWindow", u"11", None))
         self.cash.setText(QCoreApplication.translate("MainWindow", u"     \u0421\u0442\u0430\u0432\u043a\u0430:", None))

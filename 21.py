@@ -7,6 +7,8 @@ from PySide2.QtCore import Qt
 # импортируем связанный py файл с нашим ui файлом
 from design_21 import Ui_MainWindow
 
+# pyside2-uic "21.ui" > "design_21.py"
+
 number_card = 2
 money = 50
 # .setEnabled(False) блокировка кнопки
@@ -41,7 +43,6 @@ class Card:
             else:
                 self.ui.Tuz_1.setVisible(True)
                 self.ui.Tuz_2.setVisible(True)
-                self.ui.Tuz_answer.setVisible(True)
                 self.ui.Stop.setVisible(False)
                 self.ui.Start.setVisible(False)
                 self.ui.Tuz_1.clicked.connect(self.pushed_button_tuz1)
@@ -54,6 +55,23 @@ class Card:
 
 
 class MainWindow(QMainWindow, Deck, Card):
+    def cashCheck(self):
+        doit = ''
+        if money < int(self.ui.coin1000.text()):
+            doit += 'self.ui.coin1000.setVisible(False)\n'
+        if money < int(self.ui.coin500.text()):
+            doit += 'self.ui.coin500.setVisible(False)\n'
+        if money < int(self.ui.coin100.text()):
+            doit += 'self.ui.coin100.setVisible(False)\n'
+        if money < int(self.ui.coin25.text()):
+            doit += 'self.ui.coin25.setVisible(False)\n'
+        if money < int(self.ui.coin5.text()):
+            doit += 'self.ui.coin5.setVisible(False)\n'
+        if money < int(self.ui.coin1.text()):
+            doit += 'self.ui.coin1.setVisible(False)\n'
+        exec(doit)
+
+
     def __init__(self):
         super(MainWindow, self).__init__()
         # создадим объект
@@ -63,13 +81,13 @@ class MainWindow(QMainWindow, Deck, Card):
 
         self.ui.Tuz_1.setVisible(False)
         self.ui.Tuz_2.setVisible(False)
-        self.ui.Tuz_answer.setVisible(False)
 
         # Добавим действие при нажати на кнопку
         self.ui.Start.clicked.connect(self.pushed_button_start)
         self.ui.Stop.clicked.connect(self.pushed_button_stop)
         self.ui.Restart.clicked.connect(self.pushed_button_restart)
         self.ui.close.clicked.connect(self.close)
+        self.cashCheck()
         self.ui.coin1.clicked.connect(self.pushed_coin_button)
         self.ui.coin5.clicked.connect(self.pushed_coin_button)
         self.ui.coin25.clicked.connect(self.pushed_coin_button)
@@ -102,6 +120,7 @@ class MainWindow(QMainWindow, Deck, Card):
         button = self.sender()
         self.rate = int(button.text())
         self.ui.rate.setText(str(self.rate))
+        self.cashCheck()
 
     def pushed_button_restart(self):
         pass
@@ -109,7 +128,6 @@ class MainWindow(QMainWindow, Deck, Card):
     def pushed_button_tuz1(self):
         self.ui.Tuz_1.setVisible(False)
         self.ui.Tuz_2.setVisible(False)
-        self.ui.Tuz_answer.setVisible(False)
         self.ui.Stop.setVisible(True)
         self.ui.Start.setVisible(True)
         self.user_points += 1
@@ -119,7 +137,6 @@ class MainWindow(QMainWindow, Deck, Card):
     def pushed_button_tuz2(self):
         self.ui.Tuz_1.setVisible(False)
         self.ui.Tuz_2.setVisible(False)
-        self.ui.Tuz_answer.setVisible(False)
         self.ui.Stop.setVisible(True)
         self.ui.Start.setVisible(True)
         self.user_points += 11
@@ -146,11 +163,11 @@ class MainWindow(QMainWindow, Deck, Card):
         global money
 
         if self.ui.Start.text() == 'Сдать карты':
-            if int(self.ui.cashEdit.text()) > money:
+            if int(self.ui.rate.text()) > money:
                 self.ui.Victory.setText('<img src=\'img/no money.png\' />')
             else:
-                self.ui.cashEdit.setVisible(False)
-                self.ui.cash.setText(f'     Ставка:{self.ui.cashEdit.text()}')
+                self.ui.rate.setVisible(False)
+                self.ui.cash.setText(f'     Ставка:{self.ui.rate.text()}')
                 self.dealer_points = 0
                 self.user_points = 0
                 self.ui.Victory.setText('')
@@ -179,14 +196,14 @@ class MainWindow(QMainWindow, Deck, Card):
                 self.ui.Start.setVisible(False)
                 self.ui.Stop.setVisible(False)
                 self.ui.Victory.setText("<img src='img/blackjack.png' />")
-                money += int(self.ui.cashEdit.text())*2
+                money += int(self.ui.rate.text())*2
                 self.ui.money.setText(f'      Деньги:{money}$')
                 self.ui.Restart.setVisible(True)
             elif int(self.ui.u_points.text()) > 21:
                 self.ui.Start.setVisible(False)
                 self.ui.Stop.setVisible(False)
                 self.ui.Victory.setText("<img src='img/lose.png' />")
-                money -= int(self.ui.cashEdit.text())
+                money -= int(self.ui.rate.text())
                 self.ui.money.setText(f'      Деньги:{money}$')
                 self.ui.Restart.setVisible(True)
 
@@ -203,18 +220,18 @@ class MainWindow(QMainWindow, Deck, Card):
             number_card +=1
         if self.dealer_points > 21:
             self.ui.Victory.setText("<img src='img/victory.png' />")
-            money += int(self.ui.cashEdit.text())
+            money += int(self.ui.rate.text())
             self.ui.money.setText(f'      Деньги:{money}$')
             self.ui.Restart.setVisible(True)
         else:
             if int(self.ui.u_points.text()) < self.dealer_points:
                 self.ui.Victory.setText("<img src='img/lose.png' />")
-                money -= int(self.ui.cashEdit.text())
+                money -= int(self.ui.rate.text())
                 self.ui.money.setText(f'      Деньги:{money}$')
                 self.ui.Restart.setVisible(True)
             elif int(self.ui.u_points.text()) > self.dealer_points:
                 self.ui.Victory.setText("<img src='img/victory.png' />")
-                money += int(self.ui.cashEdit.text())
+                money += int(self.ui.rate.text())
                 self.ui.money.setText(f'      Деньги:{money}$')
                 self.ui.Restart.setVisible(True)
             else:

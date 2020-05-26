@@ -111,6 +111,7 @@ class MainWindow(QMainWindow, Deck, Card):
 
     def pushed_reset(self):
         global cash
+        self.ui.rate.setText(str(cash))
         cash = 0
 
     def pushed_coin_button(self):
@@ -165,6 +166,7 @@ class MainWindow(QMainWindow, Deck, Card):
             if int(self.ui.rate.text()) > money:
                 self.ui.Victory.setText('<img src=\'img/no money.png\' />')
             else:
+                self.activate_chips(False)
                 self.ui.rate.setVisible(False)
                 self.ui.cash.setText(f'     Ставка:{self.ui.rate.text()}')
                 self.dealer_points = 0
@@ -238,6 +240,10 @@ class MainWindow(QMainWindow, Deck, Card):
                 self.ui.money.setText(f'      Деньги:{money}$')
                 self.ui.Restart.setVisible(True)
 
+    def activate_chips(self, enabled):
+        chips = ('1', '5', '100', '25')
+        for chip in chips:
+            exec(f'self.ui.coin{chip}.setEnabled({enabled})')
 
 
 

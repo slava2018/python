@@ -29,6 +29,8 @@ class Ui_MainWindow(object):
         MainWindow.setStyleSheet(u"QMainWindow\n"
 "{\n"
 "	background: url(\"img/background.jpg\");\n"
+"	\n"
+"	background-color: rgb(255, 255, 255);\n"
 "}\n"
 "\n"
 "QPushButton\n"
@@ -46,6 +48,7 @@ class Ui_MainWindow(object):
 "	outline: none;\n"
 "}\n"
 "")
+        MainWindow.setAnimated(False)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.dealer = QLabel(self.centralwidget)
@@ -363,21 +366,16 @@ class Ui_MainWindow(object):
 "}")
         self.Reset = QPushButton(self.centralwidget)
         self.Reset.setObjectName(u"Reset")
-        self.Reset.setGeometry(QRect(750, 40, 61, 61))
-        self.Reset.setLayoutDirection(Qt.RightToLeft)
+        self.Reset.setGeometry(QRect(740, 50, 75, 71))
         self.Reset.setStyleSheet(u"QPushButton\n"
 "{\n"
+"	outline: none;\n"
 "	border: none;\n"
-"	background-image: url(\"img/reset_rate1.png\");\n"
-"	padding: 0;\n"
-"	margin: 0;\n"
-"}\n"
-"")
+"}")
         icon6 = QIcon()
         icon6.addFile(u"img/reset_rate1.png", QSize(), QIcon.Normal, QIcon.Off)
         self.Reset.setIcon(icon6)
         self.Reset.setIconSize(QSize(64, 64))
-        self.Reset.setFlat(False)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)

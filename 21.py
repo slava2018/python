@@ -88,7 +88,7 @@ class MainWindow(QMainWindow, Deck, Card):
         self.ui.coin5.clicked.connect(self.pushed_coin_button)
         self.ui.coin25.clicked.connect(self.pushed_coin_button)
         self.ui.coin100.clicked.connect(self.pushed_coin_button)
-
+        self.ui.Reset.clicked.connect(self.pushed_reset)
         # спрячем заголовок окна
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
 
@@ -109,8 +109,12 @@ class MainWindow(QMainWindow, Deck, Card):
         self.deck = self.get_deck()
         self.ui.money.setText(f'    Деньги:{money}$')
 
-    def pushed_coin_button(self):
+    def pushed_reset(self):
         global cash
+        cash = 0
+
+    def pushed_coin_button(self):
+        global cash,money
         button = self.sender()
         cash += int(button.text())
         self.ui.rate.setText(str(cash))
@@ -158,7 +162,7 @@ class MainWindow(QMainWindow, Deck, Card):
         global cash
 
         if self.ui.Start.text() == 'Сдать карты':
-            if cash > money:
+            if int(self.ui.rate.text()) > money:
                 self.ui.Victory.setText('<img src=\'img/no money.png\' />')
             else:
                 self.ui.rate.setVisible(False)

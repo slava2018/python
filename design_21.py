@@ -34,7 +34,6 @@ class Ui_MainWindow(object):
 "QPushButton\n"
 "{\n"
 "	text-align:right;\n"
-"	padding-right:10px;\n"
 "}\n"
 "\n"
 "QPushButton:selected\n"
@@ -270,128 +269,88 @@ class Ui_MainWindow(object):
         self.coin5 = QPushButton(self.centralwidget)
         self.coin5.setObjectName(u"coin5")
         self.coin5.setGeometry(QRect(70, 380, 41, 41))
+        self.coin5.setMinimumSize(QSize(41, 41))
+        self.coin5.setMaximumSize(QSize(41, 41))
+        self.coin5.setSizeIncrement(QSize(41, 41))
+        self.coin5.setBaseSize(QSize(41, 41))
+        font4 = QFont()
+        font4.setPointSize(1)
+        self.coin5.setFont(font4)
         self.coin5.setLayoutDirection(Qt.RightToLeft)
+        self.coin5.setAutoFillBackground(False)
         self.coin5.setStyleSheet(u"QPushButton\n"
 "{\n"
-"	border: 1;\n"
-"	border-radius: 20;\n"
-"	text-align:center;\n"
-"	color: white;\n"
-"	font: 11pt \"Comic Sans MS\";\n"
-"	background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));\n"
-"	padding: 0;\n"
-"	margin: 0;\n"
+"	border: none;\n"
+"	padding: -7;\n"
 "}\n"
-"\n"
-"QPushButton:hover\n"
-"{\n"
-"	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 178, 102, 255), stop:0.55 rgba(235, 148, 61, 255), stop:0.98 rgba(0, 0, 0, 255), stop:1 rgba(0, 0, 0, 0));\n"
-"}")
+"")
+        icon2 = QIcon()
+        icon2.addFile(u"img/chips/5.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.coin5.setIcon(icon2)
+        self.coin5.setIconSize(QSize(41, 41))
         self.coin5.setFlat(False)
         self.coin1 = QPushButton(self.centralwidget)
         self.coin1.setObjectName(u"coin1")
         self.coin1.setGeometry(QRect(20, 380, 41, 41))
+        self.coin1.setMinimumSize(QSize(41, 41))
+        self.coin1.setMaximumSize(QSize(41, 41))
+        self.coin1.setSizeIncrement(QSize(41, 41))
+        self.coin1.setBaseSize(QSize(41, 41))
+        self.coin1.setFont(font4)
         self.coin1.setLayoutDirection(Qt.RightToLeft)
+        self.coin1.setAutoFillBackground(False)
         self.coin1.setStyleSheet(u"QPushButton\n"
 "{\n"
-"	border: 1;\n"
-"	border-radius: 20;\n"
-"	text-align:center;\n"
-"	color: white;\n"
-"	font: 11pt \"Comic Sans MS\";\n"
-"	background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));\n"
-"	padding: 0;\n"
-"	margin: 0;\n"
+"	border: none;\n"
+"	padding: -7;\n"
 "}\n"
-"\n"
-"QPushButton:hover\n"
-"{\n"
-"	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 178, 102, 255), stop:0.55 rgba(235, 148, 61, 255), stop:0.98 rgba(0, 0, 0, 255), stop:1 rgba(0, 0, 0, 0));\n"
-"}")
+"")
+        icon3 = QIcon()
+        icon3.addFile(u"img/chips/1.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.coin1.setIcon(icon3)
+        self.coin1.setIconSize(QSize(41, 41))
         self.coin1.setFlat(False)
         self.coin25 = QPushButton(self.centralwidget)
         self.coin25.setObjectName(u"coin25")
         self.coin25.setGeometry(QRect(120, 380, 41, 41))
+        self.coin25.setMinimumSize(QSize(41, 41))
+        self.coin25.setMaximumSize(QSize(41, 41))
+        self.coin25.setSizeIncrement(QSize(41, 41))
+        self.coin25.setBaseSize(QSize(41, 41))
+        self.coin25.setFont(font4)
         self.coin25.setLayoutDirection(Qt.RightToLeft)
+        self.coin25.setAutoFillBackground(False)
         self.coin25.setStyleSheet(u"QPushButton\n"
 "{\n"
-"	border: 1;\n"
-"	border-radius: 20;\n"
-"	text-align:center;\n"
-"	color: white;\n"
-"	font: 11pt \"Comic Sans MS\";\n"
-"	background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));\n"
-"	padding: 0;\n"
-"	margin: 0;\n"
+"	border: none;\n"
+"	padding: -7;\n"
 "}\n"
-"\n"
-"QPushButton:hover\n"
-"{\n"
-"	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 178, 102, 255), stop:0.55 rgba(235, 148, 61, 255), stop:0.98 rgba(0, 0, 0, 255), stop:1 rgba(0, 0, 0, 0));\n"
-"}")
+"")
+        icon4 = QIcon()
+        icon4.addFile(u"img/chips/25.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.coin25.setIcon(icon4)
+        self.coin25.setIconSize(QSize(41, 41))
         self.coin25.setFlat(False)
-        self.coin1000 = QPushButton(self.centralwidget)
-        self.coin1000.setObjectName(u"coin1000")
-        self.coin1000.setGeometry(QRect(270, 380, 41, 41))
-        self.coin1000.setLayoutDirection(Qt.RightToLeft)
-        self.coin1000.setStyleSheet(u"QPushButton\n"
-"{\n"
-"	border: 1;\n"
-"	border-radius: 20;\n"
-"	text-align:center;\n"
-"	color: white;\n"
-"	font: 11pt \"Comic Sans MS\";\n"
-"	background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));\n"
-"	padding: 0;\n"
-"	margin: 0;\n"
-"}\n"
-"\n"
-"QPushButton:hover\n"
-"{\n"
-"	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 178, 102, 255), stop:0.55 rgba(235, 148, 61, 255), stop:0.98 rgba(0, 0, 0, 255), stop:1 rgba(0, 0, 0, 0));\n"
-"}")
-        self.coin1000.setFlat(False)
-        self.coin500 = QPushButton(self.centralwidget)
-        self.coin500.setObjectName(u"coin500")
-        self.coin500.setGeometry(QRect(220, 380, 41, 41))
-        self.coin500.setLayoutDirection(Qt.RightToLeft)
-        self.coin500.setStyleSheet(u"QPushButton\n"
-"{\n"
-"	border: 1;\n"
-"	border-radius: 20;\n"
-"	text-align:center;\n"
-"	color: white;\n"
-"	font: 11pt \"Comic Sans MS\";\n"
-"	background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));\n"
-"	padding: 0;\n"
-"	margin: 0;\n"
-"}\n"
-"\n"
-"QPushButton:hover\n"
-"{\n"
-"	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 178, 102, 255), stop:0.55 rgba(235, 148, 61, 255), stop:0.98 rgba(0, 0, 0, 255), stop:1 rgba(0, 0, 0, 0));\n"
-"}")
-        self.coin500.setFlat(False)
         self.coin100 = QPushButton(self.centralwidget)
         self.coin100.setObjectName(u"coin100")
         self.coin100.setGeometry(QRect(170, 380, 41, 41))
+        self.coin100.setMinimumSize(QSize(41, 41))
+        self.coin100.setMaximumSize(QSize(41, 41))
+        self.coin100.setSizeIncrement(QSize(41, 41))
+        self.coin100.setBaseSize(QSize(41, 41))
+        self.coin100.setFont(font4)
         self.coin100.setLayoutDirection(Qt.RightToLeft)
+        self.coin100.setAutoFillBackground(False)
         self.coin100.setStyleSheet(u"QPushButton\n"
 "{\n"
-"	border: 1;\n"
-"	border-radius: 20;\n"
-"	text-align:center;\n"
-"	color: white;\n"
-"	font: 11pt \"Comic Sans MS\";\n"
-"	background-color: qconicalgradient(cx:0.5, cy:0.5, angle:0, stop:0 rgba(35, 40, 3, 255), stop:0.16 rgba(136, 106, 22, 255), stop:0.225 rgba(166, 140, 41, 255), stop:0.285 rgba(204, 181, 74, 255), stop:0.345 rgba(235, 219, 102, 255), stop:0.415 rgba(245, 236, 112, 255), stop:0.52 rgba(209, 190, 76, 255), stop:0.57 rgba(187, 156, 51, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.75 rgba(218, 202, 86, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.88 rgba(187, 156, 51, 255), stop:0.935 rgba(137, 108, 26, 255), stop:1 rgba(35, 40, 3, 255));\n"
-"	padding: 0;\n"
-"	margin: 0;\n"
+"	border: none;\n"
+"	padding: -7;\n"
 "}\n"
-"\n"
-"QPushButton:hover\n"
-"{\n"
-"	background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 178, 102, 255), stop:0.55 rgba(235, 148, 61, 255), stop:0.98 rgba(0, 0, 0, 255), stop:1 rgba(0, 0, 0, 0));\n"
-"}")
+"")
+        icon5 = QIcon()
+        icon5.addFile(u"img/chips/100.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.coin100.setIcon(icon5)
+        self.coin100.setIconSize(QSize(41, 41))
         self.coin100.setFlat(False)
         self.rate = QLabel(self.centralwidget)
         self.rate.setObjectName(u"rate")
@@ -402,12 +361,33 @@ class Ui_MainWindow(object):
 "	color:#ffffff;\n"
 "	border: none;\n"
 "}")
+        self.Reset = QPushButton(self.centralwidget)
+        self.Reset.setObjectName(u"Reset")
+        self.Reset.setGeometry(QRect(750, 40, 61, 61))
+        self.Reset.setLayoutDirection(Qt.RightToLeft)
+        self.Reset.setStyleSheet(u"QPushButton\n"
+"{\n"
+"	border: none;\n"
+"	background-image: url(\"img/reset_rate1.png\");\n"
+"	padding: 0;\n"
+"	margin: 0;\n"
+"}\n"
+"")
+        icon6 = QIcon()
+        icon6.addFile(u"img/reset_rate1.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.Reset.setIcon(icon6)
+        self.Reset.setIconSize(QSize(64, 64))
+        self.Reset.setFlat(False)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
 
         self.Stop.setDefault(False)
         self.Restart.setDefault(False)
+        self.coin5.setDefault(False)
+        self.coin1.setDefault(False)
+        self.coin25.setDefault(False)
+        self.coin100.setDefault(False)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -450,11 +430,22 @@ class Ui_MainWindow(object):
         self.Restart.setText(QCoreApplication.translate("MainWindow", u"\u041d\u0430\u0447\u0430\u0442\u044c \u0437\u0430\u043d\u043e\u0432\u043e", None))
         self.close.setText("")
         self.coin5.setText(QCoreApplication.translate("MainWindow", u"5", None))
+#if QT_CONFIG(shortcut)
+        self.coin5.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+R", None))
+#endif // QT_CONFIG(shortcut)
         self.coin1.setText(QCoreApplication.translate("MainWindow", u"1", None))
+#if QT_CONFIG(shortcut)
+        self.coin1.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+R", None))
+#endif // QT_CONFIG(shortcut)
         self.coin25.setText(QCoreApplication.translate("MainWindow", u"25", None))
-        self.coin1000.setText(QCoreApplication.translate("MainWindow", u"1000", None))
-        self.coin500.setText(QCoreApplication.translate("MainWindow", u"500", None))
+#if QT_CONFIG(shortcut)
+        self.coin25.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+R", None))
+#endif // QT_CONFIG(shortcut)
         self.coin100.setText(QCoreApplication.translate("MainWindow", u"100", None))
+#if QT_CONFIG(shortcut)
+        self.coin100.setShortcut(QCoreApplication.translate("MainWindow", u"Ctrl+R", None))
+#endif // QT_CONFIG(shortcut)
         self.rate.setText("")
+        self.Reset.setText("")
     # retranslateUi
 

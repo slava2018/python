@@ -11,6 +11,7 @@ from design_21 import Ui_MainWindow
 
 number_card = 2
 money = 50
+cash = 0
 # .setEnabled(False) блокировка кнопки
 
 class Deck(object):
@@ -57,10 +58,6 @@ class Card:
 class MainWindow(QMainWindow, Deck, Card):
     def cashCheck(self):
         doit = ''
-        if money < int(self.ui.coin1000.text()):
-            doit += 'self.ui.coin1000.setVisible(False)\n'
-        if money < int(self.ui.coin500.text()):
-            doit += 'self.ui.coin500.setVisible(False)\n'
         if money < int(self.ui.coin100.text()):
             doit += 'self.ui.coin100.setVisible(False)\n'
         if money < int(self.ui.coin25.text()):
@@ -70,7 +67,6 @@ class MainWindow(QMainWindow, Deck, Card):
         if money < int(self.ui.coin1.text()):
             doit += 'self.ui.coin1.setVisible(False)\n'
         exec(doit)
-
 
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -92,9 +88,6 @@ class MainWindow(QMainWindow, Deck, Card):
         self.ui.coin5.clicked.connect(self.pushed_coin_button)
         self.ui.coin25.clicked.connect(self.pushed_coin_button)
         self.ui.coin100.clicked.connect(self.pushed_coin_button)
-        self.ui.coin500.clicked.connect(self.pushed_coin_button)
-        self.ui.coin1000.clicked.connect(self.pushed_coin_button)
-
 
         # спрячем заголовок окна
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
@@ -114,12 +107,13 @@ class MainWindow(QMainWindow, Deck, Card):
 
 
         self.deck = self.get_deck()
-        self.ui.money.setText(f'      Деньги:{money}$')
+        self.ui.money.setText(f'    Деньги:{money}$')
 
     def pushed_coin_button(self):
+        global cash
         button = self.sender()
-        self.rate = int(button.text())
-        self.ui.rate.setText(str(self.rate))
+        cash += int(button.text())
+        self.ui.rate.setText(str(cash))
         self.cashCheck()
 
     def pushed_button_restart(self):
@@ -161,9 +155,10 @@ class MainWindow(QMainWindow, Deck, Card):
     def pushed_button_start(self):
         global number_card
         global money
+        global cash
 
         if self.ui.Start.text() == 'Сдать карты':
-            if int(self.ui.rate.text()) > money:
+            if cash > money:
                 self.ui.Victory.setText('<img src=\'img/no money.png\' />')
             else:
                 self.ui.rate.setVisible(False)

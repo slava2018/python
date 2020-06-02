@@ -683,8 +683,8 @@ QPushButton:hover
    <widget class="QPushButton" name="coin5">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>380</y>
+      <x>60</x>
+      <y>360</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -758,8 +758,8 @@ QPushButton:hover
    <widget class="QPushButton" name="coin1">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>380</y>
+      <x>10</x>
+      <y>360</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -833,8 +833,8 @@ QPushButton:hover
    <widget class="QPushButton" name="coin25">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>380</y>
+      <x>110</x>
+      <y>360</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -908,8 +908,8 @@ QPushButton:hover
    <widget class="QPushButton" name="coin100">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>380</y>
+      <x>160</x>
+      <y>360</y>
       <width>41</width>
       <height>41</height>
      </rect>
@@ -1034,6 +1034,94 @@ QPushButton:hover
       <width>64</width>
       <height>64</height>
      </size>
+    </property>
+   </widget>
+   <widget class="QFrame" name="settings">
+    <property name="geometry">
+     <rect>
+      <x>961</x>
+      <y>0</y>
+      <width>201</width>
+      <height>641</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #ffffff;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QCheckBox" name="Avtotuz">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>10</y>
+       <width>161</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Open Sans Light</family>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Автовыбор туза</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="deck">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>250</y>
+      <width>91</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	background: url(&quot;img/deck.jpg&quot;);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="Dialog">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>410</y>
+      <width>171</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Sensei Medium</family>
+      <pointsize>9</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	background: url(&quot;img/dialog.png&quot;);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>img/dialog.png</pixmap>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>

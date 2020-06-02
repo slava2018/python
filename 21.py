@@ -3,7 +3,7 @@ from random import randint,shuffle,choice
 from time import sleep
 import sys
 from PySide2.QtWidgets import QApplication, QMainWindow, QDialog
-from PySide2.QtCore import Qt
+from PySide2.QtCore import Qt, QTimer, QPropertyAnimation, QRect
 # импортируем связанный py файл с нашим ui файлом
 from design_21 import Ui_MainWindow
 
@@ -68,20 +68,18 @@ class MainWindow(QMainWindow, Deck, Card):
             doit += 'self.ui.coin1.setVisible(False)\n'
         exec(doit)
 
-    def __init__(self):
-        super(MainWindow, self).__init__()
-        # создадим объект
-        self.ui = Ui_MainWindow()
-        # инициализируем нашу форму
-        self.ui.setupUi(self)
 
-        self.ui.Tuz_1.setVisible(False)
-        self.ui.Tuz_2.setVisible(False)
+    def activate_chips(self, enabled):
+        chips = ('1', '5', '100', '25')
+        for chip in chips:
+            exec(f'self.ui.coin{chip}.setEnabled({enabled})')
 
+    def start(self):
+        global cash
         # Добавим действие при нажати на кнопку
         self.ui.Start.clicked.connect(self.pushed_button_start)
         self.ui.Stop.clicked.connect(self.pushed_button_stop)
-        self.ui.Restart.clicked.connect(self.pushed_button_restart)
+        self.ui.Restart.clicked.connect(self.start)
         self.ui.close.clicked.connect(self.close)
         self.cashCheck()
         self.ui.coin1.clicked.connect(self.pushed_coin_button)
@@ -89,11 +87,24 @@ class MainWindow(QMainWindow, Deck, Card):
         self.ui.coin25.clicked.connect(self.pushed_coin_button)
         self.ui.coin100.clicked.connect(self.pushed_coin_button)
         self.ui.Reset.clicked.connect(self.pushed_reset)
-        # спрячем заголовок окна
-        self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
-
         self.ui.Stop.setVisible(False)
         self.ui.Restart.setVisible(False)
+        self.ui.Tuz_1.setVisible(False)
+        self.ui.Tuz_2.setVisible(False)
+        self.ui.Victory.setText('')
+        self.activate_chips(True)
+        self.ui.rate.setText('')
+        self.ui.rate.setVisible(True)
+        self.ui.u_points.setText('')
+        self.ui.d_points.setText('')
+        self.ui.settings.setGeometry(961, 0, 201, 641)
+        for player in {'d_card','u_card'}:
+            for card in range(1,11):
+                exec(f'self.ui.{player}{card}.setText(\'\')')
+        self.ui.Start.setVisible(True)
+        self.ui.Start.setText('Сдать карты')
+        self.ui.Dialog.setVisible(False)
+        cash = 0
         # соберём списки посадочных мест для карт
         # игрок
         self.ucards_seats = list()
@@ -104,10 +115,27 @@ class MainWindow(QMainWindow, Deck, Card):
         for i in range(1, 12):
             exec(f'self.dcards_seats.append(self.ui.d_card{i})')
 
-
-
         self.deck = self.get_deck()
         self.ui.money.setText(f'    Деньги:{money}$')
+
+    def __init__(self):
+        super(MainWindow, self).__init__()
+        # создадим объект
+        self.ui = Ui_MainWindow()
+        # инициализируем нашу форму
+        self.ui.setupUi(self)
+        self.timer = QTimer(self)
+        # спрячем заголовок окна
+        self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
+        self.start()
+
+    def pushed_show_settings(self):
+        #from PySide2.QtCore import QPropertyAnimation, QRect
+        self.anim = QPropertyAnimation(self.ui.settings, b"geometry")
+        self.anim.setDuration(10000) #Длительность
+        self.anim.setStartValue(QRect(961, 0, 201, 641)) #Стартовые значения (за границей)
+        self.anim.setEndValue(QRect(760, 0, 201, 641)) #Конечные значения
+        self.anim.start()
 
     def pushed_reset(self):
         global cash
@@ -121,9 +149,6 @@ class MainWindow(QMainWindow, Deck, Card):
         self.ui.rate.setText(str(cash))
         self.cashCheck()
 
-    def pushed_button_restart(self):
-        pass
-
     def pushed_button_tuz1(self):
         self.ui.Tuz_1.setVisible(False)
         self.ui.Tuz_2.setVisible(False)
@@ -131,6 +156,13 @@ class MainWindow(QMainWindow, Deck, Card):
         self.ui.Start.setVisible(True)
         self.user_points += 1
         self.ui.u_points.setText(str(self.user_points))
+
+    def autotuz(self,bot):
+        if bot | self.ui.Avtotuz.isChecked(True):
+            if int(self.ui.d_points.text()) > 10:
+                point = 1
+            else:
+                point = 11
 
 
     def pushed_button_tuz2(self):
@@ -146,7 +178,6 @@ class MainWindow(QMainWindow, Deck, Card):
         # клавишу Enter
         if key == Qt.Key_Enter:
             pass
-            # установить через QT Designer focus policy в значение strong focus для нужной Qsearch_button
         # клавишу ESC
         elif key == Qt.Key_Escape:
             self.close()
@@ -154,7 +185,13 @@ class MainWindow(QMainWindow, Deck, Card):
             self.pushed_button()
             super().keyPressEvent(event)
 
-
+    def cardAnim(self,card):
+        #card = self.ui...
+        self.anim = QPropertyAnimation(card, b"geometry")
+        self.anim.setDuration(300)  # Длительность
+        self.anim.setStartValue(self.ui.deck.geometry())  # Стартовые значения (за границей)
+        self.anim.setEndValue(card.geometry())  # Конечные значения
+        self.anim.start()
 
     # Метод при нажатии на кнопку
     def pushed_button_start(self):
@@ -163,33 +200,42 @@ class MainWindow(QMainWindow, Deck, Card):
         global cash
 
         if self.ui.Start.text() == 'Сдать карты':
-            if int(self.ui.rate.text()) > money:
-                self.ui.Victory.setText('<img src=\'img/no money.png\' />')
+            if self.ui.rate.text().isdigit():
+                if int(self.ui.rate.text()) > money:
+                    self.ui.Dialog.setVisible(True)
+                    self.ui.Dialog.setText(' У вас недостаточно денег!')
+                else:
+                    self.activate_chips(False)
+                    self.ui.rate.setVisible(False)
+                    self.ui.cash.setText(f'     Ставка:{self.ui.rate.text()}')
+                    self.dealer_points = 0
+                    self.user_points = 0
+                    self.ui.Victory.setText('')
+
+                    dealer_handler = self.deck.pop()
+                    self.ui.d_card1.setText(f"<img src='img/deck/63x85/{dealer_handler}.png' />")
+                    self.cardAnim(self.ui.d_card1)
+                    self.ui.d_card2.setText(f"<img src='img/deck/63x85/рубашка2.png' />")
+                    self.cardAnim(self.ui.d_card2)
+                    self.dealer_points += self.get_card_points(dealer_handler, dealer=True)
+                    self.ui.d_points.setText(str(self.dealer_points))
+
+                    for i in range(2):
+                        user_handler = self.deck.pop()
+                        self.ucards_seats[i].setText(f"<img src='img/deck/63x85/{user_handler}.png' />")
+                        self.cardAnim(self.ucards_seats[i])
+                        self.user_points += self.get_card_points(user_handler)
+                    self.ui.u_points.setText(str(self.user_points))
+
+                    self.ui.Start.setText('Ещё')
+                    self.ui.Stop.setVisible(True)
             else:
-                self.activate_chips(False)
-                self.ui.rate.setVisible(False)
-                self.ui.cash.setText(f'     Ставка:{self.ui.rate.text()}')
-                self.dealer_points = 0
-                self.user_points = 0
-                self.ui.Victory.setText('')
-
-                dealer_handler = self.deck.pop()
-                self.ui.d_card1.setText(f"<img src='img/deck/63x85/{dealer_handler}.png' />")
-                self.ui.d_card2.setText(f"<img src='img/deck/63x85/рубашка2.png' />")
-                self.dealer_points += self.get_card_points(dealer_handler, dealer=True)
-                self.ui.d_points.setText(str(self.dealer_points))
-
-                for i in range(2):
-                    user_handler = self.deck.pop()
-                    self.ucards_seats[i].setText(f"<img src='img/deck/63x85/{user_handler}.png' />")
-                    self.user_points += self.get_card_points(user_handler)
-                self.ui.u_points.setText(str(self.user_points))
-
-                self.ui.Start.setText('Ещё')
-                self.ui.Stop.setVisible(True)
+                self.ui.Dialog.setVisible(True)
+                self.ui.Dialog.setText('  Сделайте вашу ставку!')
         else:
             user_handler = self.deck.pop()
             self.ucards_seats[number_card].setText(f"<img src='img/deck/63x85/{user_handler}.png' />")
+            self.cardAnim(self.ucards_seats[number_card])
             self.user_points += self.get_card_points(user_handler)
             self.ui.u_points.setText(str(self.user_points))
             number_card += 1
@@ -216,6 +262,7 @@ class MainWindow(QMainWindow, Deck, Card):
         while self.dealer_points < 18:
             dealer_handler = self.deck.pop()
             self.dcards_seats[number_card].setText(f"<img src='img/deck/63x85/{dealer_handler}.png' />")
+            self.cardAnim(self.dcards_seats[number_card])
             self.dealer_points += self.get_card_points(dealer_handler, dealer=True)
             self.ui.d_points.setText(str(self.dealer_points))
             number_card +=1
@@ -240,28 +287,6 @@ class MainWindow(QMainWindow, Deck, Card):
                 self.ui.money.setText(f'      Деньги:{money}$')
                 self.ui.Restart.setVisible(True)
 
-    def activate_chips(self, enabled):
-        chips = ('1', '5', '100', '25')
-        for chip in chips:
-            exec(f'self.ui.coin{chip}.setEnabled({enabled})')
-
-
-
-        # dealer_points += dealer_handler.value(True)
-        # print(f'Компьютеру выпало: {dealer_handler.show()}')
-        #
-        # users_cards = []
-        # for i in range(2):
-        #     handler = Card(cards.pop())
-        #     print(f'Вам выпало: {handler.show()}')
-        #     users_cards.append(handler.show())
-        #     player_points += handler.value()
-
-    # else:
-    # handler = Card(cards.pop())
-    # print(f'Вам выпало: {handler.show()}')
-    # player_points += handler.value()
-
 
 if __name__ == "__main__":
     # Создадим Qt Application
@@ -272,133 +297,3 @@ if __name__ == "__main__":
     window.show()
     # Запустим приложение
     sys.exit(app.exec_())
-
-
-# class My(object):
-#     def __init__(self, name):
-#         self.card, self.suit = name.split()
-#
-#
-#     def show(self):
-#         name = (f'{self.card} {self.suit}')
-#         return name
-#
-#     def value(self, bot = False):
-#
-#         if self.card == 'туз':
-#             if bot:
-#                 points = choice([1, 11])
-#             else:
-#                 points = int(input('1 или 11?\n'))
-#         elif self.card in ('король', 'дама', 'валет', 'туз'):
-#             points = 10
-#         else:
-#             points = self.card
-#
-#         points = int(points)
-#         return points
-
-
-
-
-
-# cash = 50
-# repeat = 'да'
-#
-# while repeat != 'нет':
-#
-#     cards = get_deck()
-#
-#     player_points = 0
-#     bot_points = 0
-#     answer = 'да'
-#     move = 1
-#
-#     kush = input(f'Ваши деньги:{cash}. Делайте ставку\n')
-#     while kush.isdigit() == False:
-#         print('Введите число')
-#         kush = input(f'Ваши деньги:{cash}. Делайте ставку\n')
-#     kush = int(kush)
-#     if kush > cash:
-#         print('У вас нет столько денег')
-#     cash = cash - kush
-#
-#     while answer == 'да':
-#         # перетаскивает карту в руку
-#         if move == 1:
-#             dealer_handler = Card(cards.pop())
-#             bot_points += dealer_handler.value(True)
-#             sleep(2)
-#             print(f'Компьютеру выпало: {dealer_handler.show()}')
-#
-#             users_cards = []
-#             for i in range(2):
-#                 handler = Card(cards.pop())
-#                 print(f'Вам выпало: {handler.show()}')
-#                 users_cards.append(handler.show())
-#                 player_points += handler.value()
-#         else:
-#             handler = Card(cards.pop())
-#             print(f'Вам выпало: {handler.show()}')
-#             player_points += handler.value()
-#
-#         if player_points > 21:
-#             print(f'Вам выпало: {handler.show()}')
-#             print('Перебор')
-#             player_points = 0
-#             break
-#         elif player_points == 21:
-#             print('Black Jack!!!')
-#             break
-#         else:
-#             if move == 1:
-#                 answer = check_input(input(f'''
-#         =====================
-#         ОЧКИ:
-#         Оппонент: {bot_points}
-#         Вы: {player_points}.
-#         =====================
-#         Вам выпало: {users_cards[1]} и {users_cards[0]}.
-#         Еще?\n
-#         '''), ['да', 'нет'], True)
-#             else:
-#                 answer = check_input(input(f'''
-#         =====================
-#         ОЧКИ:
-#         Оппонент: {bot_points}
-#         Вы: {player_points}.
-#         =====================
-#         Вам выпало: {handler.show()}.
-#         Еще?\n
-#         '''), ['да', 'нет'], True)
-#
-#         move += 1
-#
-#     else:
-#         while bot_points < 18:
-#             dealer_handler = Card(cards.pop())
-#             bot_points += dealer_handler.value(True)
-#             sleep(2)
-#             print(f'''
-#             Компьютеру выпало: {dealer_handler.show()}
-#             =====================
-#             ОЧКИ:
-#             Оппонент: {bot_points}
-#             Вы: {player_points}.
-#             =====================
-#                 ''')
-#         if bot_points > 21:
-#             print('Перебор')
-#             bot_points = 0
-#
-#     if bot_points == player_points:
-#         print('\nНичья!')
-#     elif bot_points < player_points:
-#         print('\nТы победил!')
-#         print(f'Ставка {kush} сыграла')
-#         cash += kush * 2
-#     else:
-#         print('\nКомпьютер победил')
-#         print(f'Вы потеряли:{kush}')
-#
-#     repeat = input('Хотите ли сыграть еще раз?\n')

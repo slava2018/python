@@ -1,9 +1,8 @@
 from lib import check_input
 from random import randint,shuffle,choice
-from time import sleep
 import sys
 from PySide2.QtWidgets import QApplication, QMainWindow, QDialog
-from PySide2.QtCore import Qt, QTimer, QPropertyAnimation, QRect
+from PySide2.QtCore import Qt, QTimer, QPropertyAnimation, QRect, QThread
 # импортируем связанный py файл с нашим ui файлом
 from design_21 import Ui_MainWindow
 
@@ -77,16 +76,7 @@ class MainWindow(QMainWindow, Deck, Card):
     def start(self):
         global cash
         # Добавим действие при нажати на кнопку
-        self.ui.Start.clicked.connect(self.pushed_button_start)
-        self.ui.Stop.clicked.connect(self.pushed_button_stop)
-        self.ui.Restart.clicked.connect(self.start)
-        self.ui.close.clicked.connect(self.close)
         self.cashCheck()
-        self.ui.coin1.clicked.connect(self.pushed_coin_button)
-        self.ui.coin5.clicked.connect(self.pushed_coin_button)
-        self.ui.coin25.clicked.connect(self.pushed_coin_button)
-        self.ui.coin100.clicked.connect(self.pushed_coin_button)
-        self.ui.Reset.clicked.connect(self.pushed_reset)
         self.ui.Stop.setVisible(False)
         self.ui.Restart.setVisible(False)
         self.ui.Tuz_1.setVisible(False)
@@ -128,11 +118,20 @@ class MainWindow(QMainWindow, Deck, Card):
         # спрячем заголовок окна
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
         self.start()
+        self.ui.Start.clicked.connect(self.pushed_button_start)
+        self.ui.Stop.clicked.connect(self.pushed_button_stop)
+        self.ui.Restart.clicked.connect(self.start)
+        self.ui.close.clicked.connect(self.close)
+        self.ui.coin1.clicked.connect(self.pushed_coin_button)
+        self.ui.coin5.clicked.connect(self.pushed_coin_button)
+        self.ui.coin25.clicked.connect(self.pushed_coin_button)
+        self.ui.coin100.clicked.connect(self.pushed_coin_button)
+        self.ui.Reset.clicked.connect(self.pushed_reset)
 
     def pushed_show_settings(self):
         #from PySide2.QtCore import QPropertyAnimation, QRect
         self.anim = QPropertyAnimation(self.ui.settings, b"geometry")
-        self.anim.setDuration(10000) #Длительность
+        self.anim.setDuration(1000) #Длительность
         self.anim.setStartValue(QRect(961, 0, 201, 641)) #Стартовые значения (за границей)
         self.anim.setEndValue(QRect(760, 0, 201, 641)) #Конечные значения
         self.anim.start()
@@ -192,6 +191,10 @@ class MainWindow(QMainWindow, Deck, Card):
         self.anim.setStartValue(self.ui.deck.geometry())  # Стартовые значения (за границей)
         self.anim.setEndValue(card.geometry())  # Конечные значения
         self.anim.start()
+        QThread.msleep(3000)
+        # QThread.sleep(3000)
+        # QThread.usleep(3000)
+
 
     # Метод при нажатии на кнопку
     def pushed_button_start(self):
@@ -225,6 +228,7 @@ class MainWindow(QMainWindow, Deck, Card):
                         self.ucards_seats[i].setText(f"<img src='img/deck/63x85/{user_handler}.png' />")
                         self.cardAnim(self.ucards_seats[i])
                         self.user_points += self.get_card_points(user_handler)
+
                     self.ui.u_points.setText(str(self.user_points))
 
                     self.ui.Start.setText('Ещё')

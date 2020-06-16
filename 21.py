@@ -5,6 +5,8 @@ from PySide2.QtWidgets import QApplication, QMainWindow, QDialog
 from PySide2.QtCore import Qt, QTimer, QPropertyAnimation, QRect, QThread
 # импортируем связанный py файл с нашим ui файлом
 from design_21 import Ui_MainWindow
+from threading import Thread
+from playsound import playsound
 
 # pyside2-uic "21.ui" > "design_21.py"
 
@@ -116,6 +118,9 @@ class MainWindow(QMainWindow, Deck, Card):
         # инициализируем нашу форму
         self.ui.setupUi(self)
         self.timer = QTimer(self)
+
+        self.play_my_sound('Frank Sinatra - Strangers In The Night.mp3')
+
         # спрячем заголовок окна
         self.setWindowFlags(Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
         self.start()
@@ -141,6 +146,10 @@ class MainWindow(QMainWindow, Deck, Card):
         global cash
         self.ui.rate.setText(str(cash))
         cash = 0
+
+    def play_my_sound(self, sound):
+        s = Thread(target=playsound, args=[f'sounds/{sound}'], kwargs={'block':False}, name='music')
+        s.start()
 
     def pushed_coin_button(self):
         global cash,money

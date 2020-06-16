@@ -184,16 +184,17 @@ class MainWindow(QMainWindow, Deck, Card):
             self.pushed_button()
             super().keyPressEvent(event)
 
-    def cardAnim(self,card):
+    def cardAnim(self, card, card_img):
         #card = self.ui...
+        def start():
+            self.anim.start()
+        card.setText(f"<img src='img/deck/63x85/{card_img}.png' />")
+
         self.anim = QPropertyAnimation(card, b"geometry")
-        self.anim.setDuration(300)  # Длительность
+        self.anim.setDuration(500)  # Длительность
         self.anim.setStartValue(self.ui.deck.geometry())  # Стартовые значения (за границей)
         self.anim.setEndValue(card.geometry())  # Конечные значения
-        self.anim.start()
-        QThread.msleep(3000)
-        # QThread.sleep(3000)
-        # QThread.usleep(3000)
+        QTimer.singleShot(200, start)
 
 
     # Метод при нажатии на кнопку
@@ -216,17 +217,14 @@ class MainWindow(QMainWindow, Deck, Card):
                     self.ui.Victory.setText('')
 
                     dealer_handler = self.deck.pop()
-                    self.ui.d_card1.setText(f"<img src='img/deck/63x85/{dealer_handler}.png' />")
-                    self.cardAnim(self.ui.d_card1)
-                    self.ui.d_card2.setText(f"<img src='img/deck/63x85/рубашка2.png' />")
-                    self.cardAnim(self.ui.d_card2)
+                    QTimer.singleShot(1000, lambda: self.cardAnim(self.ui.d_card1, dealer_handler))
+                    QTimer.singleShot(2000, lambda: self.cardAnim(self.ui.d_card2, 'рубашка2'))
                     self.dealer_points += self.get_card_points(dealer_handler, dealer=True)
                     self.ui.d_points.setText(str(self.dealer_points))
 
                     for i in range(2):
                         user_handler = self.deck.pop()
-                        self.ucards_seats[i].setText(f"<img src='img/deck/63x85/{user_handler}.png' />")
-                        self.cardAnim(self.ucards_seats[i])
+                        QTimer.singleShot(1000, lambda: self.cardAnim(self.ucards_seats[i], user_handler))
                         self.user_points += self.get_card_points(user_handler)
 
                     self.ui.u_points.setText(str(self.user_points))
@@ -238,8 +236,7 @@ class MainWindow(QMainWindow, Deck, Card):
                 self.ui.Dialog.setText('  Сделайте вашу ставку!')
         else:
             user_handler = self.deck.pop()
-            self.ucards_seats[number_card].setText(f"<img src='img/deck/63x85/{user_handler}.png' />")
-            self.cardAnim(self.ucards_seats[number_card])
+            QTimer.singleShot(1000, lambda: self.cardAnim(self.ucards_seats[number_card], user_handler))
             self.user_points += self.get_card_points(user_handler)
             self.ui.u_points.setText(str(self.user_points))
             number_card += 1
@@ -265,8 +262,7 @@ class MainWindow(QMainWindow, Deck, Card):
         number_card = 1
         while self.dealer_points < 18:
             dealer_handler = self.deck.pop()
-            self.dcards_seats[number_card].setText(f"<img src='img/deck/63x85/{dealer_handler}.png' />")
-            self.cardAnim(self.dcards_seats[number_card])
+            QTimer.singleShot(1000, lambda: self.cardAnim(self.dcards_seats[number_card], dealer_handler))
             self.dealer_points += self.get_card_points(dealer_handler, dealer=True)
             self.ui.d_points.setText(str(self.dealer_points))
             number_card +=1

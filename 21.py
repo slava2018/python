@@ -12,6 +12,7 @@ number_card = 2
 money = 50
 cash = 0
 # .setEnabled(False) блокировка кнопки
+# 16062020
 
 class Deck(object):
 
